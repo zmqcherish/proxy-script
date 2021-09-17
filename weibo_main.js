@@ -9,7 +9,7 @@ const homeConfig = {
 	removeCreatorTask: true,	//移除创作者中心下方的滑动窗口
 }
 
-let isDebug = true;
+let isDebug = false;
 
 function needModify(url) {
 	for (const s of modifyCardsUrls) {
@@ -91,7 +91,7 @@ function removeTimeLine(data) {
 	data.statuses = newStatuses;
 	console.log(num);
 	console.log(newStatuses.length);
-	return data;
+	// return data;
 }
 
 function removeVip(data) {
@@ -152,12 +152,16 @@ function modifyMain(url, data) {
 	}
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
-			let newData = removeTimeLine(data);
-			console.log(newData.statuses.length);
+			// let newData = removeTimeLine(data);
+			// console.log(newData.statuses.length);
+			// console.log(data.statuses.length);
+			// return newData;
+			removeTimeLine(data);
 			console.log(data.statuses.length);
-			return newData;
+			return data;
 		}
 	}
+	console.log(111);
 	if(url.indexOf(modifyHomeUrls) > -1) {
 		let newData = removeHome(data);
 		return newData;
