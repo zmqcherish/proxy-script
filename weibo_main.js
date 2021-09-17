@@ -79,12 +79,16 @@ function removeTimeLine(data) {
 		return;
 	}
 	let newStatuses = [];
+	num = 0
 	for (const s of data.statuses) {
+		num ++;
 		if(s.mblogtypename != '广告') {
 			newStatuses.push(s);
 		}
 	}
 	data.statuses = newStatuses;
+	console.log(num);
+	console.log(newStatuese.length);
 }
 
 function removeVip(data) {
@@ -104,7 +108,7 @@ function removeVip(data) {
 
 function removeHome(data) {
 	if(!data.items) {
-		return;
+		return data;
 	}
 	let newItems = [];
 	for (const item of data.items) {
@@ -125,6 +129,7 @@ function removeHome(data) {
 		}
 	}
 	data.items = newItems;
+	return data;
 }
 
 
@@ -137,18 +142,20 @@ function modifyMain(url, data) {
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
 			removeCards(data);
-			return;
+			return data;
 		}
 	}
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
 			removeTimeLine(data);
-			return;
+			console.log(data.statuses.length);
+			console.log(data.statuses);
+			return data;
 		}
 	}
 	if(url.indexOf(modifyHomeUrls) > -1) {
-		removeHome(data);
-		return;
+		data = removeHome(data);
+		return data;
 	}
 }
 
@@ -156,7 +163,7 @@ var body = $response.body;
 var url = $request.url;
 if(needModify(url)) {
 	var obj = JSON.parse(body);
-	modifyMain(url, obj);
+	obj = modifyMain(url, obj);
 	body = JSON.stringify(obj);
 }
 
