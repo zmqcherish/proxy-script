@@ -1,7 +1,7 @@
 
-const modifyCardsUrls = ['cardlist', 'page'];
+const modifyCardsUrls = ['/cardlist', '/page'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
-const modifyHomeUrls = 'profile/me';
+const modifyHomeUrls = '/profile/me';
 
 //个人中心移除选项配置
 const homeConfig = {
@@ -89,9 +89,6 @@ function removeTimeLine(data) {
 		}
 	}
 	data.statuses = newStatuses;
-	console.log(num);
-	console.log(newStatuses.length);
-	// return data;
 }
 
 function removeVip(data) {
@@ -143,7 +140,6 @@ function modifyMain(url, data) {
 		console.log(new Date());
 		console.log(url);
 	}
-	console.log(111);
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
 			console.log(444);
@@ -151,32 +147,19 @@ function modifyMain(url, data) {
 			return;
 		}
 	}
-	console.log(222);
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
 			removeTimeLine(data);
 			console.log(333);
-			// console.log(data.statuses.length);
 			return;
 		}
 	}
-	console.log(555);
 	if(url.indexOf(modifyHomeUrls) > -1) {
 		removeHome(data);
 		return;
 	}
 }
 
-// function test() {
-// 	for (const s of modifyCardsUrls) {
-// 		if('page'.indexOf(s) > -1) {
-// 			return true;
-// 		}
-// 	}
-// 	return 1
-// }
-// a = test()
-// a=1
 var body = $response.body;
 var url = $request.url;
 if(needModify(url)) {
