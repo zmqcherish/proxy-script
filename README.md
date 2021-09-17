@@ -1,7 +1,7 @@
 # About Files
 
 ## weibo_main.js
-> Quan-X脚本，可屏蔽微博app多数广告以及个人中心的推广模块
+> Quan-X脚本，可屏蔽微博app多数广告以及个人中心的推广模块（不定期更新）
 ```properties
 [rewrite_local]
 ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/unread_hot_timeline|profile/me) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
