@@ -32,7 +32,7 @@ class MainAddon:
 				new_cards.append(c)
 			else:
 				if c.get('card_type') in [9, 165]:
-					if c.get('mblog', {}).get('mblogtypename') != '广告':
+					if not self.is_ad(c.get('mblog')):
 						new_cards.append(c)
 					else:
 						# 广告
@@ -41,6 +41,14 @@ class MainAddon:
 					new_cards.append(c)
 		data['cards'] = new_cards
 
+
+	def is_ad(self, data):
+		if not data:
+			return False
+		a = data.get('mblogtypename')
+		if not a:
+			return False
+		return a in ['广告', '热推']
 
 	def remove_tl(self, data):
 		for k in ['advertises', 'ad']:
@@ -51,9 +59,10 @@ class MainAddon:
 			return
 		new_statuses = []
 		for s in statuses:
-			if s.get('mblogtypename') != '广告':
+			if not self.is_ad(s):
 				new_statuses.append(s)
 		data['statuses'] = new_statuses
+		# print(1111111, len(new_statuses))
 
 
 	@except_decorative
@@ -78,6 +87,8 @@ class MainAddon:
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
 			# if item_id == 'mine_attent_title':	#为你推荐
+			if item_id == '100505_-_manage2': # 更多功能
+				new_items.append(item)
 			# if item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_meattent_-_7469988193']:
 			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage',]:
 				new_items.append(item)
@@ -119,6 +130,7 @@ class MainAddon:
 		res = flow.response
 		data = json.loads(res.text)
 		self.weibo_main(req.url, data)
+		# print(2222, len(data.get('statuses', [])))
 		res.text = json.dumps(data)
 
 
