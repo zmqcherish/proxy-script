@@ -88,7 +88,7 @@ function removeTimeLine(data) {
 	}
 	data.statuses = newStatuses;
 	console.log(num);
-	console.log(newStatuese.length);
+	console.log(newStatuses.length);
 }
 
 function removeVip(data) {
@@ -129,6 +129,7 @@ function removeHome(data) {
 		}
 	}
 	data.items = newItems;
+	console.log(data);
 	return data;
 }
 
