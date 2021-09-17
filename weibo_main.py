@@ -8,7 +8,9 @@ from util import *
 # current_app = proxy_data['currentApp']
 class MainAddon:
 	def __init__(self):
-		pass
+		self.card_urls = ['/cardlist', '/page', 'video/community_tab']
+		self.statuses_urls =  ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
+		self.home_url = '/profile/me'
 		# current_data = proxy_data[current_app]
 		# self.target_host = current_data['host']
 		# self.target_path = current_data['path']
@@ -29,9 +31,12 @@ class MainAddon:
 				c['card_group'] = new_group
 				new_cards.append(c)
 			else:
-				if c.get('card_type') == 9:
+				if c.get('card_type') in [9, 165]:
 					if c.get('mblog', {}).get('mblogtypename') != '广告':
-						new_cards.append(c.get('mblog'))
+						new_cards.append(c)
+					else:
+						# 广告
+						pass
 				else:
 					new_cards.append(c)
 		data['cards'] = new_cards
@@ -46,7 +51,6 @@ class MainAddon:
 			return
 		new_statuses = []
 		for s in statuses:
-			print(s.get('mblogtypename'))
 			if s.get('mblogtypename') != '广告':
 				new_statuses.append(s)
 		data['statuses'] = new_statuses
@@ -60,6 +64,7 @@ class MainAddon:
 		vip_center = header.get('vipCenter', {})
 		del vip_center['icon']
 		vip_center['title']['content'] = '会员中心'
+
 
 	# 微博个人中心
 	def weibo_home(self, data):
@@ -84,21 +89,28 @@ class MainAddon:
 
 
 	def weibo_main(self, url, data):
-		if '2/cardlist' in url:
-			self.remove_card_list(data)
-		elif '2/page' in url:
-			self.remove_card_list(data)
-		elif 'statuses/friends/timeline' in url:
-			self.remove_tl(data)
-		elif 'statuses/unread_friends_timeline' in url:
-			self.remove_tl(data)
-		elif '2/profile/me' in url:
+		for path in self.card_urls:
+			if path in url:
+				self.remove_card_list(data)
+				return
+		for path in self.statuses_urls:
+			if path in url:
+				self.remove_tl(data)
+				return
+		if self.home_url in url:
 			self.weibo_home(data)
+			return
 		
 	def check_url(self, url):
-		for path in ['cardlist', 'statuses/friends/timeline', 'profile/me', 'page', 'statuses/unread_friends_timeline']:
+		for path in self.card_urls:
 			if path in url:
 				return True
+		for path in self.statuses_urls:
+			if path in url:
+				return True
+		if self.home_url in url:
+			return True
+
 
 	def response(self, flow):
 		req = flow.request

@@ -1,5 +1,5 @@
 
-const modifyCardsUrls = ['/cardlist', '/page'];
+const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 const modifyHomeUrls = '/profile/me';
 
@@ -55,7 +55,7 @@ function removeCards(data) {
 			newCards.push(card);
 		} else {
 			let cardType = card.card_type;
-			if(cardType == 9) {
+			if([9,165].indexOf(cardType) > -1) {
 				if(!isAd(card.mblog)) {
 					newCards.push(card);
 				}
