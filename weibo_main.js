@@ -9,7 +9,7 @@ const homeConfig = {
 	removeCreatorTask: true,	//移除创作者中心下方的滑动窗口
 }
 
-let isDebug = true;
+let isDebug = false;
 
 function needModify(url) {
 	for (const s of modifyCardsUrls) {
@@ -79,13 +79,9 @@ function removeTimeLine(data) {
 		return;
 	}
 	let newStatuses = [];
-	num = 0
 	for (const s of data.statuses) {
-		num ++;
 		if(s.mblogtypename != '广告') {
 			newStatuses.push(s);
-		} else {
-			console.log('remove ad');
 		}
 	}
 	data.statuses = newStatuses;
@@ -109,7 +105,6 @@ function removeHome(data) {
 		return data;
 	}
 	let newItems = [];
-	console.log(122);
 	for (let item of data.items) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
@@ -130,7 +125,6 @@ function removeHome(data) {
 		}
 	}
 	data.items = newItems;
-	console.log(newItems.length);
 	return data;
 }
 
@@ -142,7 +136,6 @@ function modifyMain(url, data) {
 	}
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
-			console.log(444);
 			removeCards(data);
 			return;
 		}
@@ -150,7 +143,6 @@ function modifyMain(url, data) {
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
 			removeTimeLine(data);
-			console.log(333);
 			return;
 		}
 	}
