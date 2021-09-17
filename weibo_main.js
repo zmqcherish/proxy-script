@@ -84,6 +84,8 @@ function removeTimeLine(data) {
 		num ++;
 		if(s.mblogtypename != '广告') {
 			newStatuses.push(s);
+		} else {
+			console.log('remove ad');
 		}
 	}
 	data.statuses = newStatuses;
@@ -92,18 +94,16 @@ function removeTimeLine(data) {
 }
 
 function removeVip(data) {
-	if(!homeConfig.removeVip) {
-		return;
-	}
 	if(!data.header) {
-		return;
+		return data;
 	}
 	let vipCenter = data.header.vipCenter;
 	if(!vipCenter) {
-		return;
+		return data;
 	}
 	vipCenter.icon = '';
 	vipCenter.title.content = '会员中心';
+	return data;
 }
 
 function removeHome(data) {
@@ -114,7 +114,9 @@ function removeHome(data) {
 	for (const item of data.items) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
-			removeVip(item);
+			if(homeConfig.removeVip) {
+				item = removeVip(item);;
+			}
 			newItems.push(item);
 		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage'].indexOf(itemId) > -1) {
 			newItems.push(item);
@@ -129,7 +131,7 @@ function removeHome(data) {
 		}
 	}
 	data.items = newItems;
-	console.log(data);
+	console.log(newItems.length);
 	return data;
 }
 
@@ -148,9 +150,8 @@ function modifyMain(url, data) {
 	}
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
-			removeTimeLine(data);
+			data = removeTimeLine(data);
 			console.log(data.statuses.length);
-			console.log(data.statuses);
 			return data;
 		}
 	}
