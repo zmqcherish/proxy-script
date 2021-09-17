@@ -33,7 +33,7 @@ function isAd(data) {
 	if(!data) {
 		return false;
 	}
-	return data.mblogtypename == '广告';
+	return data.mblogtypename == '广告' || data.mblogtypename == '热推';
 }
 
 function removeCards(data) {
@@ -80,7 +80,7 @@ function removeTimeLine(data) {
 	}
 	let newStatuses = [];
 	for (const s of data.statuses) {
-		if(s.mblogtypename != '广告') {
+		if(!isAd(s)) {
 			newStatuses.push(s);
 		}
 	}
