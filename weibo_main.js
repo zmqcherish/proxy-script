@@ -113,7 +113,7 @@ function removeHome(data) {
 	}
 	let newItems = [];
 	console.log(122);
-	for (const item of data.items) {
+	for (let item of data.items) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
 			if(homeConfig.removeVip) {
@@ -148,7 +148,7 @@ function modifyMain(url, data) {
 		if(url.indexOf(s) > -1) {
 			console.log(444);
 			removeCards(data);
-			// return data;
+			return;
 		}
 	}
 	console.log(222);
@@ -157,16 +157,26 @@ function modifyMain(url, data) {
 			removeTimeLine(data);
 			console.log(333);
 			// console.log(data.statuses.length);
-			// return data;
+			return;
 		}
 	}
 	console.log(555);
 	if(url.indexOf(modifyHomeUrls) > -1) {
 		removeHome(data);
-		// return data;
+		return;
 	}
 }
 
+// function test() {
+// 	for (const s of modifyCardsUrls) {
+// 		if('page'.indexOf(s) > -1) {
+// 			return true;
+// 		}
+// 	}
+// 	return 1
+// }
+// a = test()
+// a=1
 var body = $response.body;
 var url = $request.url;
 if(needModify(url)) {
