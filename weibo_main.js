@@ -91,6 +91,7 @@ function removeTimeLine(data) {
 	data.statuses = newStatuses;
 	console.log(num);
 	console.log(newStatuses.length);
+	return data;
 }
 
 function removeVip(data) {
@@ -111,6 +112,7 @@ function removeHome(data) {
 		return data;
 	}
 	let newItems = [];
+	console.log(122);
 	for (const item of data.items) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
@@ -150,14 +152,15 @@ function modifyMain(url, data) {
 	}
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
-			data = removeTimeLine(data);
+			let newData = removeTimeLine(data);
+			console.log(newData.statuses.length);
 			console.log(data.statuses.length);
-			return data;
+			return newData;
 		}
 	}
 	if(url.indexOf(modifyHomeUrls) > -1) {
-		data = removeHome(data);
-		return data;
+		let newData = removeHome(data);
+		return newData;
 	}
 }
 
