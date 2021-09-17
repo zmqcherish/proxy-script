@@ -143,25 +143,27 @@ function modifyMain(url, data) {
 		console.log(new Date());
 		console.log(url);
 	}
-	
+	console.log(111);
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
+			console.log(444);
 			removeCards(data);
-			return data;
+			// return data;
 		}
 	}
+	console.log(222);
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
 			removeTimeLine(data);
-			console.log(222);
+			console.log(333);
 			// console.log(data.statuses.length);
-			return data;
+			// return data;
 		}
 	}
-	console.log(111);
+	console.log(555);
 	if(url.indexOf(modifyHomeUrls) > -1) {
 		removeHome(data);
-		return data;
+		// return data;
 	}
 }
 
@@ -169,7 +171,7 @@ var body = $response.body;
 var url = $request.url;
 if(needModify(url)) {
 	var obj = JSON.parse(body);
-	obj = modifyMain(url, obj);
+	modifyMain(url, obj);
 	body = JSON.stringify(obj);
 }
 
