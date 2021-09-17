@@ -17,24 +17,37 @@ class MainAddon:
 		cards = data.get('cards')
 		if not cards:
 			return
+		new_cards = []
 		for c in cards:
-			new_group = []
-			card_group = c.get('card_group', [])
-			for g in card_group:
-				card_type = g.get('card_type')
-				if card_type not in [118, ]:
-					new_group.append(g)
-			c['card_group'] = new_group
+			card_group = c.get('card_group')
+			if card_group and len(card_group) > 0:
+				new_group = []
+				for g in card_group:
+					card_type = g.get('card_type')
+					if card_type not in [118, ]:
+						new_group.append(g)
+				c['card_group'] = new_group
+				new_cards.append(c)
+			else:
+				if c.get('card_type') == 9:
+					if c.get('mblog', {}).get('mblogtypename') != '广告':
+						new_cards.append(c.get('mblog'))
+				else:
+					new_cards.append(c)
+		data['cards'] = new_cards
+
 
 	def remove_tl(self, data):
 		for k in ['advertises', 'ad']:
-			del data[k]
+			if k in data:
+				del data[k]
 		statuses = data.get('statuses')
 		if not statuses:
 			return
 		new_statuses = []
 		for s in statuses:
-			if s.get('promotion', {}).get('type') != 'ad':
+			print(s.get('mblogtypename'))
+			if s.get('mblogtypename') != '广告':
 				new_statuses.append(s)
 		data['statuses'] = new_statuses
 
@@ -69,16 +82,21 @@ class MainAddon:
 						new_items.append(item)
 		data['items'] = new_items
 
+
 	def weibo_main(self, url, data):
 		if '2/cardlist' in url:
 			self.remove_card_list(data)
+		elif '2/page' in url:
+			self.remove_card_list(data)
 		elif 'statuses/friends/timeline' in url:
+			self.remove_tl(data)
+		elif 'statuses/unread_friends_timeline' in url:
 			self.remove_tl(data)
 		elif '2/profile/me' in url:
 			self.weibo_home(data)
 		
 	def check_url(self, url):
-		for path in ['2/cardlist', 'statuses/friends/timeline', '2/profile/me']:
+		for path in ['cardlist', 'statuses/friends/timeline', 'profile/me', 'page', 'statuses/unread_friends_timeline']:
 			if path in url:
 				return True
 
