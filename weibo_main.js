@@ -9,6 +9,8 @@ const homeConfig = {
 	removeCreatorTask: true,	//移除创作者中心下方的滑动窗口
 }
 
+let isDebug = true;
+
 function needModify(url) {
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
@@ -127,6 +129,11 @@ function removeHome(data) {
 
 
 function modifyMain(url, data) {
+	if(isDebug) {
+		console.log(new Date());
+		console.log(url);
+	}
+	
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
 			removeCards(data);
