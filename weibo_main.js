@@ -6,7 +6,7 @@ const modifyHomeUrls = '/profile/me';
 //个人中心移除选项配置
 const homeConfig = {
 	removeVip: true,	//移除头像旁边的vip样式
-	removeCreatorTask: true,	//移除创作者中心下方的滑动窗口
+	removeCreatorTask: true,	//移除创作者中心下方的轮播图
 }
 
 let isDebug = false;
