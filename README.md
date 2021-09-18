@@ -22,3 +22,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 
 # Contact me
 weibo:[@甄星cherish](https://weibo.com/zmqcherish)
+
+# 免责声明
+- 此脚本仅用于学习研究，不保证其合法性、准确性、有效性，请根据情况自行判断，本人对此不承担任何保证责任。
+- 请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
