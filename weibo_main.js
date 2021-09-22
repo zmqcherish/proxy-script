@@ -1,12 +1,20 @@
 
 const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
-const modifyHomeUrls = '/profile/me';
+const homeUrl = '/profile/me';
+const itemUrl = 'statuses/extend'
 
 //个人中心移除选项配置
 const homeConfig = {
-	removeVip: true,	//移除头像旁边的vip样式
+	removeVip: true,			//移除头像旁边的vip样式
 	removeCreatorTask: true,	//移除创作者中心下方的轮播图
+}
+
+//微博详情页配置
+const itemConfig = {
+	removeRelate: true,		//相关推荐
+	removeGood: true,		//微博主好物种草
+	removeFollow: true,		//关注博主
 }
 
 let isDebug = false;
@@ -22,7 +30,7 @@ function needModify(url) {
 			return true;
 		}
 	}
-	if(url.indexOf(modifyHomeUrls) > -1) {
+	if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1) {
 		return true;
 	}
 	return false;
@@ -87,6 +95,7 @@ function removeTimeLine(data) {
 	data.statuses = newStatuses;
 }
 
+
 function removeVip(data) {
 	if(!data.header) {
 		return data;
@@ -98,6 +107,24 @@ function removeVip(data) {
 	vipCenter.icon = '';
 	vipCenter.title.content = '会员中心';
 	return data;
+}
+
+
+//微博详情页
+function removeItem(data) {
+	if(itemConfig.removeRelate || itemConfig.removeGood) {
+		if(data.trend && data.trend.titles) {
+			let title = data.trend.titles.title;
+			if(title === '相关推荐' || title === '博主好物种草') {
+				data.trend = null;
+			}
+		}
+	}
+	if(itemConfig.removeFollow) {
+		if(data.follow_data) {
+			data.follow_data = null;
+		}
+	}
 }
 
 function removeHome(data) {
@@ -146,8 +173,12 @@ function modifyMain(url, data) {
 			return;
 		}
 	}
-	if(url.indexOf(modifyHomeUrls) > -1) {
+	if(url.indexOf(homeUrl) > -1) {
 		removeHome(data);
+		return;
+	}
+	if(url.indexOf(itemUrl) > -1) {
+		removeItem(data);
 		return;
 	}
 }

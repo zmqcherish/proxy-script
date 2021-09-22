@@ -5,12 +5,19 @@ from mitmproxy.tools.dump import DumpMaster
 from util import *
 
 # proxy_data = get_json_file('proxy.json')
-# current_app = proxy_data['currentApp']
+#微博详情页配置
+item_config = {
+	'removeRelate': True,	#相关推荐
+	'removeGood': True,		#微博主好物种草
+	'removeFollow': True,	#关注博主
+}
+
 class MainAddon:
 	def __init__(self):
 		self.card_urls = ['/cardlist', '/page', 'video/community_tab']
 		self.statuses_urls =  ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
 		self.home_url = '/profile/me'
+		self.item_url = 'statuses/extend'
 		# current_data = proxy_data[current_app]
 		# self.target_host = current_data['host']
 		# self.target_path = current_data['path']
@@ -99,6 +106,16 @@ class MainAddon:
 		data['items'] = new_items
 
 
+	# 微博详情
+	def remove_item(self, data):
+		if item_config['removeRelate'] or item_config['removeGood']:
+			if data.get('trend', {}).get('titles', {}).get('title') in ['相关推荐', '博主好物种草']:
+				del data['trend']
+		if item_config['removeFollow']:
+			if 'follow_data' in data:
+				del data['follow_data']
+
+
 	def weibo_main(self, url, data):
 		for path in self.card_urls:
 			if path in url:
@@ -108,6 +125,9 @@ class MainAddon:
 			if path in url:
 				self.remove_tl(data)
 				return
+		if self.item_url in url:
+			self.remove_item(data)
+			return
 		if self.home_url in url:
 			self.weibo_home(data)
 			return
@@ -119,6 +139,8 @@ class MainAddon:
 		for path in self.statuses_urls:
 			if path in url:
 				return True
+		if self.item_url in url:
+			return True
 		if self.home_url in url:
 			return True
 
@@ -134,7 +156,7 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.146.10'
+ip = '10.2.146.223'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
