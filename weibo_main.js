@@ -127,6 +127,16 @@ function removeItem(data) {
 			data.follow_data = null;
 		}
 	}
+
+	//广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
+	try {
+		let picUrl = data.trend.extra_struct.extBtnInfo.btn_picurl;
+		if(picUrl.indexOf('timeline_icon_ad_delete') > -1) {
+			data.trend = null;
+		}
+	} catch (error) {
+		
+	}
 }
 
 function removeHome(data) {
@@ -149,7 +159,7 @@ function removeHome(data) {
 			} else {
 				newItems.push(item);
 			}
-		} else if(['mine_attent_title', '100505_-_meattent_pic'].indexOf(itemId) > -1) {
+		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask'].indexOf(itemId) > -1) {
 			continue;
 		} else if (itemId.match(/100505_-_meattent_-_\d+/)) {
 			continue;

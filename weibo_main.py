@@ -99,7 +99,7 @@ class MainAddon:
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
 					new_items.append(item)
-			elif item_id in ['mine_attent_title', '100505_-_meattent_pic']:	#mine_attent_title 为你推荐 100505_-_meattent_-_7469988193 推荐的人
+			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask']:	#为你推荐 为你推荐图片 用户任务
 				continue
 			elif re.search('100505_-_meattent_-_\d+', item_id):
 				continue
@@ -120,6 +120,11 @@ class MainAddon:
 		if item_config['removeFollow']:
 			if 'follow_data' in data:
 				del data['follow_data']
+		
+		#广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
+		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl'):
+			del data['trend']
+
 
 
 	def weibo_main(self, url, data):
