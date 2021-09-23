@@ -18,7 +18,8 @@ class MainAddon:
 		self.statuses_urls =  ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
 		self.home_url = '/profile/me'
 		self.item_url = 'statuses/extend'
-		# current_data = proxy_data[current_app]
+		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
+		self.launch_ad_url2 = '/wbapplua/wbpullad.lua'
 		# self.target_host = current_data['host']
 		# self.target_path = current_data['path']
 
@@ -145,12 +146,33 @@ class MainAddon:
 			return True
 
 
+	def remove_launch_ad(self, url, data):
+		if self.launch_ad_url1 in url:
+			temp = re.search('\{.*\}', data)
+			if not temp:
+				return data
+			res = json.loads(temp.group())
+			if 'ads' in res:
+				res['ads'] = []
+			if 'background_delay_display_time' in res:
+				res['background_delay_display_time'] = 60 * 60 * 24 * 1000
+			if 'show_push_splash_ad' in res:
+				res['show_push_splash_ad'] = False
+			return json.dumps(res) + 'OK'
+		if self.launch_ad_url2 in url:
+			res = json.loads(data)
+			if res.get('cached_ad', {}).get('ads'):
+				res['cached_ad']['ads'] = []
+				return json.dumps(res)
+		return data
+
+
 	def response(self, flow):
 		req = flow.request
 
-		if 'sdkapp.uve' in req.url:
+		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response
-			res.text = ''
+			res.text = self.remove_launch_ad(req.url, res.text)
 			return
 
 		if not self.check_url(req.url):
