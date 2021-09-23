@@ -113,10 +113,15 @@ function removeVip(data) {
 
 
 function removeVideoRemind(data) {
-	// data.bubble_dismiss_time = 0;
-	// data.exist_remind = false;
-	// data.image_dismiss_time = 0;
-	$notify('video-test', 'b', 'c');
+	data.bubble_dismiss_time = 0;
+	data.exist_remind = false;
+	data.image_dismiss_time = 0;
+	data.image = '';
+	data.tag_image_english = '';
+	data.tag_image_english_dark = '';
+	data.tag_image_normal = '';
+	data.tag_image_normal_dark = '';
+	// $notify('video-test', 'b', 'c');
 }
 
 

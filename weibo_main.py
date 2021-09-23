@@ -130,6 +130,11 @@ class MainAddon:
 		data['bubble_dismiss_time'] = 0
 		data['exist_remind'] = False
 		data['image_dismiss_time'] = 0
+		data['image'] = ''
+		data['tag_image_english'] = 0
+		data['tag_image_english_dark'] = 0
+		data['tag_image_normal'] = 0
+		data['tag_image_normal_dark'] = 0
 
 
 	def weibo_main(self, url, data):
