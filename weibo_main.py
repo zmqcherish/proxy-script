@@ -20,7 +20,7 @@ class MainAddon:
 		self.item_url = 'statuses/extend'
 		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
 		self.launch_ad_url2 = '/wbapplua/wbpullad.lua'
-		# self.target_host = current_data['host']
+		self.video_remind_url = '/video/remind_info'
 		# self.target_path = current_data['path']
 
 	def remove_card_list(self, data):
@@ -92,7 +92,7 @@ class MainAddon:
 		new_items = []
 		for item in items:
 			item_id = item.get('itemId')
-			print(item_id)
+			# print(item_id)
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
 				new_items.append(item)
@@ -125,6 +125,11 @@ class MainAddon:
 		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl'):
 			del data['trend']
 
+	#测试 暂不知道各字段控制逻辑
+	def remove_video_remind(self, data):
+		data['bubble_dismiss_time'] = 0
+		data['exist_remind'] = False
+		data['image_dismiss_time'] = 0
 
 
 	def weibo_main(self, url, data):
@@ -142,6 +147,11 @@ class MainAddon:
 		if self.home_url in url:
 			self.weibo_home(data)
 			return
+		if self.video_remind_url in url:
+			self.remove_video_remind(data)
+			# print('---------sss')
+			return
+
 		
 	def check_url(self, url):
 		for path in self.card_urls:
@@ -153,6 +163,8 @@ class MainAddon:
 		if self.item_url in url:
 			return True
 		if self.home_url in url:
+			return True
+		if self.video_remind_url in url:
 			return True
 
 
@@ -194,6 +206,7 @@ class MainAddon:
 
 
 ip = '10.2.146.223'
+ip = '192.168.1.11'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

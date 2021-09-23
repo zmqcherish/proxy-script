@@ -3,6 +3,8 @@ const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 const homeUrl = '/profile/me';
 const itemUrl = 'statuses/extend'
+const videoRemindUrl = '/video/remind_info'
+
 
 //个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
 const homeConfig = {
@@ -30,7 +32,7 @@ function needModify(url) {
 			return true;
 		}
 	}
-	if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1) {
+	if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1 || url.indexOf(videoRemindUrl) > -1) {
 		return true;
 	}
 	return false;
@@ -107,6 +109,13 @@ function removeVip(data) {
 	vipCenter.icon = '';
 	vipCenter.title.content = '会员中心';
 	return data;
+}
+
+
+function removeVideoRemind(data) {
+	data.bubble_dismiss_time = 0
+	data.exist_remind = false
+	data.image_dismiss_time = 0
 }
 
 
@@ -195,6 +204,10 @@ function modifyMain(url, data) {
 	}
 	if(url.indexOf(itemUrl) > -1) {
 		removeItem(data);
+		return;
+	}
+	if(url.indexOf(videoRemindUrl) > -1) {
+		removeVideoRemind(data);
 		return;
 	}
 }

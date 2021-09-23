@@ -8,10 +8,11 @@
 - 删除个人页(tab5)中的创作者中心下方的轮播图、为你推荐、用户任务和头像旁边的VIP icon（可配置）
 - [09.22 update] 删除微博详情页的广告、相关推荐、微博主好物种草和关注博主模块（可配置）
 - [09.23 update] 删除微博开屏广告
+- [09.23 update] 删除tab2菜单中的虚假通知（测试中）
 ```properties
 [rewrite_local]
 # 微博去广告以及去除各部分推广模块
-^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/community_tab) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 # 删除微博开屏广告
 ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [mitm]
