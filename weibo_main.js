@@ -141,8 +141,6 @@ function removeHome(data) {
 				item = removeVip(item);;
 			}
 			newItems.push(item);
-		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2', '100505_-_footprint',].indexOf(itemId) > -1) {
-			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(homeConfig.removeCreatorTask) {
 				if(item.type == 'grid') {
@@ -151,6 +149,12 @@ function removeHome(data) {
 			} else {
 				newItems.push(item);
 			}
+		} else if(['mine_attent_title', '100505_-_meattent_pic'].indexOf(itemId) > -1) {
+			continue;
+		} else if (itemId.match(/100505_-_meattent_-_\d+/)) {
+			continue;
+		} else {
+			newItems.push(item);
 		}
 	}
 	data.items = newItems;

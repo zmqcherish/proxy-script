@@ -95,13 +95,17 @@ class MainAddon:
 			print(item_id)
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
-			# if item_id == 'mine_attent_title':	#mine_attent_title 为你推荐 100505_-_meattent_-_7469988193 推荐的人
-			# if item_id in ['100505_-_meattent_pic', '']:
-			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2', '100505_-_footprint', ]:	# 个人头像 常用操作 最常访问 超话 更多功能 签到足迹
 				new_items.append(item)
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
 					new_items.append(item)
+			elif item_id in ['mine_attent_title', '100505_-_meattent_pic']:	#mine_attent_title 为你推荐 100505_-_meattent_-_7469988193 推荐的人
+				continue
+			elif re.search('100505_-_meattent_-_\d+', item_id):
+				continue
+			else:
+				new_items.append(item)
+			# ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2', '100505_-_footprint', ]:	# 个人头像 常用操作 最常访问 超话 更多功能 签到足迹
 		data['items'] = new_items
 
 
