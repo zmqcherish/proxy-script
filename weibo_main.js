@@ -81,7 +81,7 @@ function removeTimeLine(data) {
 		data.ad = [];
 	}
 	if(data.advertises) {
-		data.advertises = [];	
+		data.advertises = [];
 	}
 	if(!data.statuses) {
 		return;
@@ -115,7 +115,9 @@ function removeItem(data) {
 	if(itemConfig.removeRelate || itemConfig.removeGood) {
 		if(data.trend && data.trend.titles) {
 			let title = data.trend.titles.title;
-			if(title === '相关推荐' || title === '博主好物种草') {
+			if(itemConfig.removeRelate && title === '相关推荐') {
+				data.trend = null;
+			} else if (itemConfig.removeGood && title === '博主好物种草') {
 				data.trend = null;
 			}
 		}
@@ -139,7 +141,7 @@ function removeHome(data) {
 				item = removeVip(item);;
 			}
 			newItems.push(item);
-		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage'].indexOf(itemId) > -1) {
+		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage',  '100505_-_manage2'].indexOf(itemId) > -1) {
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(homeConfig.removeCreatorTask) {

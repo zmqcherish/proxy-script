@@ -94,22 +94,22 @@ class MainAddon:
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
 			# if item_id == 'mine_attent_title':	#为你推荐
-			if item_id == '100505_-_manage2': # 更多功能
-				new_items.append(item)
 			# if item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_meattent_-_7469988193']:
-			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage',]:
+			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2']:	# 个人头像 常用操作 最常访问 超话 更多功能
 				new_items.append(item)
-			else:
-				if item_id == '100505_-_newcreator':
-					if item.get('type') == 'grid':
-						new_items.append(item)
+			elif item_id == '100505_-_newcreator': #创作者中心
+				if item.get('type') == 'grid':
+					new_items.append(item)
 		data['items'] = new_items
 
 
 	# 微博详情
 	def remove_item(self, data):
 		if item_config['removeRelate'] or item_config['removeGood']:
-			if data.get('trend', {}).get('titles', {}).get('title') in ['相关推荐', '博主好物种草']:
+			title = data.get('trend', {}).get('titles', {}).get('title')
+			if item_config['removeRelate'] and title == '相关推荐':
+				del data['trend']
+			elif item_config['removeGood'] and title == '博主好物种草':
 				del data['trend']
 		if item_config['removeFollow']:
 			if 'follow_data' in data:
@@ -147,12 +147,17 @@ class MainAddon:
 
 	def response(self, flow):
 		req = flow.request
+
+		if 'sdkapp.uve' in req.url:
+			res = flow.response
+			res.text = ''
+			return
+
 		if not self.check_url(req.url):
 			return
 		res = flow.response
 		data = json.loads(res.text)
 		self.weibo_main(req.url, data)
-		# print(2222, len(data.get('statuses', [])))
 		res.text = json.dumps(data)
 
 

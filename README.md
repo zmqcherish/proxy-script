@@ -1,12 +1,12 @@
 # About Files
 
 ## weibo_main.js
-> Quan-X脚本，可屏蔽微博app多数广告以及个人中心的推广模块（不定期更新）
+> Quan-X脚本，可屏蔽微博app多数广告以及各部分推广模块（不定期更新）
 - 删除首页(tab1)流中的广告和热推
 - 删除视频号(tab2)流中的广告
 - 删除发现页(tab3)轮播广告图
-- 删除个人页(tab5)中的创作者中心下方的轮播图、为你推荐和头像旁边的VIP icon
-- [09.22 update] 删除微博详情页的相关推荐、微博主好物种草和关注博主模块
+- 删除个人页(tab5)中的创作者中心下方的轮播图、为你推荐和头像旁边的VIP icon（可配置）
+- [09.22 update] 删除微博详情页的相关推荐、微博主好物种草和关注博主模块（可配置）
 ```properties
 [rewrite_local]
 ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/community_tab) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
