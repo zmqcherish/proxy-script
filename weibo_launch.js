@@ -1,13 +1,14 @@
+//参考@yichahucha 的脚本
 
 const launchAdUrl1 = '/interface/sdk/sdkad.php';
 const launchAdUrl2 = '/wbapplua/wbpullad.lua';
 
-function needModify(url) {
-	if(url.indexOf(launchAdUrl1) > -1 || url.indexOf(launchAdUrl2) > -1) {
-		return true;
-	}
-	return false;
-}
+// function needModify(url) {
+// 	if(url.indexOf(launchAdUrl1) > -1 || url.indexOf(launchAdUrl2) > -1) {
+// 		return true;
+// 	}
+// 	return false;
+// }
 
 function modifyMain(url, data) {
 	if(url.indexOf(launchAdUrl1) > -1) {
@@ -31,8 +32,8 @@ function modifyMain(url, data) {
 
 var body = $response.body;
 var url = $request.url;
-if(needModify(url)) {
-	body = modifyMain(url, body);
-}
+// if(needModify(url)) {
+body = modifyMain(url, body);
+// }
 
 $done(body);
