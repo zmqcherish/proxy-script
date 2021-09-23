@@ -85,6 +85,7 @@ class MainAddon:
 
 	# 微博个人中心
 	def weibo_home(self, data):
+		# return
 		items = data.get('items')
 		if not items:
 			return
@@ -94,9 +95,9 @@ class MainAddon:
 			print(item_id)
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
-			# if item_id == 'mine_attent_title':	#为你推荐
-			# if item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_meattent_-_7469988193']:
-			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2']:	# 个人头像 常用操作 最常访问 超话 更多功能
+			# if item_id == 'mine_attent_title':	#mine_attent_title 为你推荐 100505_-_meattent_-_7469988193 推荐的人
+			# if item_id in ['100505_-_meattent_pic', '']:
+			if item_id in ['profileme_mine', '100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2', '100505_-_footprint', ]:	# 个人头像 常用操作 最常访问 超话 更多功能 签到足迹
 				new_items.append(item)
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
@@ -188,7 +189,7 @@ port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
 
-m = DumpMaster(opts, with_termlog=True, with_dumper=False)
+m = DumpMaster(opts, with_termlog=False, with_dumper=False)
 config = ProxyConfig(opts)
 m.server = ProxyServer(config)
 m.addons.add(MainAddon())

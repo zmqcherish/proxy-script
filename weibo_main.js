@@ -4,7 +4,7 @@ const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friend
 const homeUrl = '/profile/me';
 const itemUrl = 'statuses/extend'
 
-//个人中心移除选项配置
+//个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
 const homeConfig = {
 	removeVip: true,			//移除头像旁边的vip样式
 	removeCreatorTask: true,	//移除创作者中心下方的轮播图
@@ -141,7 +141,7 @@ function removeHome(data) {
 				item = removeVip(item);;
 			}
 			newItems.push(item);
-		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage',  '100505_-_manage2'].indexOf(itemId) > -1) {
+		} else if(['100505_-_top8', '100505_-_recentlyuser', '100505_-_chaohua', '100505_-_manage', '100505_-_manage2', '100505_-_footprint',].indexOf(itemId) > -1) {
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(homeConfig.removeCreatorTask) {
