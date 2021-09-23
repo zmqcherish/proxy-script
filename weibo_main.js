@@ -113,9 +113,9 @@ function removeVip(data) {
 
 
 function removeVideoRemind(data) {
-	data.bubble_dismiss_time = 0;
-	data.exist_remind = false;
-	data.image_dismiss_time = 0;
+	// data.bubble_dismiss_time = 0;
+	// data.exist_remind = false;
+	// data.image_dismiss_time = 0;
 	$notify('video-test', 'b', 'c');
 }
 
