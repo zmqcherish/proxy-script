@@ -10,23 +10,35 @@ const otherUrls = {
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 }
 
-//个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
-const homeConfig = {
-	removeVip: true,			//移除头像旁边的vip样式
-	removeCreatorTask: true,	//移除创作者中心下方的轮播图
+const isQuanX = typeof $task != "undefined";
+const isSurge = typeof $httpClient != "undefined";
+
+function getStoreVal(k) {
+	if(isQuanX) return $prefs.valueForKey(k);
+	if(isSurge) return $persistentStore.read(key)
 }
 
-//微博详情页配置
-const itemConfig = {
-	removeRelate: true,		//相关推荐
-	removeGood: true,		//微博主好物种草
-	removeFollow: true,		//关注博主
-	modifyMenus: true,		//编辑上下文菜单
-	removeRelateItem: false,	//相关内容
+//主要的选项配置
+const mainConfig = getStoreVal('mainConfig') || {
+	isDebug: false,
+
+	//个人中心配置，其中多数是可以直接在更多功能里直接移除
+	removeHomeVip: true,				//个人中心头像旁边的vip样式
+	removeHomeCreatorTask: true,		//个人中心创作者中心下方的轮播图
+
+	//微博详情页配置
+	removeRelate: true,			//相关推荐
+	removeGood: true,			//微博主好物种草
+	removeFollow: true,			//关注博主
+	modifyMenus: true,			//编辑上下文菜单
+	removeRelateItem: false,	//评论区相关内容
+
+	removeLiveMedia: true,		//首页顶部直播
 }
+
 
 //菜单配置
-const itemMenusConfig = {
+const itemMenusConfig = getStoreVal('itemMenusConfig') || {
 	creator_task:false,					//转发任务
 	mblog_menus_custom:false,				//寄微博
 	mblog_menus_video_later:true,			//可能是稍后再看？没出现过
@@ -52,12 +64,6 @@ const itemMenusConfig = {
 	mblog_menus_apeal:true,				//申诉
 	mblog_menus_home:true					//返回首页
 }
-
-const otherConfig = {
-	removeLiveMedia: true,	//首页直播
-}
-
-let isDebug = false;
 
 function needModify(url) {
 	for (const s of modifyCardsUrls) {
@@ -138,7 +144,7 @@ function removeTimeLine(data) {
 }
 
 
-function removeVip(data) {
+function removeHomeVip(data) {
 	if(!data.header) {
 		return data;
 	}
@@ -166,17 +172,17 @@ function removeVideoRemind(data) {
 
 //微博详情页
 function removeItem(data) {
-	if(itemConfig.removeRelate || itemConfig.removeGood) {
+	if(mainConfig.removeRelate || mainConfig.removeGood) {
 		if(data.trend && data.trend.titles) {
 			let title = data.trend.titles.title;
-			if(itemConfig.removeRelate && title === '相关推荐') {
+			if(mainConfig.removeRelate && title === '相关推荐') {
 				data.trend = null;
-			} else if (itemConfig.removeGood && title === '博主好物种草') {
+			} else if (mainConfig.removeGood && title === '博主好物种草') {
 				data.trend = null;
 			}
 		}
 	}
-	if(itemConfig.removeFollow) {
+	if(mainConfig.removeFollow) {
 		if(data.follow_data) {
 			data.follow_data = null;
 		}
@@ -193,7 +199,7 @@ function removeItem(data) {
 	}
 
 
-	if(itemConfig.modifyMenus && data.custom_action_list) {
+	if(mainConfig.modifyMenus && data.custom_action_list) {
 		let newActions = [];
 		for (const item of data.custom_action_list) {
 			let _t = item.type;
@@ -218,12 +224,12 @@ function removeHome(data) {
 	for (let item of data.items) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
-			if(homeConfig.removeVip) {
-				item = removeVip(item);;
+			if(mainConfig.removeHomeVip) {
+				item = removeHomeVip(item);;
 			}
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
-			if(homeConfig.removeCreatorTask) {
+			if(mainConfig.removeHomeCreatorTask) {
 				if(item.type == 'grid') {
 					newItems.push(item);
 				}
@@ -251,14 +257,14 @@ function removeCheckin(data) {
 
 //首页直播
 function removeMediaHomelist(data) {
-	if(otherConfig.removeLiveMedia) {
+	if(mainConfig.removeLiveMedia) {
 		data.data = {};
 	}
 }
 
 //评论区相关内容
 function removeComments(data) {
-	if(!itemConfig.removeRelateItem) {
+	if(!mainConfig.removeRelateItem) {
 		return;
 	}
 	let items = data.datas || [];
@@ -276,7 +282,7 @@ function removeComments(data) {
 
 
 function modifyMain(url, data) {
-	if(isDebug) {
+	if(mainConfig.isDebug) {
 		console.log(new Date());
 		console.log(url);
 	}

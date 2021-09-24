@@ -33,7 +33,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 > For Surge (手机上无surge无法测试，或许有人能帮忙吗)
 ```properties
 [Script]
-http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist|comments/build_comments) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 http-response ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [MITM]
 hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
