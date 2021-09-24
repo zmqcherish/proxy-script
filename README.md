@@ -19,6 +19,10 @@
 - [09.24 update] 删除tab1顶部的签到和直播（可配置）
 - [09.24 update] 删除微博详情页菜单栏的新鲜事头像挂件等（可配置）
 - [09.24 update] 删除微博详情页评论区相关内容（可配置，默认关闭）
+> 关于自定义配置（进阶使用）
+- weibo_main.js文件中含有大量配置用于控制脚本的实际运行结果，如是否移除顶部直播或评论区相关内容等。如果不需要有自己的配置，可忽略此部分说明。
+- 如果需要有自己的特别需求，以评论区相关内容为例，默认是关闭(false)，即不移除。如果需要移除可复制[weibo_config.js](https://github.com/zmqcherish/proxy-script/blob/main/weibo_config.js)文件，然后修改 mainConfig.removeRelateItem = true 后，运行此文件即可。
+- 运行方法：在Quan-X App中，点击【构造HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标） 
 > For Quan-X
 ```properties
 [rewrite_local]
