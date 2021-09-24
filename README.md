@@ -16,6 +16,7 @@
 - [09.23 update] 删除微博开屏广告 | 参考[@yichahucha](https://github.com/yichahucha/surge/blob/master/wb_launch.js)
 - [09.23 update] 删除tab2菜单中的虚假通知（测试中）
 - [09.24 update] 删除tab1顶部的签到和直播（可配置）
+- [09.24 update] 删除微博详情页菜单栏的新鲜事头像挂件等（可配置）
 > For Quan-X
 ```properties
 [rewrite_local]
