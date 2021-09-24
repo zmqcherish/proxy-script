@@ -10,7 +10,7 @@ item_config = {
 	'removeRelate': True,	#相关推荐
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
-	'removeRelateItem': True,	#相关内容
+	'removeRelateItem': True,	#评论区相关内容
 }
 
 item_menus_config = {

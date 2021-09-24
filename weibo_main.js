@@ -22,7 +22,7 @@ const itemConfig = {
 	removeGood: true,		//微博主好物种草
 	removeFollow: true,		//关注博主
 	modifyMenus: true,		//编辑上下文菜单
-	removeRelateItem: true,	//相关内容
+	removeRelateItem: false,	//相关内容
 }
 
 //菜单配置
