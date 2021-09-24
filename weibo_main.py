@@ -10,6 +10,7 @@ item_config = {
 	'removeRelate': True,	#相关推荐
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
+	'removeRelateItem': True,	#相关内容
 }
 
 item_menus_config = {
@@ -40,6 +41,7 @@ item_menus_config = {
 }
 
 
+
 class MainAddon:
 	def __init__(self):
 		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
@@ -53,6 +55,7 @@ class MainAddon:
 			'/video/remind_info': 'remove_video_remind',
 			'/checkin/show': 'remove_checkin',
 			'/live/media_homelist': 'remove_media_homelist',
+			'/comments/build_comments': 'remove_comments',
 		}
 
 
@@ -98,11 +101,7 @@ class MainAddon:
 		statuses = data.get('statuses')
 		if not statuses:
 			return
-		new_statuses = []
-		for s in statuses:
-			if not self.is_ad(s):
-				new_statuses.append(s)
-		data['statuses'] = new_statuses
+		data['statuses'] = [s for s in statuses if not self.is_ad(s)]
 
 
 	@except_decorative
@@ -190,6 +189,15 @@ class MainAddon:
 
 	def remove_media_homelist(self, data):
 		data['data'] = {}
+
+
+	def remove_comments(self, data):
+		if not item_config['removeRelateItem']:
+			return
+		items = data.get('datas')
+		if not items:
+			return
+		data['datas'] = [item for item in items if item.get('adType') != '相关内容']
 
 
 	def weibo_main(self, url, data):

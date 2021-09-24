@@ -7,6 +7,7 @@ const otherUrls = {
 	'/video/remind_info': 'removeVideoRemind',			//tab2菜单上的假通知
 	'/checkin/show': 'removeCheckin',					//签到任务
 	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
+	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 }
 
 //个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
@@ -20,8 +21,11 @@ const itemConfig = {
 	removeRelate: true,		//相关推荐
 	removeGood: true,		//微博主好物种草
 	removeFollow: true,		//关注博主
+	modifyMenus: true,		//编辑上下文菜单
+	removeRelateItem: true,	//相关内容
 }
 
+//菜单配置
 const itemMenusConfig = {
 	creator_task:false,					//转发任务
 	mblog_menus_custom:false,				//寄微博
@@ -189,7 +193,7 @@ function removeItem(data) {
 	}
 
 
-	if(data.custom_action_list) {
+	if(itemConfig.modifyMenus && data.custom_action_list) {
 		let newActions = [];
 		for (const item of data.custom_action_list) {
 			let _t = item.type;
@@ -250,6 +254,24 @@ function removeMediaHomelist(data) {
 	if(otherConfig.removeLiveMedia) {
 		data.data = {};
 	}
+}
+
+//评论区相关内容
+function removeComments(data) {
+	if(!itemConfig.removeRelateItem) {
+		return;
+	}
+	let items = data.datas || [];
+	if(items.length === 0) {
+		return;
+	}
+	let newItems = [];
+	for (const item of items) {
+		if(item.adType != '相关内容') {
+			newItems.push(item);
+		}
+	}
+	data.datas = newItems;
 }
 
 

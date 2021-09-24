@@ -18,11 +18,12 @@
 - [09.23 update] 删除tab2菜单中的虚假通知（测试中）
 - [09.24 update] 删除tab1顶部的签到和直播（可配置）
 - [09.24 update] 删除微博详情页菜单栏的新鲜事头像挂件等（可配置）
+- [09.24 update] 删除微博详情页评论区相关内容（可配置，默认关闭）
 > For Quan-X
 ```properties
 [rewrite_local]
 # 微博去广告以及去除各部分推广模块
-^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist|comments/build_comments) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 # 删除微博开屏广告
 ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [mitm]
