@@ -4,6 +4,7 @@
 - 需到非大陆区AppStore下载Quantumult X / Surge
 - Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载
 - 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
+- Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
 # About Files
 
 ## weibo_main.js & weibo_launch.js
@@ -28,7 +29,7 @@
 hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 ```
 
-> For Surge (未测试)
+> For Surge (手机上无surge无法测试，或许有人能帮忙吗)
 ```properties
 [Script]
 http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/me|video/(community_tab|remind_info)|checkin/show|\!/live/media_homelist) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
@@ -40,7 +41,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 > Quan-X配置，个人常用配置，包括知乎、微信公众号、B站去广告，均来自于网络，最后一部分为上文的微博配置
 
 ## weibo_main.py
-> Python 脚本，功能同weibo_main.js，可用mitmproxy部署
+> Python 脚本，功能同weibo_main.js + weibo_launch.js，可用mitmproxy部署
 
 
 
