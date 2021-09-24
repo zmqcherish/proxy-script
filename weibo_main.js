@@ -8,6 +8,8 @@ const otherUrls = {
 	'/checkin/show': 'removeCheckin',					//签到任务
 	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
+	'/container/get_item': 'containerHandler',			//列表相关
+	'/profile/statuses': 'userHandler',					//用户主页
 }
 
 const isQuanX = typeof $task != "undefined";
@@ -38,6 +40,10 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeRelateItem: false,	//评论区相关内容
 
 	removeLiveMedia: true,		//首页顶部直播
+
+	removeInterestFriendInTopic: false,		//超话：超话里的好友
+	removeInterestTopic: false,				//超话：可能感兴趣的超话
+	removeInterestUser: false,				//用户页：可能感兴趣的人
 }
 
 
@@ -255,6 +261,7 @@ function removeHome(data) {
 
 //移除tab1签到
 function removeCheckin(data) {
+	console.log('remove tab1签到');
 	data.show = 0;
 }
 
@@ -262,6 +269,7 @@ function removeCheckin(data) {
 //首页直播
 function removeMediaHomelist(data) {
 	if(mainConfig.removeLiveMedia) {
+		console.log('remove 首页直播');
 		data.data = {};
 	}
 }
@@ -281,7 +289,45 @@ function removeComments(data) {
 			newItems.push(item);
 		}
 	}
+	console.log('remove 相关内容');
 	data.datas = newItems;
+}
+
+
+//处理感兴趣的超话和超话里的好友
+function containerHandler(data) {
+	if(mainConfig.removeInterestFriendInTopic) {
+		if(data.card_type_name === '超话里的好友') {
+			console.log('remove 超话里的好友');
+			data.card_group = [];
+		}
+	}
+	if(mainConfig.removeInterestTopic) {
+		if(data.itemid === '2311404b49ae2340f76f6b91d36b17958d703e_-_infeed_may_interest_in_1') {
+			console.log('remove 感兴趣的超话');
+			data.card_group = [];
+		}
+	}
+}
+
+//可能感兴趣的人
+function userHandler(data) {
+	if(!mainConfig.removeInterestUser) {
+		return;
+	}
+	let items = data.cards || [];
+	if(items.length === 0) {
+		return;
+	}
+	let newItems = [];
+	for (const item of items) {
+		if(item.itemid == 'INTEREST_PEOPLE') {
+			console.log('remove 感兴趣的人');
+		} else {
+			newItems.push(item);
+		}
+	}
+	data.cards = newItems;
 }
 
 

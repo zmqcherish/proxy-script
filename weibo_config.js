@@ -14,6 +14,10 @@ const mainConfig = {
 	removeRelateItem: true,		//评论区相关内容
 
 	removeLiveMedia: true,		//首页顶部直播
+
+	removeInterestFriendInTopic: true,		//超话：超话里的好友
+	removeInterestTopic: true,				//超话：可能感兴趣的超话
+	removeInterestUser: true,				//用户页：可能感兴趣的人
 }
 
 

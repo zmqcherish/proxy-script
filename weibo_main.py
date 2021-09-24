@@ -4,9 +4,8 @@ from mitmproxy.proxy.server import ProxyServer
 from mitmproxy.tools.dump import DumpMaster
 from util import *
 
-# proxy_data = get_json_file('proxy.json')
 #微博详情页配置
-item_config = {
+main_config = {
 	'removeRelate': True,	#相关推荐
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
@@ -56,6 +55,8 @@ class MainAddon:
 			'/checkin/show': 'remove_checkin',
 			'/live/media_homelist': 'remove_media_homelist',
 			'/comments/build_comments': 'remove_comments',
+			'/container/get_item': 'container_handler',	#列表相关
+			'/profile/statuses': 'user_handler',		#用户主页
 		}
 
 
@@ -141,13 +142,13 @@ class MainAddon:
 
 	# 微博详情
 	def remove_item(self, data):
-		if item_config['removeRelate'] or item_config['removeGood']:
+		if main_config['removeRelate'] or main_config['removeGood']:
 			title = data.get('trend', {}).get('titles', {}).get('title')
-			if item_config['removeRelate'] and title == '相关推荐':
+			if main_config['removeRelate'] and title == '相关推荐':
 				del data['trend']
-			elif item_config['removeGood'] and title == '博主好物种草':
+			elif main_config['removeGood'] and title == '博主好物种草':
 				del data['trend']
-		if item_config['removeFollow']:
+		if main_config['removeFollow']:
 			if 'follow_data' in data:
 				del data['follow_data']
 		
@@ -192,12 +193,29 @@ class MainAddon:
 
 
 	def remove_comments(self, data):
-		if not item_config['removeRelateItem']:
+		if not main_config['removeRelateItem']:
 			return
 		items = data.get('datas')
 		if not items:
 			return
 		data['datas'] = [item for item in items if item.get('adType') != '相关内容']
+
+	#超话相关
+	def container_handler(self, data):
+		if data.get('card_type_name') == '超话里的好友':
+			print('remove 超话里的好友')
+			data['card_group'] = []
+		elif data.get('itemid') == '2311404b49ae2340f76f6b91d36b17958d703e_-_infeed_may_interest_in_1':
+			print('remove 你可能感兴趣的超话')
+			data['card_group'] = []
+
+
+	def user_handler(self, data):
+		cards = data.get('cards')
+		if not cards:
+			return
+		# 移除可能感兴趣的人
+		data['cards'] = [c for c in cards if c.get('itemid') != 'INTEREST_PEOPLE']
 
 
 	def weibo_main(self, url, data):
@@ -266,7 +284,7 @@ class MainAddon:
 
 
 ip = '10.2.146.223'
-# ip = '192.168.1.11'
+ip = '192.168.1.11'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
