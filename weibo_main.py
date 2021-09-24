@@ -12,16 +12,22 @@ item_config = {
 	'removeFollow': True,	#关注博主
 }
 
+
 class MainAddon:
 	def __init__(self):
-		self.card_urls = ['/cardlist', '/page', 'video/community_tab']
-		self.statuses_urls =  ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
-		self.home_url = '/profile/me'
-		self.item_url = 'statuses/extend'
 		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
 		self.launch_ad_url2 = '/wbapplua/wbpullad.lua'
-		self.video_remind_url = '/video/remind_info'
-		# self.target_path = current_data['path']
+
+		self.card_urls = ['/cardlist', '/page', 'video/community_tab']
+		self.statuses_urls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
+		self.other_urls = {
+			'/profile/me': 'remove_home',
+			'/statuses/extend': 'remove_item',
+			'/video/remind_info': 'remove_video_remind',
+			'/checkin/show': 'remove_checkin',
+			'/live/media_homelist': 'remove_media_homelist',
+		}
+
 
 	def remove_card_list(self, data):
 		cards = data.get('cards')
@@ -70,7 +76,6 @@ class MainAddon:
 			if not self.is_ad(s):
 				new_statuses.append(s)
 		data['statuses'] = new_statuses
-		# print(1111111, len(new_statuses))
 
 
 	@except_decorative
@@ -84,8 +89,7 @@ class MainAddon:
 
 
 	# 微博个人中心
-	def weibo_home(self, data):
-		# return
+	def remove_home(self, data):
 		items = data.get('items')
 		if not items:
 			return
@@ -125,16 +129,26 @@ class MainAddon:
 		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl'):
 			del data['trend']
 
+
 	#测试 暂不知道各字段控制逻辑
 	def remove_video_remind(self, data):
 		data['bubble_dismiss_time'] = 0
 		data['exist_remind'] = False
 		data['image_dismiss_time'] = 0
 		data['image'] = ''
-		data['tag_image_english'] = 0
-		data['tag_image_english_dark'] = 0
-		data['tag_image_normal'] = 0
-		data['tag_image_normal_dark'] = 0
+		data['tag_image_english'] = ''
+		data['tag_image_english_dark'] = ''
+		data['tag_image_normal'] = ''
+		data['tag_image_normal_dark'] = ''
+
+
+	def remove_checkin(self, data):
+		data['show'] = 0
+		# data['show_time'] = 20000
+
+
+	def remove_media_homelist(self, data):
+		data['data'] = {}
 
 
 	def weibo_main(self, url, data):
@@ -146,18 +160,14 @@ class MainAddon:
 			if path in url:
 				self.remove_tl(data)
 				return
-		if self.item_url in url:
-			self.remove_item(data)
-			return
-		if self.home_url in url:
-			self.weibo_home(data)
-			return
-		if self.video_remind_url in url:
-			self.remove_video_remind(data)
-			# print('---------sss')
-			return
 
-		
+		for path, method in self.other_urls.items():
+			if path in url:
+				print(f'match {method}...')
+				eval("self." + method)(data)
+				return
+
+
 	def check_url(self, url):
 		for path in self.card_urls:
 			if path in url:
@@ -165,12 +175,9 @@ class MainAddon:
 		for path in self.statuses_urls:
 			if path in url:
 				return True
-		if self.item_url in url:
-			return True
-		if self.home_url in url:
-			return True
-		if self.video_remind_url in url:
-			return True
+		for path in self.other_urls:
+			if path in url:
+				return True
 
 
 	def remove_launch_ad(self, url, data):
@@ -196,7 +203,6 @@ class MainAddon:
 
 	def response(self, flow):
 		req = flow.request
-
 		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response
 			res.text = self.remove_launch_ad(req.url, res.text)
@@ -211,7 +217,7 @@ class MainAddon:
 
 
 ip = '10.2.146.223'
-ip = '192.168.1.11'
+# ip = '192.168.1.11'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

@@ -1,10 +1,18 @@
 
 const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
-const homeUrl = '/profile/me';
-const itemUrl = 'statuses/extend'
-const videoRemindUrl = '/video/remind_info'
+// const homeUrl = '/profile/me';
+// const itemUrl = 'statuses/extend'
+// const videoRemindUrl = '/video/remind_info'
+// const checkinUrl = '/checkin/show'
 
+const otherUrls = {
+	'/profile/me': 'removeHome',
+	'/statuses/extend': 'removeItem',
+	'/video/remind_info': 'removeVideoRemind',
+	'/checkin/show': 'removeCheckin',
+	'/live/media_homelist': 'removeMediaHomelist',
+}
 
 //个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
 const homeConfig = {
@@ -32,9 +40,14 @@ function needModify(url) {
 			return true;
 		}
 	}
-	if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1 || url.indexOf(videoRemindUrl) > -1) {
-		return true;
+	for(const s of Object.keys(otherUrls)) {
+		if(url.indexOf(s) > -1) {
+			return true;
+		}
 	}
+	// if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1 || url.indexOf(videoRemindUrl) > -1 || url.indexOf(checkinUrl) > -1) {
+	// 	return true;
+	// }
 	return false;
 }
 
@@ -111,7 +124,7 @@ function removeVip(data) {
 	return data;
 }
 
-
+//移除tab2的假通知
 function removeVideoRemind(data) {
 	data.bubble_dismiss_time = 0;
 	data.exist_remind = false;
@@ -121,7 +134,6 @@ function removeVideoRemind(data) {
 	data.tag_image_english_dark = '';
 	data.tag_image_normal = '';
 	data.tag_image_normal_dark = '';
-	// $notify('video-test', 'b', 'c');
 }
 
 
@@ -187,6 +199,18 @@ function removeHome(data) {
 }
 
 
+//移除tab1签到
+function removeCheckin(data) {
+	data.show = 0;
+}
+
+
+function removeMediaHomelist(data) {
+	$notify('a', 'b', 'c');
+	data.data = {};
+}
+
+
 function modifyMain(url, data) {
 	if(isDebug) {
 		console.log(new Date());
@@ -204,18 +228,31 @@ function modifyMain(url, data) {
 			return;
 		}
 	}
-	if(url.indexOf(homeUrl) > -1) {
-		removeHome(data);
-		return;
+	for(const [path, method] of Object.entries(otherUrls)) {
+		if(url.indexOf(path) > -1) {
+			console.log(method);
+			var func = eval(method);
+			new func(data);
+			return;
+		}
 	}
-	if(url.indexOf(itemUrl) > -1) {
-		removeItem(data);
-		return;
-	}
-	if(url.indexOf(videoRemindUrl) > -1) {
-		removeVideoRemind(data);
-		return;
-	}
+
+	// if(url.indexOf(homeUrl) > -1) {
+	// 	removeHome(data);
+	// 	return;
+	// }
+	// if(url.indexOf(itemUrl) > -1) {
+	// 	removeItem(data);
+	// 	return;
+	// }
+	// if(url.indexOf(videoRemindUrl) > -1) {
+	// 	removeVideoRemind(data);
+	// 	return;
+	// }
+	// if(url.indexOf(checkinUrl) > -1) {
+	// 	removeCheckin(data);
+	// 	return;
+	// }
 }
 
 var body = $response.body;
