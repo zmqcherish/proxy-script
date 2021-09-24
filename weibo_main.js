@@ -1,17 +1,12 @@
-
 const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
-// const homeUrl = '/profile/me';
-// const itemUrl = 'statuses/extend'
-// const videoRemindUrl = '/video/remind_info'
-// const checkinUrl = '/checkin/show'
 
 const otherUrls = {
-	'/profile/me': 'removeHome',
-	'/statuses/extend': 'removeItem',
-	'/video/remind_info': 'removeVideoRemind',
-	'/checkin/show': 'removeCheckin',
-	'/live/media_homelist': 'removeMediaHomelist',
+	'/profile/me': 'removeHome',						//个人页模块
+	'/statuses/extend': 'removeItem',					//微博详情页
+	'/video/remind_info': 'removeVideoRemind',			//tab2菜单上的假通知
+	'/checkin/show': 'removeCheckin',					//签到任务
+	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
 }
 
 //个人中心移除选项配置，多数是可以直接在微博的更多功能里直接移除
@@ -25,6 +20,10 @@ const itemConfig = {
 	removeRelate: true,		//相关推荐
 	removeGood: true,		//微博主好物种草
 	removeFollow: true,		//关注博主
+}
+
+const otherConfig = {
+	removeLiveMedia: true,	//首页直播
 }
 
 let isDebug = false;
@@ -45,9 +44,6 @@ function needModify(url) {
 			return true;
 		}
 	}
-	// if(url.indexOf(homeUrl) > -1 || url.indexOf(itemUrl) > -1 || url.indexOf(videoRemindUrl) > -1 || url.indexOf(checkinUrl) > -1) {
-	// 	return true;
-	// }
 	return false;
 }
 
@@ -205,9 +201,11 @@ function removeCheckin(data) {
 }
 
 
+//首页直播
 function removeMediaHomelist(data) {
-	$notify('a', 'b', 'c');
-	data.data = {};
+	if(otherConfig.removeLiveMedia) {
+		data.data = {};
+	}
 }
 
 
@@ -236,23 +234,6 @@ function modifyMain(url, data) {
 			return;
 		}
 	}
-
-	// if(url.indexOf(homeUrl) > -1) {
-	// 	removeHome(data);
-	// 	return;
-	// }
-	// if(url.indexOf(itemUrl) > -1) {
-	// 	removeItem(data);
-	// 	return;
-	// }
-	// if(url.indexOf(videoRemindUrl) > -1) {
-	// 	removeVideoRemind(data);
-	// 	return;
-	// }
-	// if(url.indexOf(checkinUrl) > -1) {
-	// 	removeCheckin(data);
-	// 	return;
-	// }
 }
 
 var body = $response.body;
