@@ -12,6 +12,33 @@ item_config = {
 	'removeFollow': True,	#关注博主
 }
 
+item_menus_config = {
+	'creator_task':False,					#转发任务
+	'mblog_menus_custom':False,				#寄微博
+	'mblog_menus_video_later':True,			#可能是稍后再看？没出现过
+	'mblog_menus_comment_manager':True,		#评论管理
+	'mblog_menus_avatar_widget':False,		#头像挂件
+	'mblog_menus_card_bg': False,			#卡片背景
+	'mblog_menus_long_picture':True,		#生成长图
+	'mblog_menus_delete':True,				#删除
+	'mblog_menus_edit':True,				#编辑
+	'mblog_menus_edit_history':True,		#编辑记录
+	'mblog_menus_edit_video':True,			#编辑视频
+	'mblog_menus_sticking':True,			#置顶
+	'mblog_menus_open_reward':True,			#赞赏
+	'mblog_menus_novelty':False,			#新鲜事投稿
+	'mblog_menus_favorite':True,			#收藏
+	'mblog_menus_promote':True,				#推广
+	'mblog_menus_modify_visible':True,		#设置分享范围
+	'mblog_menus_copy_url':True,			#复制链接
+	'mblog_menus_follow':True,				#关注
+	'mblog_menus_video_feedback':True,		#播放反馈
+	'mblog_menus_shield':True,				#屏蔽
+	'mblog_menus_report':True,				#投诉
+	'mblog_menus_apeal':True,				#申诉
+	'mblog_menus_home':True					#返回首页
+}
+
 
 class MainAddon:
 	def __init__(self):
@@ -126,8 +153,22 @@ class MainAddon:
 				del data['follow_data']
 		
 		#广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
-		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl'):
+		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl', {}):
 			del data['trend']
+
+		if 'custom_action_list' in data:
+			new_actions = []
+			for action in data['custom_action_list']:
+				_type = action.get('type')
+				if _type in item_menus_config and not item_menus_config[_type]:
+					pass
+				else:
+					print(_type)
+					if _type == 'mblog_menus_copy_url':
+						new_actions.insert(0, action)
+					else:
+						new_actions.append(action)
+			data['custom_action_list'] = new_actions
 
 
 	#测试 暂不知道各字段控制逻辑
