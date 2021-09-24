@@ -2,7 +2,8 @@
 
 - 目前仅支持iOS端（Android方法应该更多，暂无设备测试）
 - 需到非大陆区AppStore下载Quantumult X
-- Quan-X App本身付费，可自行网上找外区Apple ID免费下载。本项目不提供下载账号。
+- Quan-X App本身付费，可自行网上找外区Apple ID免费下载
+- 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 # About Files
 
 ## weibo_main.js & weibo_launch.js
