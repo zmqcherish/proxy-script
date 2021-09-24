@@ -47,6 +47,7 @@ const itemMenusConfig = {
 
 $prefs.setValueForKey(JSON.stringify(mainConfig), 'mainConfig');
 $prefs.setValueForKey(JSON.stringify(itemMenusConfig), 'itemMenusConfig');
-
+console.log('success');
+$done();
 // var homeConfig = $prefs.valueForKey('homeConfig');
 // console.log(homeConfig);

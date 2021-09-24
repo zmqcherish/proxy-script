@@ -18,8 +18,12 @@ function getStoreVal(k) {
 	if(isSurge) return $persistentStore.read(key)
 }
 
+let storeMainConfig = getStoreVal('mainConfig');
+let storeItemMenusConfig = getStoreVal('itemMenusConfig');
+
+
 //主要的选项配置
-const mainConfig = getStoreVal('mainConfig') || {
+const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	isDebug: false,
 
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
@@ -38,7 +42,7 @@ const mainConfig = getStoreVal('mainConfig') || {
 
 
 //菜单配置
-const itemMenusConfig = getStoreVal('itemMenusConfig') || {
+const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) : {
 	creator_task:false,					//转发任务
 	mblog_menus_custom:false,				//寄微博
 	mblog_menus_video_later:true,			//可能是稍后再看？没出现过
