@@ -1,13 +1,13 @@
 # About Files
 
-## weibo_main.js
+## weibo_main.js & weibo_launch.js
 > Quan-X脚本，可屏蔽微博app多数广告以及各部分推广模块（不定期更新）
 - 删除首页(tab1)流中的广告和热推
 - 删除视频号(tab2)流中的广告
 - 删除发现页(tab3)轮播广告图
 - 删除个人页(tab5)中的创作者中心下方的轮播图、为你推荐、用户任务和头像旁边的VIP icon（可配置）
 - [09.22 update] 删除微博详情页的广告、相关推荐、微博主好物种草和关注博主模块（可配置）
-- [09.23 update] 删除微博开屏广告 |参考[@yichahucha](https://github.com/yichahucha/surge/blob/master/wb_launch.js)
+- [09.23 update] 删除微博开屏广告 | 参考[@yichahucha](https://github.com/yichahucha/surge/blob/master/wb_launch.js)
 - [09.23 update] 删除tab2菜单中的虚假通知（测试中）
 - [09.24 update] 删除tab1顶部的签到和直播（可配置）
 ```properties
