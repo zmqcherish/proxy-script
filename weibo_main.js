@@ -192,7 +192,7 @@ function removeItem(data) {
 	if(data.custom_action_list) {
 		let newActions = [];
 		for (const item of data.custom_action_list) {
-			let _t = action.type;
+			let _t = item.type;
 			let add = itemMenusConfig[_t]
 			if(add === undefined) {
 				newActions.push(item);
