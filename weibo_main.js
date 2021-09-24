@@ -244,4 +244,4 @@ if(needModify(url)) {
 	body = JSON.stringify(obj);
 }
 
-$done({body});
+$done(body);
