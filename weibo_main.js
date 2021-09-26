@@ -303,7 +303,7 @@ function containerHandler(data) {
 		}
 	}
 	if(mainConfig.removeInterestTopic) {
-		if(data.itemid === '2311404b49ae2340f76f6b91d36b17958d703e_-_infeed_may_interest_in_1') {
+		if(data.itemid && data.itemid.indexOf('-_infeed_may_interest_in_1') > -1) {
 			console.log('remove 感兴趣的超话');
 			data.card_group = [];
 		}
