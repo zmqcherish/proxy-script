@@ -17,7 +17,8 @@ const isSurge = typeof $httpClient != "undefined";
 
 function getStoreVal(k) {
 	if(isQuanX) return $prefs.valueForKey(k);
-	if(isSurge) return $persistentStore.read(key)
+	if(isSurge) return $persistentStore.read(key);
+	return null;
 }
 
 let storeMainConfig = getStoreVal('mainConfig');
