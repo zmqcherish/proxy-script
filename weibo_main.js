@@ -43,7 +43,7 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeLiveMedia: true,		//首页顶部直播
 
 	removeInterestFriendInTopic: false,		//超话：超话里的好友
-	removeInterestTopic: false,				//超话：可能感兴趣的超话
+	removeInterestTopic: false,				//超话：可能感兴趣的超话 + 好友关注
 	removeInterestUser: false,				//用户页：可能感兴趣的人
 }
 
@@ -303,9 +303,12 @@ function containerHandler(data) {
 			data.card_group = [];
 		}
 	}
-	if(mainConfig.removeInterestTopic) {
-		if(data.itemid && data.itemid.indexOf('-_infeed_may_interest_in_1') > -1) {
+	if(mainConfig.removeInterestTopic && data.itemid) {
+		if(data.itemid.indexOf('infeed_may_interest_in') > -1) {
 			console.log('remove 感兴趣的超话');
+			data.card_group = [];
+		} else if(data.itemid.indexOf('infeed_friends_recommend') > -1) {
+			console.log('remove 超话好友关注');
 			data.card_group = [];
 		}
 	}

@@ -205,8 +205,11 @@ class MainAddon:
 		if data.get('card_type_name') == '超话里的好友':
 			print('remove 超话里的好友')
 			data['card_group'] = []
-		elif '-_infeed_may_interest_in_1' in data.get('itemid', ''):
+		elif 'infeed_may_interest_in' in data.get('itemid', ''):
 			print('remove 你可能感兴趣的超话')
+			data['card_group'] = []
+		elif 'infeed_friends_recommend' in data.get('itemid', ''):
+			print('remove 超话好友关注')
 			data['card_group'] = []
 
 
