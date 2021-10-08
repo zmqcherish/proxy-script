@@ -57,6 +57,7 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
+			# '/groups/allgroups': 'change_group',
 		}
 
 
@@ -221,6 +222,23 @@ class MainAddon:
 		data['cards'] = [c for c in cards if c.get('itemid') != 'INTEREST_PEOPLE']
 
 
+	# def change_group(self, data):
+	# 	gs = data.get('groups', [])
+	# 	for g in gs:
+	# 		if g.get('title') != '默认分组':
+	# 			continue
+	# 		gg = g.get('group', [])
+	# 		new_group = []
+	# 		for g2 in gg:
+	# 			if g2.get('title') == '最新微博':
+	# 				g2['type'] = 1
+	# 				new_group.insert(0, g2)
+	# 			else:
+	# 				new_group.append(g2)
+	# 		g['group'] = new_group
+	# 		return
+
+
 	def weibo_main(self, url, data):
 		for path in self.card_urls:
 			if path in url:
@@ -287,7 +305,7 @@ class MainAddon:
 
 
 ip = '10.2.146.223'
-ip = '192.168.1.11'
+# ip = '192.168.1.11'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

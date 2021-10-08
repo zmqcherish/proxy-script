@@ -43,6 +43,8 @@ http-response ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/w
 [MITM]
 hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 ```
+## weibo.conf
+> Quan-X配置，微博订阅配置（简单配置教程中使用）
 ## cherish.conf
 > Quan-X配置，个人常用配置，包括知乎、微信公众号、B站去广告，均来自于网络，最后一部分为上文的微博配置
 
@@ -56,7 +58,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 4. iPhone设置页 -> 通用 -> 关于本机 -> 证书信任设置，打开Quantumult X开头的证书信任
 5. 回到Quan-X App的MitM模块开关打开，重写模块开关打开
 6. 在设置页最下方进入其他设置 -> VPN -> 始终开启
-7. 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/cherish.conf -> 右上角保存
+7. 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo.conf -> 右上角保存
 8. 回到App首页顶部开启App运行即可
 
 # Contact me
