@@ -100,8 +100,11 @@ function isAd(data) {
 	if(!data) {
 		return false;
 	}
-	return data.mblogtypename == '广告' || data.mblogtypename == '热推';
+	if(data.mblogtypename == '广告' || data.mblogtypename == '热推') {return true};
+	if(data.promotion && data.promotion.type == 'ad') {return true};
+	return false;
 }
+
 
 function removeCards(data) {
 	if(!data.cards) {

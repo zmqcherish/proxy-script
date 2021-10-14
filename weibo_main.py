@@ -92,9 +92,13 @@ class MainAddon:
 		if not data:
 			return False
 		a = data.get('mblogtypename')
-		if not a:
-			return False
-		return a in ['广告', '热推']
+		if a and a in ['广告', '热推']:
+			return True
+		if data.get('promotion', {}).get('type') == 'ad':
+			return True
+		# if data.get('readtimetype') == 'adMblog':	#不准，很多实际非广告
+		# 	return False
+
 
 	def remove_tl(self, data):
 		for k in ['advertises', 'ad']:
@@ -304,7 +308,7 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.146.223'
+ip = '10.2.147.8'
 # ip = '192.168.1.11'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
