@@ -235,12 +235,14 @@ function updateFollowOrder(item) {
 		for (let d of item.items) {
 			if(d.itemId === 'mainnums_friends') {
 				let d = d.click.modules[0].scheme;
+				console.log('aa',d);
 				d.click.modules[0].scheme = d.replace('231093_-_selfrecomm', '231093_-_selffollowed');
 				console.log('updateFollowOrder success');
 				return;
 			}
 		}
 	} catch (error) {
+		console.log(error);
 		console.log('updateFollowOrder fail');
 	}
 }
