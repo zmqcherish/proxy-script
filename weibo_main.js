@@ -1,4 +1,4 @@
-const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab'];
+const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 
 const otherUrls = {
