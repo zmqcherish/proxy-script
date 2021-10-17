@@ -120,6 +120,16 @@ class MainAddon:
 		vip_center['title']['content'] = '会员中心'
 
 
+	@except_decorative
+	def update_follow_order(self, item):
+		for d in item.get('items'):
+			if d.get('itemId') != 'mainnums_friends':
+				continue
+			s = d['click']['modules'][0]['scheme']
+			d['click']['modules'][0]['scheme'] = s.replace('231093_-_selfrecomm', '231093_-_selffollowed')
+			return
+
+
 	# 微博个人中心
 	def remove_home(self, data):
 		items = data.get('items')
@@ -131,6 +141,7 @@ class MainAddon:
 			# print(item_id)
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
+				self.update_follow_order(item)
 				new_items.append(item)
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
@@ -251,6 +262,7 @@ class MainAddon:
 		for path in self.statuses_urls:
 			if path in url:
 				self.remove_tl(data)
+				# append_txt_file(json.dumps(data), 'temp/1.json')
 				return
 
 		for path, method in self.other_urls.items():
@@ -309,7 +321,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-# ip = '192.168.1.11'
+ip = '192.168.1.6'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

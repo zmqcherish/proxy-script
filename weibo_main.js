@@ -230,6 +230,21 @@ function removeItem(data) {
 	}
 }
 
+function updateFollowOrder(item) {
+	try {
+		for (let d of item.items) {
+			if(d.itemId === 'mainnums_friends') {
+				let d = d.click.modules[0].scheme;
+				d.click.modules[0].scheme = d.replace('231093_-_selfrecomm', '231093_-_selffollowed');
+				console.log('updateFollowOrder');
+				return;
+			}
+		}
+	} catch (error) {
+	}
+}
+
+
 function removeHome(data) {
 	if(!data.items) {
 		return data;
@@ -241,6 +256,7 @@ function removeHome(data) {
 			if(mainConfig.removeHomeVip) {
 				item = removeHomeVip(item);;
 			}
+			updateFollowOrder(item);
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(mainConfig.removeHomeCreatorTask) {
