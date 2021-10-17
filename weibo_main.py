@@ -127,6 +127,7 @@ class MainAddon:
 				continue
 			s = d['click']['modules'][0]['scheme']
 			d['click']['modules'][0]['scheme'] = s.replace('231093_-_selfrecomm', '231093_-_selffollowed')
+			print('updateFollowOrder');
 			return
 
 
