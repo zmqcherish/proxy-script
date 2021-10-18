@@ -45,6 +45,8 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeInterestFriendInTopic: false,		//超话：超话里的好友
 	removeInterestTopic: false,				//超话：可能感兴趣的超话 + 好友关注
 	removeInterestUser: false,				//用户页：可能感兴趣的人
+	profileSkin1: null,						//用户页：自定义图标1
+	profileSkin2: null,						//用户页：自定义图标2
 }
 
 
@@ -245,12 +247,19 @@ function updateFollowOrder(item) {
 	}
 }
 
-function updateProfileSkin(item) {
+function updateProfileSkin(item, k) {
 	try {
-		let profileSkin1 = mainConfig.profileSkin1;
-		if(!profileSkin1) {return;}
+		let profileSkin = mainConfig[k];
+		if(!profileSkin) {return;}
+		let i = 0;
 		for (let d of item.items) {
-			d.image.iconUrl = profileSkin1[0];
+			if(!d.image) {
+				continue;
+			}
+			d.image.iconUrl = profileSkin[i++];
+			if(d.dot) {
+				d.dot = [];
+			}
 		}
 		console.log('updateProfileSkin success');
 	} catch (error) {
@@ -273,11 +282,12 @@ function removeHome(data) {
 			updateFollowOrder(item);
 			newItems.push(item);
 		} else if (itemId == '100505_-_top8') {
-			updateProfileSkin(item);
+			updateProfileSkin(item, 'profileSkin1');
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(mainConfig.removeHomeCreatorTask) {
 				if(item.type == 'grid') {
+					updateProfileSkin(item, 'profileSkin2');
 					newItems.push(item);
 				}
 			} else {

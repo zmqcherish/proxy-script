@@ -10,8 +10,12 @@ main_config = {
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
 	'removeRelateItem': True,	#评论区相关内容
-	'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_1.png',]
+	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
+	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"]
 }
+
+# 'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_2.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/1071/632/2018/11/06/zhangcaoyantuanzi_tabbar_lighskin_4.png', 'https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_4.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_3.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_4.png', 'https://wx1.sinaimg.cn/large/006Y6guWly1gvjc93r3yzj605k05kjs102.jpg'],
+# 'profileSkin2': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_5.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_3.png', 'https://h5.sinaimg.cn/upload/1071/632/2018/11/06/zhangcaoyantuanzi_tabbar_lighskin_5.png']
 
 item_menus_config = {
 	'creator_task':False,					#转发任务
@@ -121,6 +125,7 @@ class MainAddon:
 		vip_center['title']['content'] = '会员中心'
 
 
+	# 将个人主页【关注】按钮默认值由【推荐】改为【关注的人】
 	@except_decorative
 	def update_follow_order(self, item):
 		for d in item.get('items'):
@@ -131,14 +136,22 @@ class MainAddon:
 			print('updateFollowOrder');
 			return
 
+
+	# 更改个人主页图标
 	@except_decorative
-	def update_profile_skin(self, item):
-		profile_skin1 = main_config['profileSkin1']
-		if not profile_skin1:
+	def update_profile_skin(self, item, k):
+		profile_skin = main_config[k]
+		if not profile_skin:
 			return
 		items = item.get('items')
+		i = 0
 		for d in items:
-			d['image']['iconUrl'] = profile_skin1[0]
+			if 'image' not in d:
+				continue
+			d['image']['iconUrl'] = profile_skin[i]
+			i += 1
+			if 'dot' in d:
+				del d['dot']
 
 
 	# 微博个人中心
@@ -155,10 +168,11 @@ class MainAddon:
 				self.update_follow_order(item)
 				new_items.append(item)
 			elif item_id == '100505_-_top8':
-				self.update_profile_skin(item)
+				self.update_profile_skin(item, 'profileSkin1')
 				new_items.append(item)
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
+					self.update_profile_skin(item, 'profileSkin2')
 					new_items.append(item)
 			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask']:	#为你推荐 为你推荐图片 用户任务
 				continue
