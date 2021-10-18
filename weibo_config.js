@@ -18,6 +18,7 @@ const mainConfig = {
 	removeInterestFriendInTopic: true,		//超话：超话里的好友
 	removeInterestTopic: true,				//超话：可能感兴趣的超话
 	removeInterestUser: true,				//用户页：可能感兴趣的人
+	profileSkin1: ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_2.png',]
 }
 
 

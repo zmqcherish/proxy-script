@@ -245,6 +245,19 @@ function updateFollowOrder(item) {
 	}
 }
 
+function updateProfileSkin(item) {
+	try {
+		let profileSkin1 = mainConfig.profileSkin1;
+		if(!profileSkin1) {return}
+		for (let d of item.items) {
+			d.image.iconUrl = profileSkin1[0];
+		}
+		console.log('updateProfileSkin success');
+	} catch (error) {
+		console.log('updateProfileSkin fail');
+	}
+}
+
 
 function removeHome(data) {
 	if(!data.items) {
@@ -258,6 +271,9 @@ function removeHome(data) {
 				item = removeHomeVip(item);;
 			}
 			updateFollowOrder(item);
+			newItems.push(item);
+		} else if (itemId == '100505_-_top8') {
+			updateProfileSkin(item);
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
 			if(mainConfig.removeHomeCreatorTask) {

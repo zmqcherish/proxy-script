@@ -10,6 +10,7 @@ main_config = {
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
 	'removeRelateItem': True,	#评论区相关内容
+	'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_1.png',]
 }
 
 item_menus_config = {
@@ -130,6 +131,15 @@ class MainAddon:
 			print('updateFollowOrder');
 			return
 
+	@except_decorative
+	def update_profile_skin(self, item):
+		profile_skin1 = main_config['profileSkin1']
+		if not profile_skin1:
+			return
+		items = item.get('items')
+		for d in items:
+			d['image']['iconUrl'] = profile_skin1[0]
+
 
 	# 微博个人中心
 	def remove_home(self, data):
@@ -143,6 +153,9 @@ class MainAddon:
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
 				self.update_follow_order(item)
+				new_items.append(item)
+			elif item_id == '100505_-_top8':
+				self.update_profile_skin(item)
 				new_items.append(item)
 			elif item_id == '100505_-_newcreator': #创作者中心
 				if item.get('type') == 'grid':
@@ -322,7 +335,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-ip = '192.168.1.6'
+# ip = '192.168.1.6'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
