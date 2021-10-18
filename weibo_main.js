@@ -78,23 +78,23 @@ const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) 
 	mblog_menus_home:true					//返回首页
 }
 
-function needModify(url) {
+function getModifyMethod(url) {
 	for (const s of modifyCardsUrls) {
 		if(url.indexOf(s) > -1) {
-			return true;
+			return 'removeCards';
 		}
 	}
 	for (const s of modifyStatusesUrls) {
 		if(url.indexOf(s) > -1) {
-			return true;
+			return 'removeTimeLine';
 		}
 	}
-	for(const s of Object.keys(otherUrls)) {
-		if(url.indexOf(s) > -1) {
-			return true;
+	for(const [path, method] of Object.entries(otherUrls)) {
+		if(url.indexOf(path) > -1) {
+			return method;
 		}
 	}
-	return false;
+	return null;
 }
 
 
@@ -381,39 +381,46 @@ function userHandler(data) {
 }
 
 
-function modifyMain(url, data) {
+// function modifyMain(url, data) {
+// 	if(mainConfig.isDebug) {
+// 		console.log(new Date());
+// 		console.log(url);
+// 	}
+// 	for (const s of modifyCardsUrls) {
+// 		if(url.indexOf(s) > -1) {
+// 			removeCards(data);
+// 			return;
+// 		}
+// 	}
+// 	for (const s of modifyStatusesUrls) {
+// 		if(url.indexOf(s) > -1) {
+// 			removeTimeLine(data);
+// 			return;
+// 		}
+// 	}
+// 	for(const [path, method] of Object.entries(otherUrls)) {
+// 		if(url.indexOf(path) > -1) {
+// 			console.log(method);
+// 			var func = eval(method);
+// 			new func(data);
+// 			return;
+// 		}
+// 	}
+// }
+
+var body = $response.body;
+var url = $request.url;
+let method = getModifyMethod(url);
+if(method) {
 	if(mainConfig.isDebug) {
 		console.log(new Date());
 		console.log(url);
 	}
-	for (const s of modifyCardsUrls) {
-		if(url.indexOf(s) > -1) {
-			removeCards(data);
-			return;
-		}
-	}
-	for (const s of modifyStatusesUrls) {
-		if(url.indexOf(s) > -1) {
-			removeTimeLine(data);
-			return;
-		}
-	}
-	for(const [path, method] of Object.entries(otherUrls)) {
-		if(url.indexOf(path) > -1) {
-			console.log(method);
-			var func = eval(method);
-			new func(data);
-			return;
-		}
-	}
-}
-
-var body = $response.body;
-var url = $request.url;
-if(needModify(url)) {
-	var obj = JSON.parse(body);
-	modifyMain(url, obj);
-	body = JSON.stringify(obj);
+	let data = JSON.parse(body);
+	console.log(method);
+	var func = eval(method);
+	new func(data);
+	body = JSON.stringify(data);
 }
 
 $done(body);

@@ -62,7 +62,7 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
-			# '/groups/allgroups': 'change_group',
+			# '/vip_lightskin/lightskin_': 'test_func',
 		}
 
 
@@ -133,7 +133,7 @@ class MainAddon:
 				continue
 			s = d['click']['modules'][0]['scheme']
 			d['click']['modules'][0]['scheme'] = s.replace('231093_-_selfrecomm', '231093_-_selffollowed')
-			print('updateFollowOrder');
+			print('update_follow_order success');
 			return
 
 
@@ -152,6 +152,7 @@ class MainAddon:
 			i += 1
 			if 'dot' in d:
 				del d['dot']
+		print('update_profile_skin success');
 
 
 	# 微博个人中心
@@ -281,35 +282,34 @@ class MainAddon:
 	# 		g['group'] = new_group
 	# 		return
 
+	def test_func(self, req, res):
+		# if 'vip_lightskin/lightskin_' not in req.url:
+		# 	return
 
-	def weibo_main(self, url, data):
+		if 'littleskin/lists' in req.url:
+			data = json.loads(res.text)
+			for k,vv in data['data']['type_skin_list'].items():
+				for v in vv:
+					v['fx_img'] = v['fb_img']
+					v['mobile_thumnail'] = v['fb_img']
+			res.text = json.dumps(data)
+		if 'littleskin/prev' in req.url:
+			data = json.loads(res.text)
+			data['data']['skin_info']['fx_img'] = data['data']['skin_info']['fb_img']
+			res.text = json.dumps(data)
+		pass
+
+
+	def get_method(self, url):
 		for path in self.card_urls:
 			if path in url:
-				self.remove_card_list(data)
-				return
+				return 'remove_card_list'
 		for path in self.statuses_urls:
 			if path in url:
-				self.remove_tl(data)
-				# append_txt_file(json.dumps(data), 'temp/1.json')
-				return
-
+				return 'remove_tl'
 		for path, method in self.other_urls.items():
 			if path in url:
-				print(f'match {method}...')
-				eval("self." + method)(data)
-				return
-
-
-	def check_url(self, url):
-		for path in self.card_urls:
-			if path in url:
-				return True
-		for path in self.statuses_urls:
-			if path in url:
-				return True
-		for path in self.other_urls:
-			if path in url:
-				return True
+				return method
 
 
 	def remove_launch_ad(self, url, data):
@@ -335,16 +335,20 @@ class MainAddon:
 
 	def response(self, flow):
 		req = flow.request
+		# self.test_func(req, flow.response)
+
 		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response
 			res.text = self.remove_launch_ad(req.url, res.text)
 			return
 
-		if not self.check_url(req.url):
+		method = self.get_method(req.url)
+		if not method:
 			return
 		res = flow.response
 		data = json.loads(res.text)
-		self.weibo_main(req.url, data)
+		print(f'match {method}...')
+		eval("self." + method)(data)
 		res.text = json.dumps(data)
 
 
