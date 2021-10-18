@@ -248,7 +248,7 @@ function updateFollowOrder(item) {
 function updateProfileSkin(item) {
 	try {
 		let profileSkin1 = mainConfig.profileSkin1;
-		if(!profileSkin1) {return}
+		if(!profileSkin1) {return;}
 		for (let d of item.items) {
 			d.image.iconUrl = profileSkin1[0];
 		}
