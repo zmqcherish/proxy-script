@@ -386,10 +386,6 @@ function nobyda() {
 		if (isQuanX) $notify(title, subtitle, message)
 		if (isSurge) $notification.post(title, subtitle, message);
 	}
-	const write = (value, key) => {
-		if (isQuanX) return $prefs.setValueForKey(value, key);
-		if (isSurge) return $persistentStore.write(value, key);
-	}
 	const read = (key) => {
 		if (isQuanX) return $prefs.valueForKey(key);
 		if (isSurge) return $persistentStore.read(key);
@@ -404,7 +400,6 @@ function nobyda() {
 		isSurge,
 		isQuanX,
 		notify,
-		write,
 		read,
 		done
 	}
@@ -421,5 +416,5 @@ if(method) {
 	new func(data);
 	body = JSON.stringify(data);
 }
-
-$.done(body);
+$done({ body });
+// $.done(body);
