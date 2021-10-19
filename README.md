@@ -96,3 +96,4 @@ weibo:[@甄星cherish](https://weibo.com/zmqcherish)
 # 感谢
 - [@NobyDa](https://github.com/NobyDa)
 - [@yichahucha](https://github.com/yichahucha)
+- [@AirPods2](https://weibo.com/u/5750747182)
