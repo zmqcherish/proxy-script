@@ -19,13 +19,15 @@
 - 删除微博详情页菜单栏的新鲜事头像挂件等（可配置）
 - 删除微博详情页评论区相关内容（可配置，默认关闭）
 - 删除超话中可能感兴趣的超话、超话中的好友、超话好友关注、用户页可能感兴趣的人（可配置，默认关闭）
-- [10.17 update] 删除搜索结果页广告
+- 删除搜索结果页广告
 - [10.17 update] 将个人主页【关注】按钮默认值由【推荐】改为【关注的人】
-- [10.18 update] 自定义个人主页图标（可配置，默认关闭）
+- [10.18 update] 自定义个人主页图标（可配置，默认关闭）[效果图](https://m.weibo.cn/2316757461/4693643559963746
+)
 ## weibo_config.js
 > 自定义配置（进阶使用）
 - weibo_main.js文件中含有大量配置用于控制脚本的实际运行结果，如是否移除顶部直播或评论区相关内容等。如果不需要有自己的配置，可忽略此部分说明。
 - 如果需要有自己的特别需求，以评论区相关内容为例，默认是关闭(false)，即不移除。如果需要移除可复制[weibo_config.js](https://github.com/zmqcherish/proxy-script/blob/main/weibo_config.js)文件，然后修改 mainConfig.removeRelateItem = true 后，运行此文件即可。
+- 自定义个人主页图标设置：在weibo_config.js中设置mainConfig.profileSkin1（我的相册 - 客服 8个图标）和mainConfig.profileSkin2（创作首页 - 任务中心 4个图标）两个值，如果不需要设置mainConfig.profileSkin1 = null即可。如果需要自定义，配置对应的图片路径，图片大小建议150 * 150，图片地址可以通过发布到自己的微博获取，或者使用微博的皮肤图标，详见[微博皮肤.md](https://github.com/zmqcherish/proxy-script/main/微博皮肤.md)
 - Quan-X 运行方法：在App中，点击【构造HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标）
 - Surge 运行方法：在首页 -> 脚本 -> 编辑器，在界面中粘贴上面的修改自定义值后的代码，然后点击右下角执行
 ## weibo.conf
@@ -90,3 +92,7 @@ weibo:[@甄星cherish](https://weibo.com/zmqcherish)
 # 免责声明
 - 此脚本仅用于学习研究，不保证其合法性、准确性、有效性，请根据情况自行判断，本人对此不承担任何保证责任。
 - 请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
+
+# 感谢
+- [@NobyDa](https://github.com/NobyDa)
+- [@yichahucha](https://github.com/yichahucha)
