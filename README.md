@@ -31,8 +31,8 @@
 - Quan-X 运行方法1：在App中，点击【构造HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标）
 - Quan-X 运行方法2：可在配置文件中增加如下配置后，在【构造HTTP请求】页面上进一步编辑然后运行
 ```properties
-	[task_local]
-	0 0 23 1 * https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_config.js, tag=微博配置, img-url=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/icon/weibo.png, enabled=false
+[task_local]
+0 0 23 1 * https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_config.js, tag=微博配置, img-url=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/icon/weibo.png, enabled=false
 ```
 - Surge 运行方法：在首页 -> 脚本 -> 编辑器，在界面中粘贴上面的修改自定义值后的代码，然后点击右下角执行
 ## weibo.conf
