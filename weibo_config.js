@@ -94,5 +94,5 @@ console.log(JSON.parse($.read('isDebug')));
 console.log($.read('mainConfig'));
 console.log($.read('itemMenusConfig'));
 console.log('success');
-$.notify('更改成功');
+$.notify('微博自定义配置更改成功');
 $.done();
