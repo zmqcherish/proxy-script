@@ -48,7 +48,7 @@ const itemMenusConfig = {
 	mblog_menus_home:true					//返回首页
 }
 
-const isDebug = true;
+const isDebug = true;	//开启调试，会打印运行中部分日志
 
 function nobyda() {
 	const isQuanX = typeof $task != "undefined";
