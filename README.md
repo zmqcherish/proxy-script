@@ -99,4 +99,4 @@ weibo:[@甄星cherish](https://weibo.com/zmqcherish)
 - [@AirPods2](https://weibo.com/u/5750747182)
 
 # 赞赏
-![alt 赞赏码](https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/zsm.jpg)
+![alt 赞赏码](https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/zsm3.jpg)
