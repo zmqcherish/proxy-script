@@ -416,5 +416,5 @@ if(method) {
 	new func(data);
 	body = JSON.stringify(data);
 }
-$done({ body });
-// $.done(body);
+// $done({ body });
+$.done(body);
