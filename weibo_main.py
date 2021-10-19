@@ -62,7 +62,6 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
-			# '/vip_lightskin/lightskin_': 'test_func',
 		}
 
 

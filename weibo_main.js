@@ -12,23 +12,14 @@ const otherUrls = {
 	'/profile/statuses': 'userHandler',					//用户主页
 }
 
-const isQuanX = typeof $task != "undefined";
-const isSurge = typeof $httpClient != "undefined";
+let $ = new nobyda();
+let storeIsDebug = $.read('isDebug');
+let storeMainConfig = $.read('mainConfig');
+let storeItemMenusConfig = $.read('itemMenusConfig');
 
-function getStoreVal(k) {
-	if(isQuanX) return $prefs.valueForKey(k);
-	if(isSurge) return $persistentStore.read(key);
-	return null;
-}
-
-let storeMainConfig = getStoreVal('mainConfig');
-let storeItemMenusConfig = getStoreVal('itemMenusConfig');
-
-
+const isDebug = storeIsDebug ? JSON.parse(storeIsDebug) : false;
 //主要的选项配置
 const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
-	isDebug: false,
-
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
 	removeHomeVip: true,				//个人中心头像旁边的vip样式
 	removeHomeCreatorTask: true,		//个人中心创作者中心下方的轮播图
@@ -238,7 +229,7 @@ function updateFollowOrder(item) {
 			if(d.itemId === 'mainnums_friends') {
 				let s = d.click.modules[0].scheme;
 				d.click.modules[0].scheme = s.replace('231093_-_selfrecomm', '231093_-_selffollowed');
-				console.log('updateFollowOrder success');
+				log('updateFollowOrder success');
 				return;
 			}
 		}
@@ -261,7 +252,7 @@ function updateProfileSkin(item, k) {
 				d.dot = [];
 			}
 		}
-		console.log('updateProfileSkin success');
+		log('updateProfileSkin success');
 	} catch (error) {
 		console.log('updateProfileSkin fail');
 	}
@@ -308,7 +299,7 @@ function removeHome(data) {
 
 //移除tab1签到
 function removeCheckin(data) {
-	console.log('remove tab1签到');
+	log('remove tab1签到');
 	data.show = 0;
 }
 
@@ -316,7 +307,7 @@ function removeCheckin(data) {
 //首页直播
 function removeMediaHomelist(data) {
 	if(mainConfig.removeLiveMedia) {
-		console.log('remove 首页直播');
+		log('remove 首页直播');
 		data.data = {};
 	}
 }
@@ -336,7 +327,7 @@ function removeComments(data) {
 			newItems.push(item);
 		}
 	}
-	console.log('remove 相关内容');
+	log('remove 相关内容');
 	data.datas = newItems;
 }
 
@@ -345,16 +336,16 @@ function removeComments(data) {
 function containerHandler(data) {
 	if(mainConfig.removeInterestFriendInTopic) {
 		if(data.card_type_name === '超话里的好友') {
-			console.log('remove 超话里的好友');
+			log('remove 超话里的好友');
 			data.card_group = [];
 		}
 	}
 	if(mainConfig.removeInterestTopic && data.itemid) {
 		if(data.itemid.indexOf('infeed_may_interest_in') > -1) {
-			console.log('remove 感兴趣的超话');
+			log('remove 感兴趣的超话');
 			data.card_group = [];
 		} else if(data.itemid.indexOf('infeed_friends_recommend') > -1) {
-			console.log('remove 超话好友关注');
+			log('remove 超话好友关注');
 			data.card_group = [];
 		}
 	}
@@ -372,7 +363,7 @@ function userHandler(data) {
 	let newItems = [];
 	for (const item of items) {
 		if(item.itemid == 'INTEREST_PEOPLE') {
-			console.log('remove 感兴趣的人');
+			log('remove 感兴趣的人');
 		} else {
 			newItems.push(item);
 		}
@@ -380,47 +371,55 @@ function userHandler(data) {
 	data.cards = newItems;
 }
 
+function log(data) {
+	if(isDebug) {
+		console.log(data);
+	}
+}
 
-// function modifyMain(url, data) {
-// 	if(mainConfig.isDebug) {
-// 		console.log(new Date());
-// 		console.log(url);
-// 	}
-// 	for (const s of modifyCardsUrls) {
-// 		if(url.indexOf(s) > -1) {
-// 			removeCards(data);
-// 			return;
-// 		}
-// 	}
-// 	for (const s of modifyStatusesUrls) {
-// 		if(url.indexOf(s) > -1) {
-// 			removeTimeLine(data);
-// 			return;
-// 		}
-// 	}
-// 	for(const [path, method] of Object.entries(otherUrls)) {
-// 		if(url.indexOf(path) > -1) {
-// 			console.log(method);
-// 			var func = eval(method);
-// 			new func(data);
-// 			return;
-// 		}
-// 	}
-// }
+
+function nobyda() {
+	const isQuanX = typeof $task != "undefined";
+	const isSurge = typeof $httpClient != "undefined";
+	const isRequest = typeof $request != "undefined";
+	const notify = (title, subtitle='', message='') => {
+		if (isQuanX) $notify(title, subtitle, message)
+		if (isSurge) $notification.post(title, subtitle, message);
+	}
+	const write = (value, key) => {
+		if (isQuanX) return $prefs.setValueForKey(value, key);
+		if (isSurge) return $persistentStore.write(value, key);
+	}
+	const read = (key) => {
+		if (isQuanX) return $prefs.valueForKey(key);
+		if (isSurge) return $persistentStore.read(key);
+	}
+	const done = (value = {}) => {
+		if (isQuanX) return $done(value);
+		if (isSurge) isRequest ? $done(value) : $done();
+	}
+
+	return {
+		isRequest,
+		isSurge,
+		isQuanX,
+		notify,
+		write,
+		read,
+		done
+	}
+}
 
 var body = $response.body;
 var url = $request.url;
 let method = getModifyMethod(url);
 if(method) {
-	if(mainConfig.isDebug) {
-		console.log(new Date());
-		console.log(url);
-	}
-	let data = JSON.parse(body);
-	console.log(method);
+	log(url);
+	log(method);
 	var func = eval(method);
+	let data = JSON.parse(body);
 	new func(data);
 	body = JSON.stringify(data);
 }
 
-$done(body);
+$.done(body);
