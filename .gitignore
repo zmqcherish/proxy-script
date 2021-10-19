@@ -2,3 +2,4 @@
 __pycache__/
 temp.txt
 temp/
+file/config_private.json

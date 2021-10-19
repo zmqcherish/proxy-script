@@ -1,7 +1,10 @@
 import logging
 import json
 import re
+import os
+import requests
 from time import sleep
+from urllib.request import urlretrieve
 from datetime import datetime, timedelta
 
 def except_decorative(func):
@@ -18,6 +21,17 @@ def append_txt_file(save_item, file_path='1.txt', end='\n'):
 		txt_file.write(save_item + end)
 
 
+@except_decorative
 def get_json_file(file_path):
 	with open(file_path, 'r', encoding='utf-8') as json_file:
 		return json.load(json_file)
+
+
+def create_folder(path):
+	if os.path.exists(path):
+		return
+	os.mkdir(path)
+
+
+def get_file_suffix(path):
+	return os.path.splitext(path)[-1]
