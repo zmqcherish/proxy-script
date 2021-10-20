@@ -9,7 +9,7 @@ class MainAddon:
 	def __init__(self):
 		self.url_map = {
 			'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'remove_xhs_launch',	#小红书开屏
-			'x/v2/feed/index': 'remove_bb_feed'	#b站首页广告
+			'x/v2/feed/index': 'remove_bb_feed'	#b站推荐页广告
 		}
 
 	@except_decorative
@@ -25,8 +25,10 @@ class MainAddon:
 		new_items = []
 		for item in items:
 			if item.get('ad_info'):
-				# print(item)
 				continue
+			banner_item = item.get('banner_item')
+			if banner_item:
+				item['banner_item'] = [banner for banner in banner_item if banner.get('type') != 'ad']
 			new_items.append(item)
 		data['data']['items'] = new_items
 

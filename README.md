@@ -40,6 +40,7 @@
 ## customize.js
 > 其他一些软件的自定义脚本，配置内容在[cherish.conf](https://github.com/zmqcherish/proxy-script/main/cherish.conf)中。对应的py脚本[customize.py](https://github.com/zmqcherish/proxy-script/main/customize.py)
 - 删除小红书开屏广告（测试中）
+- 删除b站推荐页广告
 
 ## weibo.conf
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
