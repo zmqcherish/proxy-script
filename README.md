@@ -1,13 +1,13 @@
 # 说明
-
-- 目前仅支持iOS端（Android方法应该更多，暂无设备测试）
-- 需到非大陆区AppStore下载Quantumult X / Surge
+- 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
+- 本项目不定期更新，目前仅支持iOS端
+- 使用前提：需到非大陆区AppStore下载Quantumult X / Surge
 - Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载
 - 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 - Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
 # 文件功能说明
 ## weibo_main.js & weibo_launch.js
-> 可屏蔽微博app多数广告以及各部分推广模块（不定期更新）
+> 可屏蔽微博app多数广告以及各部分推广模块
 - 删除首页(tab1)流和超话中的广告、热推
 - 删除视频号(tab2)流中的广告
 - 删除发现页(tab3)轮播广告图
@@ -35,12 +35,19 @@
 0 0 23 1 * https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_config.js, tag=微博配置, img-url=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/icon/weibo.png, enabled=false
 ```
 - Surge 运行方法：在首页 -> 脚本 -> 编辑器，在界面中粘贴上面的修改自定义值后的代码，然后点击右下角执行
+## customize.js
+> 其他一些软件的自定义脚本，配置内容在[cherish.conf](https://github.com/zmqcherish/proxy-script/main/cherish.conf)中。对应的py脚本[customize.py](https://github.com/zmqcherish/proxy-script/main/customize.py)
+- 删除小红书开屏广告（测试中）
+
 ## weibo.conf
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
 ## weibo.sgmodule
 > Surge配置，微博订阅配置（下文Surge配置教程中使用）
 ## cherish.conf
-> Quan-X配置，个人常用配置，包括知乎、微信公众号、B站去广告，均来自于网络，最后一部分为上文的微博配置
+> Quan-X配置，个人自用
+- 知乎、微信公众号、B站去广告，均来自于网络
+- 同weibo.conf功能相同的微博配置
+- 小红书配置
 
 ## weibo_main.py
 > Python 脚本，功能同weibo_main.js + weibo_launch.js，可用mitmproxy部署

@@ -4,11 +4,11 @@ const urlMap = {
 
 let $ = new nobyda();
 
+//删除小红书广告
 function removeXHSLaunch(data) {
 	try {
-		console.log(data);
+		// console.log(data);
 		data.data.ads_groups = [];
-		$.notify('remove xhs success');
 	} catch (error) {
 		console.log(error);
 	}
