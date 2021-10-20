@@ -55,9 +55,9 @@ var body = $response.body;
 var url = $request.url;
 let method = getModifyMethod(url);
 if(method) {
-	// log(method);
 	var func = eval(method);
 	let data = JSON.parse(body);
+	console.log(data);
 	new func(data);
 	body = JSON.stringify(data);
 }

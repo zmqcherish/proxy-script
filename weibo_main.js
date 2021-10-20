@@ -409,7 +409,6 @@ var body = $response.body;
 var url = $request.url;
 let method = getModifyMethod(url);
 if(method) {
-	// log(url);
 	log(method);
 	var func = eval(method);
 	let data = JSON.parse(body);
