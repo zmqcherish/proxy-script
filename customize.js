@@ -6,6 +6,7 @@ let $ = new nobyda();
 
 function removeXHSLaunch(data) {
 	try {
+		console.log(data);
 		data.data.ads_groups = [];
 		$.notify('remove xhs success');
 	} catch (error) {
@@ -57,7 +58,6 @@ let method = getModifyMethod(url);
 if(method) {
 	var func = eval(method);
 	let data = JSON.parse(body);
-	console.log(data);
 	new func(data);
 	body = JSON.stringify(data);
 }
