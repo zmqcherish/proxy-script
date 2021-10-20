@@ -23,7 +23,7 @@ function removeBzhanFeed(data) {
 		let items = data.data.items || [];
 		if (items.length === 0) return;
 		let newItems = [];
-		for (const item of items) {
+		for (let item of items) {
 			if(item.ad_info) {
 				continue;
 			}
