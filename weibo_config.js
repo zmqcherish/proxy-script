@@ -91,7 +91,6 @@ $.write(JSON.stringify(isDebug), 'isDebug');
 $.write(JSON.stringify(mainConfig), 'mainConfig');
 $.write(JSON.stringify(itemMenusConfig), 'itemMenusConfig');
 console.log($.read('isDebug'));
-console.log(JSON.parse($.read('isDebug')));
 console.log($.read('mainConfig'));
 console.log($.read('itemMenusConfig'));
 console.log('success');
