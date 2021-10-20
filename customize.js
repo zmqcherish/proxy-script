@@ -1,6 +1,6 @@
 const version = '1020v2';
 const urlMap = {
-	'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'removeXHSLaunch',
+	'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'removeXHSLaunch',	//小红书开屏
 }
 
 let $ = new nobyda();

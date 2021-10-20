@@ -8,12 +8,27 @@ from util import *
 class MainAddon:
 	def __init__(self):
 		self.url_map = {
-			'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'remove_xhs_launch',
+			'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'remove_xhs_launch',	#小红书开屏
+			'x/v2/feed/index': 'remove_bb_feed'	#b站首页广告
 		}
 
 	@except_decorative
 	def remove_xhs_launch(self, data):
 		data['data']['ads_groups'] = []
+
+
+	@except_decorative
+	def remove_bb_feed(self, data):
+		items = data['data'].get('items', [])
+		if not items:
+			return
+		new_items = []
+		for item in items:
+			if item.get('ad_info'):
+				# print(item)
+				continue
+			new_items.append(item)
+		data['data']['items'] = new_items
 
 
 	def get_method(self, url):
