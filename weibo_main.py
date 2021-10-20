@@ -10,6 +10,7 @@ main_config = {
 	'removeGood': True,		#微博主好物种草
 	'removeFollow': True,	#关注博主
 	'removeRelateItem': True,	#评论区相关内容
+	'removeRecommendItem': True,	#评论区推荐内容
 	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
 	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"]
 }
@@ -105,7 +106,7 @@ class MainAddon:
 
 
 	def remove_tl(self, data):
-		for k in ['advertises', 'ad']:
+		for k in ['advertises', 'ad', 'trend']:
 			if k in data:
 				del data[k]
 		statuses = data.get('statuses')
@@ -237,12 +238,17 @@ class MainAddon:
 
 
 	def remove_comments(self, data):
-		if not main_config['removeRelateItem']:
+		del_type = []
+		if main_config['removeRelateItem']:
+			del_type.append('相关内容')
+		if main_config['removeRecommendItem']:
+			del_type.append('推荐')
+		if len(del_type) == 0:
 			return
 		items = data.get('datas')
 		if not items:
 			return
-		data['datas'] = [item for item in items if item.get('adType') != '相关内容']
+		data['datas'] = [item for item in items if item.get('adType') not in del_type]
 
 	#超话相关
 	def container_handler(self, data):

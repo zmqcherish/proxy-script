@@ -30,6 +30,7 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeFollow: true,			//关注博主
 	modifyMenus: true,			//编辑上下文菜单
 	removeRelateItem: false,	//评论区相关内容
+	removeRecommendItem: true,	//评论区推荐内容
 
 	removeLiveMedia: true,		//首页顶部直播
 
@@ -132,11 +133,10 @@ function removeCards(data) {
 
 
 function removeTimeLine(data) {
-	if(data.ad) {
-		data.ad = [];
-	}
-	if(data.advertises) {
-		data.advertises = [];
+	for (const s of ["ad", "advertises", "trend"]) {
+		if(data[s]) {
+			delete data[s];
+		}
 	}
 	if(!data.statuses) {
 		return;
@@ -312,22 +312,22 @@ function removeMediaHomelist(data) {
 	}
 }
 
-//评论区相关内容
+//评论区相关和推荐内容
 function removeComments(data) {
-	if(!mainConfig.removeRelateItem) {
-		return;
-	}
+	let delType = [];
+	if(mainConfig.removeRelateItem) delType.push('相关内容');
+	if(mainConfig.removeRecommendItem) delType.push('推荐');
+	if(delType.length === 0) return;
 	let items = data.datas || [];
-	if(items.length === 0) {
-		return;
-	}
+	if(items.length === 0) return;
 	let newItems = [];
 	for (const item of items) {
-		if(item.adType != '相关内容') {
+		let adType = item.adType || '';
+		if(delType.indexOf(adType) == -1) {
 			newItems.push(item);
 		}
 	}
-	log('remove 相关内容');
+	log('remove 评论区相关和推荐内容');
 	data.datas = newItems;
 }
 

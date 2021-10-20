@@ -10,7 +10,8 @@ const mainConfig = {
 	removeFollow: true,			//关注博主
 	modifyMenus: true,			//编辑上下文菜单
 	removeRelateItem: true,		//评论区相关内容
-
+	removeRecommendItem: true,	//评论区推荐内容
+	
 	removeLiveMedia: true,		//首页顶部直播
 
 	removeInterestFriendInTopic: true,		//超话：超话里的好友
