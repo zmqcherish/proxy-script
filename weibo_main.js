@@ -134,7 +134,7 @@ function removeCards(data) {
 
 
 function removeTimeLine(data) {
-	for (const s of ["ad", "advertises", "trend"]) {
+	for (const s of ["ad", "advertises", "trends"]) {
 		if(data[s]) {
 			delete data[s];
 		}

@@ -106,7 +106,7 @@ class MainAddon:
 
 
 	def remove_tl(self, data):
-		for k in ['advertises', 'ad', 'trend']:
+		for k in ['advertises', 'ad', 'trends']:
 			if k in data:
 				del data[k]
 		statuses = data.get('statuses')

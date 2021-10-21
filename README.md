@@ -50,7 +50,7 @@
 > Quan-X配置，个人自用
 - 知乎、微信公众号、B站去广告，均来自于网络
 - 同weibo.conf功能相同的微博配置
-- 小红书配置
+- customize.js中的功能
 
 ## weibo_main.py
 > Python 脚本，功能同weibo_main.js + weibo_launch.js，可用mitmproxy部署
