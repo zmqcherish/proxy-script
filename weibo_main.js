@@ -1,4 +1,4 @@
-const version = '1022v2';
+const version = '1022v3';
 const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 
@@ -280,13 +280,13 @@ function removeHome(data) {
 			updateProfileSkin(item, 'profileSkin1');
 			newItems.push(item);
 		} else if (itemId == '100505_-_newcreator') {
-			if(mainConfig.removeHomeCreatorTask) {
-				if(item.type == 'grid') {
-					updateProfileSkin(item, 'profileSkin2');
+			if(item.type == 'grid') {
+				updateProfileSkin(item, 'profileSkin2');
+				newItems.push(item);
+			} else {
+				if(!mainConfig.removeHomeCreatorTask) {
 					newItems.push(item);
 				}
-			} else {
-				newItems.push(item);
 			}
 		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask'].indexOf(itemId) > -1) {
 			continue;
