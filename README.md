@@ -107,8 +107,6 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 
 # Contact me
 - weibo:[@甄星cherish](https://weibo.com/zmqcherish)
-- 微博群：因为不经常上tg就暂时不建tg组了。建了一个微博群，只用来聊本项目相关（主要针对微博），有问题可以群里反馈。但是因为某些你懂的原因，大家聊天需谨慎（
-![alt 微博群](https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/wb_group1.jpg)
 # 免责声明
 - 此脚本仅用于学习研究，不保证其合法性、准确性、有效性，请根据情况自行判断，本人对此不承担任何保证责任。
 - 请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
