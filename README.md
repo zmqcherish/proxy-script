@@ -1,7 +1,10 @@
+# 最新版 v1022.3
+> 2021.10.22 update
+- 因Quan-X不会自动更新脚本，根据你本地脚本第一行的version查看是否运行的是最新版
+- 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
 # 说明
 - 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
-- 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
-- 目前仅支持iOS端。使用前提：需到非大陆区AppStore下载Quantumult X / Surge
+- 使用前提：需到非大陆区AppStore下载Quantumult X / Surge
 - Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载
 - 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 - Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
@@ -104,7 +107,8 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 
 # Contact me
 weibo:[@甄星cherish](https://weibo.com/zmqcherish)
-
+微博群：因为不经常上tg就暂时不建tg组了。建了一个微博群，只用来聊本项目相关（主要针对微博），有问题可以群里反馈。但是因为某些你懂的原因，大家聊天需谨慎（
+![alt 微博群](https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/wb_group.jpg)
 # 免责声明
 - 此脚本仅用于学习研究，不保证其合法性、准确性、有效性，请根据情况自行判断，本人对此不承担任何保证责任。
 - 请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
