@@ -63,6 +63,7 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
+			'/video/tiny_stream_video_list': 'del_next_video',		#用户主页
 		}
 
 
@@ -287,22 +288,8 @@ class MainAddon:
 	# 		g['group'] = new_group
 	# 		return
 
-	def test_func(self, req, res):
-		# if 'vip_lightskin/lightskin_' not in req.url:
-		# 	return
-
-		if 'littleskin/lists' in req.url:
-			data = json.loads(res.text)
-			for k,vv in data['data']['type_skin_list'].items():
-				for v in vv:
-					v['fx_img'] = v['fb_img']
-					v['mobile_thumnail'] = v['fb_img']
-			res.text = json.dumps(data)
-		if 'littleskin/prev' in req.url:
-			data = json.loads(res.text)
-			data['data']['skin_info']['fx_img'] = data['data']['skin_info']['fb_img']
-			res.text = json.dumps(data)
-		pass
+	def del_next_video(self, data):
+		data['statuses'] = []
 
 
 	def get_method(self, url):
@@ -340,7 +327,6 @@ class MainAddon:
 
 	def response(self, flow):
 		req = flow.request
-		# self.test_func(req, flow.response)
 
 		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response

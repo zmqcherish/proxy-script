@@ -1,4 +1,4 @@
-const version = '1020v2';
+const version = '1022v1';
 const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 
@@ -11,6 +11,7 @@ const otherUrls = {
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 	'/container/get_item': 'containerHandler',			//列表相关
 	'/profile/statuses': 'userHandler',					//用户主页
+	'/video/tiny_stream_video_list': 'delNextVideo',					//取消自动播放下一个视频
 }
 
 let $ = new nobyda();
@@ -34,10 +35,12 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeRecommendItem: true,	//评论区推荐内容
 
 	removeLiveMedia: true,		//首页顶部直播
+	removeNextVideo: false,					//关闭自动播放下一个视频
 
 	removeInterestFriendInTopic: false,		//超话：超话里的好友
 	removeInterestTopic: false,				//超话：可能感兴趣的超话 + 好友关注
 	removeInterestUser: false,				//用户页：可能感兴趣的人
+	
 	profileSkin1: null,						//用户页：自定义图标1
 	profileSkin2: null,						//用户页：自定义图标2
 }
@@ -370,6 +373,14 @@ function userHandler(data) {
 		}
 	}
 	data.cards = newItems;
+}
+
+
+function delNextVideo(data) {
+	if(mainConfig.removeNextVideo) {
+		data.statuses = [];
+		console.log('delNextVideo');
+	}
 }
 
 function log(data) {
