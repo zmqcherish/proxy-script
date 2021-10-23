@@ -11,7 +11,8 @@ const mainConfig = {
 	modifyMenus: true,			//编辑上下文菜单
 	removeRelateItem: true,		//评论区相关内容
 	removeRecommendItem: true,	//评论区推荐内容
-	
+	removeRewardItem: true,		//微博详情页打赏模块
+
 	removeLiveMedia: true,		//首页顶部直播
 	removeNextVideo: true,		//关闭自动播放下一个视频
 

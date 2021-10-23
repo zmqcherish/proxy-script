@@ -56,7 +56,8 @@ class MainAddon:
 		self.statuses_urls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
 		self.other_urls = {
 			'/profile/me': 'remove_home',
-			'/statuses/extend': 'remove_item',
+			'/statuses/extend': 'item_extend_handler',
+			# '/statuses/show': 'item_main_handler',
 			'/video/remind_info': 'remove_video_remind',
 			'/checkin/show': 'remove_checkin',
 			'/live/media_homelist': 'remove_media_homelist',
@@ -187,7 +188,7 @@ class MainAddon:
 
 
 	# 微博详情
-	def remove_item(self, data):
+	def item_extend_handler(self, data):
 		if main_config['removeRelate'] or main_config['removeGood']:
 			title = data.get('trend', {}).get('titles', {}).get('title')
 			if main_config['removeRelate'] and title == '相关推荐':
@@ -197,6 +198,8 @@ class MainAddon:
 		if main_config['removeFollow']:
 			if 'follow_data' in data:
 				del data['follow_data']
+		if 'reward_info' in data:
+			del data['reward_info']
 		
 		#广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
 		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl', {}):
@@ -344,7 +347,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-# ip = '192.168.1.6'
+ip = '192.168.1.5'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

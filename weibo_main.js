@@ -1,18 +1,4 @@
-const version = 'v1022.3';
-const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
-const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
-
-const otherUrls = {
-	'/profile/me': 'removeHome',						//个人页模块
-	'/statuses/extend': 'removeItem',					//微博详情页
-	'/video/remind_info': 'removeVideoRemind',			//tab2菜单上的假通知
-	'/checkin/show': 'removeCheckin',					//签到任务
-	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
-	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
-	'/container/get_item': 'containerHandler',			//列表相关
-	'/profile/statuses': 'userHandler',					//用户主页
-	'/video/tiny_stream_video_list': 'delNextVideo',					//取消自动播放下一个视频
-}
+const version = 'v1023.1';
 
 let $ = new nobyda();
 let storeIsDebug = $.read('isDebug');
@@ -33,6 +19,7 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	modifyMenus: true,			//编辑上下文菜单
 	removeRelateItem: false,	//评论区相关内容
 	removeRecommendItem: true,	//评论区推荐内容
+	removeRewardItem: false,	//微博详情页打赏模块
 
 	removeLiveMedia: true,		//首页顶部直播
 	removeNextVideo: false,					//关闭自动播放下一个视频
@@ -72,6 +59,21 @@ const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) 
 	mblog_menus_report:true,				//投诉
 	mblog_menus_apeal:true,				//申诉
 	mblog_menus_home:true					//返回首页
+}
+
+const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
+const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
+
+const otherUrls = {
+	'/profile/me': 'removeHome',						//个人页模块
+	'/statuses/extend': 'itemExtendHandler',					//微博详情页
+	'/video/remind_info': 'removeVideoRemind',			//tab2菜单上的假通知
+	'/checkin/show': 'removeCheckin',					//签到任务
+	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
+	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
+	'/container/get_item': 'containerHandler',			//列表相关
+	'/profile/statuses': 'userHandler',					//用户主页
+	'/video/tiny_stream_video_list': 'delNextVideo',					//取消自动播放下一个视频
 }
 
 function getModifyMethod(url) {
@@ -182,7 +184,7 @@ function removeVideoRemind(data) {
 
 
 //微博详情页
-function removeItem(data) {
+function itemExtendHandler(data) {
 	if(mainConfig.removeRelate || mainConfig.removeGood) {
 		if(data.trend && data.trend.titles) {
 			let title = data.trend.titles.title;
@@ -196,6 +198,12 @@ function removeItem(data) {
 	if(mainConfig.removeFollow) {
 		if(data.follow_data) {
 			data.follow_data = null;
+		}
+	}
+
+	if(mainConfig.removeRewardItem) {
+		if(data.reward_info) {
+			data.reward_info = null;
 		}
 	}
 
