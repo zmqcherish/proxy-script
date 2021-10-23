@@ -57,7 +57,6 @@ class MainAddon:
 		self.other_urls = {
 			'/profile/me': 'remove_home',
 			'/statuses/extend': 'item_extend_handler',
-			# '/statuses/show': 'item_main_handler',
 			'/video/remind_info': 'remove_video_remind',
 			'/checkin/show': 'remove_checkin',
 			'/live/media_homelist': 'remove_media_homelist',
@@ -274,22 +273,6 @@ class MainAddon:
 		# 移除可能感兴趣的人
 		data['cards'] = [c for c in cards if c.get('itemid') != 'INTEREST_PEOPLE']
 
-
-	# def change_group(self, data):
-	# 	gs = data.get('groups', [])
-	# 	for g in gs:
-	# 		if g.get('title') != '默认分组':
-	# 			continue
-	# 		gg = g.get('group', [])
-	# 		new_group = []
-	# 		for g2 in gg:
-	# 			if g2.get('title') == '最新微博':
-	# 				g2['type'] = 1
-	# 				new_group.insert(0, g2)
-	# 			else:
-	# 				new_group.append(g2)
-	# 		g['group'] = new_group
-	# 		return
 
 	def del_next_video(self, data):
 		data['statuses'] = []
