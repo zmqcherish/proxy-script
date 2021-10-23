@@ -1,4 +1,4 @@
-const version = 'v1023.1';
+const version = 'v1024.1';
 let $ = new nobyda();
 const otherUrls = {
 	'/littleskin/lists': 'skin_list_handler',
@@ -41,6 +41,7 @@ function skin_handler(data) {
 	for (let skin of skin_list) {
 		if(skin.usetime) {
 			skin['usetime'] = 330
+			skin['version'] = 330
 			skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
 		}
 	}
