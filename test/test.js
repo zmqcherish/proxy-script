@@ -1,5 +1,5 @@
 const version = 'v1023.1';
-
+let $ = new nobyda();
 const otherUrls = {
 	'/littleskin/lists': 'skin_list_handler',
 	'/client/light_skin': 'skin_handler',		 
