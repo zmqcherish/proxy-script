@@ -11,11 +11,13 @@ function skin_list_handler(data) {
 	for(let [k, v] of Object.entries(skin_list_map)) {
 		for (let s of v) {
 			s['download_url'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+			s['mobile_thumnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['fb_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['fx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['wo_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
+			s['bg_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 		}
 	}
 	log('skin_list_handler')
@@ -24,6 +26,7 @@ function skin_list_handler(data) {
 function preview_handler(data) {
 	s = data['data']['skin_info']
 	s['skinurl'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+	s['mobile_thumbnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 	s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 	s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 	s['fb_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
