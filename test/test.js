@@ -1,4 +1,4 @@
-const version = 'v1024.2';
+const version = 'v1025.2';
 let $ = new nobyda();
 const otherUrls = {
 	// '/littleskin/lists': 'skin_list_handler',
@@ -44,8 +44,10 @@ function skin_handler(data) {
 			// if(skin.usetime) {
 			// 	skin['usetime'] = 330
 			// }
-			skin['version'] = mainConfig.iconVersion;
-			skin['downloadlink'] = mainConfig.tabIconPath;
+			log(mainConfig.tabIconPath)
+			log(mainConfig.tabIconVersion)
+			skin['version'] = 123
+			skin['downloadlink'] = 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'
 		}
 		log('tabSkinHandler success')
 }

@@ -38,10 +38,10 @@ class MainAddon:
 	@except_decorative
 	def skin_handler(self, data):
 		skin_list = data['data']['list']
-		skin_list_0 = skin_list[1]
+		# skin_list_0 = skin_list[1]
 		for skin in skin_list:
-			if skin.get('usetime'):
-				skin['usetime'] = 330
+			# if skin.get('usetime'):
+			# 	skin['usetime'] = 330
 			# skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
 			skin['downloadlink'] = 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'
 			# skin['skinid'] = skin_list_0['skinid']
