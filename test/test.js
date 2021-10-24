@@ -1,4 +1,4 @@
-const version = 'v1024.1';
+const version = 'v1024.2';
 let $ = new nobyda();
 const otherUrls = {
 	'/littleskin/lists': 'skin_list_handler',
@@ -10,7 +10,7 @@ function skin_list_handler(data) {
 	skin_list_map = data['data']['type_skin_list']
 	for(let [k, v] of Object.entries(skin_list_map)) {
 		for (let s of v) {
-			s['download_url'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+			// s['download_url'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
 			s['mobile_thumnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 			s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
@@ -25,7 +25,7 @@ function skin_list_handler(data) {
 
 function preview_handler(data) {
 	s = data['data']['skin_info']
-	s['skinurl'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+	// s['skinurl'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
 	s['mobile_thumbnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 	s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
 	s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
@@ -42,7 +42,7 @@ function skin_handler(data) {
 		if(skin.usetime) {
 			skin['usetime'] = 330
 			skin['version'] = 330
-			skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+			// skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
 		}
 	}
 	log('skin_handler')
