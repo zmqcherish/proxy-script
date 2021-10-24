@@ -1,10 +1,13 @@
 const version = 'v1024.2';
 let $ = new nobyda();
 const otherUrls = {
-	'/littleskin/lists': 'skin_list_handler',
+	// '/littleskin/lists': 'skin_list_handler',
 	'/client/light_skin': 'skin_handler',		 
-	'/littleskin/preview': 'preview_handler'
+	// '/littleskin/preview': 'preview_handler'
 }
+let storeMainConfig = $.read('mainConfig');
+//主要的选项配置
+const mainConfig = JSON.parse(storeMainConfig);
 
 function skin_list_handler(data) {
 	skin_list_map = data['data']['type_skin_list']
@@ -36,16 +39,15 @@ function preview_handler(data) {
 }
 
 function skin_handler(data) {
-	skin_list = data['data']['list']
-	skin_list_0 = skin_list[1]
-	for (let skin of skin_list) {
-		if(skin.usetime) {
-			skin['usetime'] = 330
-			skin['version'] = 330
-			// skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
+	let skinList = data['data']['list']
+		for (let skin of skinList) {
+			// if(skin.usetime) {
+			// 	skin['usetime'] = 330
+			// }
+			skin['version'] = mainConfig.iconVersion;
+			skin['downloadlink'] = mainConfig.tabIconPath;
 		}
-	}
-	log('skin_handler')
+		log('tabSkinHandler success')
 }
 
 

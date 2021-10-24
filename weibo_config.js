@@ -1,6 +1,6 @@
 //主要的选项配置
 const mainConfig = {
-	isDebug: false,						//开启调试，会打印运行中部分日志
+	isDebug: true,						//开启调试，会打印运行中部分日志
 
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
 	removeHomeVip: true,				//个人中心头像旁边的vip样式
@@ -28,7 +28,7 @@ const mainConfig = {
 	profileSkin2: ["http://ww4.sinaimg.cn/mw690/acf865f8ly1geywluvq88g2074074gol.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlu5xujg2074074gok.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywltdtcgg207407477b.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlt2k73g2074074dhg.gif"],
 
 	tabIconVersion: 0,	//配置大于100的数
-	tabIconPath: 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin_hebe.zip'	//配置图标路径
+	tabIconPath: 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'	//配置图标路径
 }
 
 //菜单配置
