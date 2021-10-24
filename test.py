@@ -43,7 +43,7 @@ class MainAddon:
 			if skin.get('usetime'):
 				skin['usetime'] = 330
 			# skin['downloadlink'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
-			skin['downloadlink'] = 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-xwz.zip'
+			skin['downloadlink'] = 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'
 			# skin['skinid'] = skin_list_0['skinid']
 			skin['version'] = 111
 

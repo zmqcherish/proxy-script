@@ -1,4 +1,4 @@
-const version = 'v1024.1';
+const version = 'v1025.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -29,6 +29,8 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	
 	profileSkin1: null,						//用户页：自定义图标1
 	profileSkin2: null,						//用户页：自定义图标2
+	tabIconVersion: 0,						//配置大于100的数
+	tabIconPath: ''							//配置图标路径
 }
 
 
@@ -72,7 +74,8 @@ const otherUrls = {
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 	'/container/get_item': 'containerHandler',			//列表相关
 	'/profile/statuses': 'userHandler',					//用户主页
-	'/video/tiny_stream_video_list': 'delNextVideo',					//取消自动播放下一个视频
+	'/video/tiny_stream_video_list': 'nextVidepHandler',	//取消自动播放下一个视频
+	'/client/light_skin': 'tabSkinHandler',
 }
 
 function getModifyMethod(url) {
@@ -383,12 +386,34 @@ function userHandler(data) {
 }
 
 
-function delNextVideo(data) {
+function nextVidepHandler(data) {
 	if(mainConfig.removeNextVideo) {
 		data.statuses = [];
-		console.log('delNextVideo');
+		console.log('nextVidepHandler');
 	}
 }
+
+function tabSkinHandler(data) {
+	try {
+		let iconVersion = mainConfig.tabIconVersion;
+		if(!iconVersion || !mainConfig.tabIconPath) return;
+		if(iconVersion < 100) return;
+
+		let skinList = data['data']['list']
+		for (let skin of skinList) {
+			// if(skin.usetime) {
+			// 	skin['usetime'] = 330
+			// }
+			skin['version'] = iconVersion;
+			skin['downloadlink'] = mainConfig.tabIconPath;
+		}
+		log('tabSkinHandler success')
+	} catch (error) {
+		log('tabSkinHandler fail')
+	}
+	
+}
+
 
 function log(data) {
 	if(mainConfig.isDebug) {
