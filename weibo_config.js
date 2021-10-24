@@ -1,5 +1,7 @@
 //主要的选项配置
 const mainConfig = {
+	isDebug: false,						//开启调试，会打印运行中部分日志
+
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
 	removeHomeVip: true,				//个人中心头像旁边的vip样式
 	removeHomeCreatorTask: true,		//个人中心创作者中心下方的轮播图
@@ -54,7 +56,6 @@ const itemMenusConfig = {
 	mblog_menus_home:true					//返回首页
 }
 
-const isDebug = true;	//开启调试，会打印运行中部分日志
 
 function nobyda() {
 	const isQuanX = typeof $task != "undefined";
@@ -89,10 +90,10 @@ function nobyda() {
 }
 
 let $ = new nobyda();
-$.write(JSON.stringify(isDebug), 'isDebug');
+// $.write(JSON.stringify(isDebug), 'isDebug');
 $.write(JSON.stringify(mainConfig), 'mainConfig');
 $.write(JSON.stringify(itemMenusConfig), 'itemMenusConfig');
-console.log($.read('isDebug'));
+// console.log($.read('isDebug'));
 console.log($.read('mainConfig'));
 console.log($.read('itemMenusConfig'));
 console.log('success');

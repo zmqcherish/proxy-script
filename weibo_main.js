@@ -1,13 +1,12 @@
-const version = 'v1023.1';
+const version = 'v1024.1';
 
 let $ = new nobyda();
-let storeIsDebug = $.read('isDebug');
 let storeMainConfig = $.read('mainConfig');
 let storeItemMenusConfig = $.read('itemMenusConfig');
 
-const isDebug = storeIsDebug ? JSON.parse(storeIsDebug) : false;
 //主要的选项配置
 const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
+	isDebug: false,						//开启调试，会打印运行中部分日志
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
 	removeHomeVip: true,				//个人中心头像旁边的vip样式
 	removeHomeCreatorTask: true,		//个人中心创作者中心下方的轮播图
@@ -392,7 +391,7 @@ function delNextVideo(data) {
 }
 
 function log(data) {
-	if(isDebug) {
+	if(mainConfig.isDebug) {
 		console.log(data);
 	}
 }
