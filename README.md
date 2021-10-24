@@ -1,13 +1,16 @@
-# 最新版 v1023.1
-> 2021.10.23 update
+# 最新版 v1024.1
+> 2021.10.24 update
 - 因Quan-X不会自动更新脚本，根据你本地脚本第一行的version查看是否运行的是最新版
 - 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
+
 # 说明
 - 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
 - 使用前提：需到非大陆区AppStore下载Quantumult X / Surge
 - Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载
 - 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 - Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
+- 文件加速：如果你没有梯子，获取GitHub文件可能会因为网络问题失败。借助[fastgit](https://doc.fastgit.org/)可以为GitHub加速。教程中所有使用 https://raw.githubusercontent.com/ 处都可以使用 https://raw.fastgit.org/ 进行替换。
+
 # 文件功能说明
 ## weibo_main.js & weibo_launch.js
 > 可屏蔽微博app多数广告以及各部分推广模块
@@ -49,6 +52,10 @@
 
 ## weibo.conf
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
+## fast-conf/weibo-fast.conf
+> 同weibo.conf，但GitHub链接使用了fastgit进行加速。非必要还是建议使用weibo.conf
+> 地址：https://raw.fastgit.org/zmqcherish/proxy-script/main/fast-conf/weibo-fast.conf
+
 ## weibo.sgmodule
 > Surge配置，微博订阅配置（下文Surge配置教程中使用）
 ## cherish.conf
@@ -67,7 +74,7 @@
 4. iPhone设置页 -> 通用 -> 关于本机 -> 证书信任设置，打开Quantumult X开头的证书信任
 5. 回到Quan-X App的MitM模块开关打开，重写模块开关打开
 6. 在设置页最下方进入其他设置 -> VPN -> 始终开启
-7. 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo.conf -> 右上角保存
+7. 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo.conf （或使用fast-conf）-> 右上角保存
 8. 回到App首页顶部开启App运行即可
 
 
@@ -113,6 +120,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 - 请勿将此脚本用于任何商业或非法目的，若违反规定请自行对此负责。
 
 # 感谢
+- [fastgit](https://doc.fastgit.org/)
 - [@NobyDa](https://github.com/NobyDa)
 - [@yichahucha](https://github.com/yichahucha)
 - [@AirPods2](https://weibo.com/u/5750747182)
