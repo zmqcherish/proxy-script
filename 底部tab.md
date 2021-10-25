@@ -17,7 +17,7 @@
 
 # 皮肤文件 - 准备
 - 方法一：使用别人提供的zip文件，可忽略这一步
-- 方法二：自定义，下载[示例皮肤](https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip)，然后解压后使用自己的图片替换文件夹中的图片（文件名不变），然后打包获得一个zip文件
+- 方法二：自定义，下载[示例皮肤](https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip)，然后解压后使用自己的图片替换文件夹中的图片（文件名不变），然后打包获得一个zip文件。其中，dropdown_lightskin.png为首页下拉对应的图片，tabbar_lightskin_1.png - tabbar_lightskin_5.png 为底部5个tab对应的图片，其他文件可忽略不做替换
 
 # 皮肤文件 - 链接
 - 方法一：使用别人提供的zip文件，获得一个xxx.zip链接
