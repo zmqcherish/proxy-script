@@ -1,5 +1,5 @@
 # 说明
-- 截至2021.10.24，目前此功能仅支持微博会员。不排除后续突破会员限制可能
+- 截至2021.10.24，目前此功能仅支持微博**会员**。不排除后续突破会员限制可能
 - 操作略微繁琐，效果图如下
 - ![alt 效果图](https://wx4.sinaimg.cn/large/002wMSrPly1gvqvdxjs8jg60go09uhdu02.gif)
 
@@ -9,7 +9,7 @@
 # 打开方法
 1. 在微博app中进入会员中心 -> 个性皮肤，选择一个你喜欢的皮肤进行设置
 2. 设置完成后，后台关闭微博app
-3. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置未与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
+3. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
 4. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
 5. 运行修改后的配置文件
 6. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
