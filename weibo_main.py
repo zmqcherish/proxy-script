@@ -12,7 +12,9 @@ main_config = {
 	'removeRelateItem': True,	#评论区相关内容
 	'removeRecommendItem': True,	#评论区推荐内容
 	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
-	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"]
+	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"],
+	'tabIconVersion': 100,
+	'tabIconPath': 'http://r1j12u5w9.hn-bkt.clouddn.com/skin-hebe.zip',
 }
 
 # 'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_2.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/1071/632/2018/11/06/zhangcaoyantuanzi_tabbar_lighskin_4.png', 'https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_4.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_3.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_4.png', 'https://wx1.sinaimg.cn/large/006Y6guWly1gvjc93r3yzj605k05kjs102.jpg'],
@@ -63,7 +65,8 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
-			'/video/tiny_stream_video_list': 'del_next_video',		#用户主页
+			'/video/tiny_stream_video_list': 'next_video_handler',		#用户主页
+			'/!/client/light_skin': 'skin_handler',		 
 		}
 
 
@@ -274,9 +277,22 @@ class MainAddon:
 		data['cards'] = [c for c in cards if c.get('itemid') != 'INTEREST_PEOPLE']
 
 
-	def del_next_video(self, data):
+	def next_video_handler(self, data):
 		data['statuses'] = []
 
+
+	@except_decorative
+	def skin_handler(self, data):
+		version = main_config.get('tabIconVersion')
+		if not version:
+			return
+		skinList = data['data']['list']
+		for skin in skinList:
+			# if skin.usetime:
+			# 	skin['usetime'] = 330
+			skin['version'] = version
+			skin['downloadlink'] = main_config['tabIconPath']
+		print('tabSkinHandler success')
 
 	def get_method(self, url):
 		for path in self.card_urls:

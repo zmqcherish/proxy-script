@@ -9,10 +9,11 @@
 # 打开方法
 1. 在微博app中进入会员中心 -> 个性皮肤，选择一个你喜欢的皮肤进行设置
 2. 设置完成后，后台关闭微博app
-3. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
-4. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
-5. 运行修改后的配置文件
-6. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
+3. 在Quan-X App做相应配置，见文末。如果使用订阅weibo.conf方式可忽略。
+4. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
+5. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
+6. 运行修改后的配置文件
+7. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
 
 
 # 皮肤文件 - 准备
@@ -32,3 +33,13 @@
 2. 在[空间管理](https://portal.qiniu.com/kodo/bucket)中新建空间。每个空间对应域名有效期30天，过期后可再次创建新的空间已获取新的域名（不影响配置过的皮肤）
 3. 在空间管理中找到新建的空间，进入**文件管理** -> **上传文件**，上传自定义zip文件
 4. 在对应的文件**详情**中获取**文件链接**
+
+# Quan-X 文本模式配置
+> 如果使用订阅weibo.conf方式可忽略此步骤
+```properties
+[rewrite_local]
+# 微博自定义底部tab
+^https?://api.weibo.cn/2/!/client/light_skin url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+[mitm]
+hostname = api.weibo.cn
+```
