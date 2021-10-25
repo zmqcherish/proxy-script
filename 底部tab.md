@@ -20,6 +20,7 @@
 - 方法二：自定义，下载[示例皮肤](https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip)，然后解压后使用自己的图片替换文件夹中的图片（文件名不变），然后打包获得一个zip文件。其中，dropdown_lightskin.png为首页下拉对应的图片，tabbar_lightskin_1.png - tabbar_lightskin_5.png 为底部5个tab对应的图片，其他文件可忽略不做替换
 
 # 皮肤文件 - 链接
+> 若有强烈需求，可联系我进行帮忙配置
 - 方法一：使用别人提供的zip文件，获得一个xxx.zip链接
 - 方法二：将自定义的zip文件上传到[七牛云](https://portal.qiniu.com/)的对象存储中，然后在文件详情中获取文件链接。上传步骤详见下文
 - 方法三（不稳定）：将zip文件上传到自己的GitHub项目中获取对应的raw，此方法不稳定
@@ -28,6 +29,6 @@
 
 # 七牛云上传步骤
 1. 注册[七牛云](https://www.qiniu.com/?cps_key=1hifrwd2d5ope)账号
-2. 在[空间管理](https://portal.qiniu.com/kodo/bucket)中新建空间。每个空间对应域名有效期30天，过期后可再次创建新的空间已获取新的域名。
+2. 在[空间管理](https://portal.qiniu.com/kodo/bucket)中新建空间。每个空间对应域名有效期30天，过期后可再次创建新的空间已获取新的域名（不影响配置过的皮肤）
 3. 在空间管理中找到新建的空间，进入**文件管理** -> **上传文件**，上传自定义zip文件
 4. 在对应的文件**详情**中获取**文件链接**
