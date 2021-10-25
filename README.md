@@ -57,7 +57,7 @@
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
 ## fast-conf/weibo-fast.conf
 > 同weibo.conf，但GitHub链接使用了fastgit进行加速。非必要还是建议使用weibo.conf
-> 地址：https://raw.fastgit.org/zmqcherish/proxy-script/main/fast-conf/weibo-fast.conf
+- 地址：https://raw.fastgit.org/zmqcherish/proxy-script/main/fast-conf/weibo-fast.conf
 
 ## weibo.sgmodule
 > Surge配置，微博订阅配置（下文Surge配置教程中使用）

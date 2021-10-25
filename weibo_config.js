@@ -28,7 +28,8 @@ const mainConfig = {
 	profileSkin2: ["http://ww4.sinaimg.cn/mw690/acf865f8ly1geywluvq88g2074074gol.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlu5xujg2074074gok.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywltdtcgg207407477b.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlt2k73g2074074dhg.gif"],
 
 	tabIconVersion: 0,	//配置大于100的数
-	tabIconPath: 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'	//配置图标路径
+	tabIconPath: 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip',	//配置图标路径
+	//tabIconPath: 'https://vip.storage.weibo.com/vip_lightskin/lightskin_15_1.0.zip'	//配置图标路径
 }
 
 //菜单配置
