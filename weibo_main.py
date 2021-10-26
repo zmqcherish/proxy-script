@@ -66,7 +66,8 @@ class MainAddon:
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
 			'/video/tiny_stream_video_list': 'next_video_handler',		#用户主页
-			'/!/client/light_skin': 'skin_handler',		 
+			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
+			'/littleskin/preview': 'skin_preview_handler',		 
 		}
 
 
@@ -293,6 +294,11 @@ class MainAddon:
 			skin['version'] = version
 			skin['downloadlink'] = main_config['tabIconPath']
 		print('tabSkinHandler success')
+
+
+	def skin_preview_handler(self, data):
+		data['data']['skin_info']['status'] = 1
+
 
 	def get_method(self, url):
 		for path in self.card_urls:

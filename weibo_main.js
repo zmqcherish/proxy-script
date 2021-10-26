@@ -76,6 +76,7 @@ const otherUrls = {
 	'/profile/statuses': 'userHandler',					//用户主页
 	'/video/tiny_stream_video_list': 'nextVidepHandler',	//取消自动播放下一个视频
 	'/!/client/light_skin': 'tabSkinHandler',
+	'/littleskin/preview': 'skinPreviewHandler',
 }
 
 function getModifyMethod(url) {
@@ -411,9 +412,12 @@ function tabSkinHandler(data) {
 	} catch (error) {
 		log('tabSkinHandler fail')
 	}
-	
 }
 
+
+function skinPreviewHandler(data) {
+	data['data']['skin_info']['status'] = 1
+}
 
 function log(data) {
 	if(mainConfig.isDebug) {
