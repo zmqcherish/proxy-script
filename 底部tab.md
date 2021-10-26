@@ -12,7 +12,7 @@
 3. 设置完成后，后台关闭微博app
 4. 在Quan-X App做相应配置，见文末。如果使用订阅weibo.conf方式可忽略。
 5. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
-6. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
+6. 在weibo_config.js中设置tabIconPath值为具体的皮肤文件路径，具体方法参考下文
 7. 运行修改后的配置文件
 8. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
 
@@ -40,7 +40,7 @@
 ```properties
 [rewrite_local]
 # 微博自定义底部tab
-^https?://api.weibo.cn/2/!/client/light_skin url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https://api.weibo.cn/2/!/client/light_skin url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 [mitm]
 hostname = api.weibo.cn
 ```
@@ -50,7 +50,7 @@ hostname = api.weibo.cn
 ```properties
 [rewrite_local]
 # 非会员设置tab皮肤 - cherish
-^https?://new.vip.weibo.cn/littleskin/preview url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https://new.vip.weibo.cn/littleskin/preview url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 [mitm]
 hostname = new.vip.weibo.cn
 ```

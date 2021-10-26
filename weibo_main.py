@@ -67,7 +67,8 @@ class MainAddon:
 			'/profile/statuses': 'user_handler',		#用户主页
 			'/video/tiny_stream_video_list': 'next_video_handler',		#用户主页
 			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
-			'/littleskin/preview': 'skin_preview_handler',		 
+			'/littleskin/preview': 'skin_preview_handler',
+			'/remind/unread_count': 'unread_count_handler',		#用户主页		 
 		}
 
 
@@ -300,6 +301,11 @@ class MainAddon:
 		data['data']['skin_info']['status'] = 1
 
 
+	def unread_count_handler(self, data):
+		ext = data.get('ext_new', {})
+		if 'creator_task' in ext:
+			ext['creator_task']['text'] = ''
+
 	def get_method(self, url):
 		for path in self.card_urls:
 			if path in url:
@@ -352,7 +358,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-ip = '192.168.1.5'
+ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

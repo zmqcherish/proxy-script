@@ -8,29 +8,34 @@ from util import *
 class MainAddon:
 	def __init__(self):
 		self.other_urls = {
-			# '/littleskin/lists': 'skin_list_handler',
-			# '/client/light_skin': 'skin_handler',		#用户主页
-			'/littleskin/preview': 'preview_handler',		#用户主页
-			# '/littleskin/payinfo': 'payinfo_handler',		#用户主页
+			'/2/!/multimedia/playback/batch_get': 'playback_handler',		#用户主页
+			'/remind/unread_count': 'unread_count_handler',		#用户主页
 			# '/aj/vipcenter/home': 'vipcenter_handler',		#用户主页
 		}
 
 
-	def skin_list_handler(self, data):
-		skin_list_map = data['data']['type_skin_list']
-		for k, v in skin_list_map.items():
-			for s in v:
-				# s['download_url'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
-				s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-				s['fb_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-				s['fx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-				s['wo_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
+	def unread_count_handler(self, data):
+		pass
 
 
-	def preview_handler(self, data):
-		# res_data = get_json_file('temp/2.json')
-		# data['data'] = res_data['data']
-		data['data']['skin_info']['status'] = 1
+	def playback_handler(self, data):
+		if 'list' not in data:
+			return
+		save_pickle('temp/playback', data)
+		llist = data['list']
+		for item in llist:
+			if 'ui' in item:
+				item['ui']['cast_scheme'] = ''
+			item['expire_time'] = 0
+			item['media_id'] = 0
+			if 'details' in item:
+				details = item['details']
+				for detail in details:
+					if 'play_info' in detail:
+						del detail['play_info']
+					if 'meta' in detail:
+						del detail['meta']
+		print(data)
 
 
 	
@@ -76,15 +81,18 @@ class MainAddon:
 				return method
 
 
-
 	def response(self, flow):
 		req = flow.request
+		res = flow.response
 
+		
+		# if '京东' in res_text:
+		# 	print('aaaa', req.url)
 
 		method = self.get_method(req.url)
 		if not method:
 			return
-		res = flow.response
+		res_text = res.text
 		data = json.loads(res.text)
 		print(f'match {method}...')
 		eval("self." + method)(data)
@@ -92,7 +100,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-# ip = '192.168.1.4'
+ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

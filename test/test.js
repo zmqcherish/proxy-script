@@ -1,55 +1,21 @@
-const version = 'v1025.2';
+const version = 'v1026.1';
 let $ = new nobyda();
 const otherUrls = {
 	// '/littleskin/lists': 'skin_list_handler',
-	'/client/light_skin': 'skin_handler',		 
+	'/2/!/multimedia/playback/batch_get': 'playback_handler', 
 	// '/littleskin/preview': 'preview_handler'
 }
-let storeMainConfig = $.read('mainConfig');
-//主要的选项配置
-const mainConfig = JSON.parse(storeMainConfig);
+// let storeMainConfig = $.read('mainConfig');
+// //主要的选项配置
+// const mainConfig = JSON.parse(storeMainConfig);
 
-function skin_list_handler(data) {
-	skin_list_map = data['data']['type_skin_list']
-	for(let [k, v] of Object.entries(skin_list_map)) {
-		for (let s of v) {
-			// s['download_url'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
-			s['mobile_thumnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['fb_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['fx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['wo_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-			s['bg_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-		}
+
+function playback_handler(data) {
+	let items = data.list;
+	for (let item of items) {
+		item.expire_time = 0;
 	}
-	log('skin_list_handler')
-}
-
-function preview_handler(data) {
-	s = data['data']['skin_info']
-	// s['skinurl'] = 'https://vip.storage.weibo.com/vip_lightskin/lightskin_79_1.0.zip'
-	s['mobile_thumbnail'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	s['sy_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	s['xx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	s['fb_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	s['fx_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	s['wo_img'] = 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png'
-	log('preview_handler')
-}
-
-function skin_handler(data) {
-	let skinList = data['data']['list']
-		for (let skin of skinList) {
-			// if(skin.usetime) {
-			// 	skin['usetime'] = 330
-			// }
-			log(mainConfig.tabIconPath)
-			log(mainConfig.tabIconVersion)
-			skin['version'] = 123
-			skin['downloadlink'] = 'https://raw.fastgit.org/zmqcherish/proxy-script/main/file/skin-hebe.zip'
-		}
-		log('tabSkinHandler success')
+	log('playback_handler')
 }
 
 

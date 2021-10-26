@@ -2,6 +2,7 @@ import logging
 import json
 import re
 import os
+import pickle
 import requests
 from time import sleep
 from urllib.request import urlretrieve
@@ -35,3 +36,13 @@ def create_folder(path):
 
 def get_file_suffix(path):
 	return os.path.splitext(path)[-1]
+
+
+def get_pickle_file(file_path):
+	with open(file_path, 'rb') as pickle_file:
+		return pickle.load(pickle_file)
+
+
+def save_pickle(file_path, data):
+	with open(file_path, 'wb') as code_file:
+		pickle.dump(data, code_file)
