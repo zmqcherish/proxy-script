@@ -1,5 +1,5 @@
 # 说明
-- 截至2021.10.24，目前此功能仅支持微博**会员**。不排除后续突破会员限制可能
+- 此功能已突破会员限制，**非会员**也可设置，但需要前置操作，详见文末**非会员前置操作**
 - 操作略微繁琐，效果图如下
 - ![alt 效果图](https://wx4.sinaimg.cn/large/002wMSrPly1gvqvdxjs8jg60go09uhdu02.gif)
 
@@ -8,12 +8,13 @@
 
 # 打开方法
 1. 在微博app中进入会员中心 -> 个性皮肤，选择一个你喜欢的皮肤进行设置
-2. 设置完成后，后台关闭微博app
-3. 在Quan-X App做相应配置，见文末。如果使用订阅weibo.conf方式可忽略。
-4. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
-5. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
-6. 运行修改后的配置文件
-7. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
+2. 非会员用户，如果只是想使用微博自带的皮肤，完成第1步即可
+3. 设置完成后，后台关闭微博app
+4. 在Quan-X App做相应配置，见文末。如果使用订阅weibo.conf方式可忽略。
+5. 在weibo_config.js中设置tabIconVersion为大于100的任意数，每次需要更新皮肤时候设置为与上一次**不同值**即可。比如第一次tabIconVersion=101，第二次tabIconVersion=110
+6. 在weibo_config.js中设置tabIconPath值未具体的皮肤文件路径，具体方法参考下文
+7. 运行修改后的配置文件
+8. 重新进入微博app，会提示“**您使用的皮肤已更新**”，点击更新即可。如果未弹出对话框，尝试重新退出再进入app
 
 
 # 皮肤文件 - 准备
@@ -42,4 +43,14 @@
 ^https?://api.weibo.cn/2/!/client/light_skin url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 [mitm]
 hostname = api.weibo.cn
+```
+
+# 非会员前置操作
+> 如果使用订阅weibo.conf方式可忽略此步骤
+```properties
+[rewrite_local]
+# 非会员设置tab皮肤 - cherish
+^https?://new.vip.weibo.cn/littleskin/preview url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+[mitm]
+hostname = new.vip.weibo.cn
 ```
