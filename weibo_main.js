@@ -1,4 +1,4 @@
-const version = 'v1026.2';
+const version = 'v1027.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -77,7 +77,7 @@ const otherUrls = {
 	'/video/tiny_stream_video_list': 'nextVidepHandler',	//取消自动播放下一个视频
 	'/!/client/light_skin': 'tabSkinHandler',
 	'/littleskin/preview': 'skinPreviewHandler',
-	'/remind/unread_count': 'unreadCountHandler',		
+	// '/remind/unread_count': 'unreadCountHandler',		
 }
 
 function getModifyMethod(url) {
@@ -421,12 +421,12 @@ function skinPreviewHandler(data) {
 }
 
 
-function unreadCountHandler(data) {
-	let ext = data.ext_new;
-	if(!ext) return;
-	if(!ext.creator_task) return;
-	ext.creator_task.text = '';
-}
+// function unreadCountHandler(data) {
+// 	let ext = data.ext_new;
+// 	if(!ext) return;
+// 	if(!ext.creator_task) return;
+// 	ext.creator_task.text = '';
+// }
 
 function log(data) {
 	if(mainConfig.isDebug) {

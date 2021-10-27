@@ -68,7 +68,7 @@ class MainAddon:
 			'/video/tiny_stream_video_list': 'next_video_handler',		#用户主页
 			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
 			'/littleskin/preview': 'skin_preview_handler',
-			'/remind/unread_count': 'unread_count_handler',		#用户主页		 
+			# '/remind/unread_count': 'unread_count_handler',		#用户主页		 
 		}
 
 
