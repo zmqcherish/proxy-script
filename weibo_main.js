@@ -26,7 +26,9 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeInterestFriendInTopic: false,		//超话：超话里的好友
 	removeInterestTopic: false,				//超话：可能感兴趣的超话 + 好友关注
 	removeInterestUser: false,				//用户页：可能感兴趣的人
-	
+
+	removeLvZhou: false,					//绿洲模块
+
 	profileSkin1: null,						//用户页：自定义图标1
 	profileSkin2: null,						//用户页：自定义图标2
 	tabIconVersion: 0,						//配置大于100的数
@@ -142,6 +144,21 @@ function removeCards(data) {
 }
 
 
+function lvZhouHandler(data) {
+	if(!mainConfig.removeLvZhou) return;
+	let struct = data.common_struct;
+	if(!struct) return;
+	let newStruct = [];
+	for (const s of struct) {
+		if(s.name != '绿洲') {
+			newStruct.push(s);
+		}
+	}
+	data.common_struct = newStruct;
+}
+
+
+
 function removeTimeLine(data) {
 	for (const s of ["ad", "advertises", "trends"]) {
 		if(data[s]) {
@@ -154,6 +171,7 @@ function removeTimeLine(data) {
 	let newStatuses = [];
 	for (const s of data.statuses) {
 		if(!isAd(s)) {
+			lvZhouHandler(s);
 			newStatuses.push(s);
 		}
 	}

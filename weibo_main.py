@@ -111,6 +111,13 @@ class MainAddon:
 		# 	return False
 
 
+	def handle_comment_struct(self, data):
+		struct = data.get('common_struct')
+		if not struct:
+			return
+		data['common_struct'] = [s for s in struct if s.get('name') != '绿洲']
+
+
 	def remove_tl(self, data):
 		for k in ['advertises', 'ad', 'trends']:
 			if k in data:
@@ -118,7 +125,13 @@ class MainAddon:
 		statuses = data.get('statuses')
 		if not statuses:
 			return
-		data['statuses'] = [s for s in statuses if not self.is_ad(s)]
+		new_statuses = []
+		for s in statuses:
+			if self.is_ad(s):
+				continue
+			self.handle_comment_struct(s)
+			new_statuses.append(s)
+		data['statuses'] = new_statuses
 
 
 	@except_decorative
@@ -358,7 +371,7 @@ class MainAddon:
 
 
 ip = '10.2.147.8'
-ip = '192.168.1.4'
+# ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
