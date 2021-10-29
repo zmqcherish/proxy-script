@@ -112,6 +112,8 @@ class MainAddon:
 
 
 	def handle_comment_struct(self, data):
+		if not data:
+			return
 		struct = data.get('common_struct')
 		if not struct:
 			return
@@ -289,7 +291,12 @@ class MainAddon:
 		if not cards:
 			return
 		# 移除可能感兴趣的人
-		data['cards'] = [c for c in cards if c.get('itemid') != 'INTEREST_PEOPLE']
+		new_cards = []
+		for c in cards:
+			if c.get('itemid') != 'INTEREST_PEOPLE':
+				self.handle_comment_struct(c.get('mblog'))
+				new_cards.append(c)
+		data['cards'] = new_cards
 
 
 	def next_video_handler(self, data):

@@ -1,4 +1,4 @@
-const version = 'v1029.1';
+const version = 'v1029.2';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -146,6 +146,7 @@ function removeCards(data) {
 
 function lvZhouHandler(data) {
 	if(!mainConfig.removeLvZhou) return;
+	if(!data) return;
 	let struct = data.common_struct;
 	if(!struct) return;
 	let newStruct = [];
@@ -399,6 +400,7 @@ function userHandler(data) {
 		if(item.itemid == 'INTEREST_PEOPLE') {
 			log('remove 感兴趣的人');
 		} else {
+			lvZhouHandler(item.mblog);
 			newItems.push(item);
 		}
 	}
