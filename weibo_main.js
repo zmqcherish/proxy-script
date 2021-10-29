@@ -1,4 +1,4 @@
-const version = 'v1027.1';
+const version = 'v1029.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
