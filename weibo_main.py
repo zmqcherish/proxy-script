@@ -65,10 +65,11 @@ class MainAddon:
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
 			'/profile/statuses': 'user_handler',		#用户主页
-			'/video/tiny_stream_video_list': 'next_video_handler',		#用户主页
+			'/video/tiny_stream_video_list': 'next_video_handler',		#自动下一条视频
+			'/2/statuses/video_mixtimeline': 'next_video_handler',		#自动下一条视频
 			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
 			'/littleskin/preview': 'skin_preview_handler',
-			# '/remind/unread_count': 'unread_count_handler',		#用户主页		 
+			# '/remind/unread_count': 'unread_count_handler',		 
 		}
 
 
@@ -301,6 +302,7 @@ class MainAddon:
 
 	def next_video_handler(self, data):
 		data['statuses'] = []
+		data['tab_list'] = []
 
 
 	@except_decorative
@@ -339,6 +341,8 @@ class MainAddon:
 
 
 	def remove_launch_ad(self, url, data):
+		imgs = ["006Y6guWly1gdc0r26dwdj30ku114n4p","006Y6guWly1gdc0r1nj1oj30n01dstla","006Y6guWly1gdc0r2h1p5j30n01ds4qp","006Y6guWly1gemhviru7rj30n01dsnpe","006Y6guWly1gemhvj5se8j30n01dsag4","006Y6guWly1gdc0r3gv3sj30n01dsu0y","006Y6guWly1gdc0r3ujlxj30n01ds7qq","006Y6guWly1gdc0r4cgzwj30n01dsn3t","006Y6guWly1gdc0r4ish2j30n01dsafk"]
+
 		if self.launch_ad_url1 in url:
 			temp = re.search('\{.*\}', data)
 			if not temp:
@@ -346,6 +350,11 @@ class MainAddon:
 			res = json.loads(temp.group())
 			if 'ads' in res:
 				res['ads'] = []
+				# ads = res['ads']
+				# for ad in ads:
+				# 	ad['imageurl'] = f'https://wx4.sinaimg.cn/mw2000/{random.choice(imgs)}.jpg'
+				# 	if 'click_rects' in ad:
+				# 		del ad['click_rects']
 			if 'background_delay_display_time' in res:
 				res['background_delay_display_time'] = 60 * 60 * 24 * 1000
 			if 'show_push_splash_ad' in res:
@@ -377,8 +386,8 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.147.8'
-# ip = '192.168.1.4'
+# ip = '10.2.147.8'
+ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

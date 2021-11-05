@@ -1,4 +1,4 @@
-const version = 'v1029.2';
+const version = 'v1105.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -77,6 +77,7 @@ const otherUrls = {
 	'/container/get_item': 'containerHandler',			//列表相关
 	'/profile/statuses': 'userHandler',					//用户主页
 	'/video/tiny_stream_video_list': 'nextVidepHandler',	//取消自动播放下一个视频
+	'/2/statuses/video_mixtimeline': 'nextVidepHandler',	
 	'/!/client/light_skin': 'tabSkinHandler',
 	'/littleskin/preview': 'skinPreviewHandler',
 	// '/remind/unread_count': 'unreadCountHandler',		
@@ -411,6 +412,7 @@ function userHandler(data) {
 function nextVidepHandler(data) {
 	if(mainConfig.removeNextVideo) {
 		data.statuses = [];
+		data.tab_list = [];
 		console.log('nextVidepHandler');
 	}
 }

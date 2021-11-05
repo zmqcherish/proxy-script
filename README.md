@@ -1,4 +1,4 @@
-# 最新版 v1029.2
+# 最新版 v1105.1
 - 因Quan-X不会自动更新脚本，根据你本地脚本第一行的version查看是否运行的是最新版
 - 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
 
@@ -35,6 +35,7 @@
 )
 - 【已删除】移除tab5新任务通知。[原样式](https://m.weibo.cn/2316757461/4696696879319087)
 - 删除绿洲模块（可配置，默认关闭）
+- 【待定】自定义开屏图片/视频。如有需求，可以考虑开发
 ## weibo_config.js
 > 微博自定义配置
 - weibo_main.js文件中含有大量配置用于控制脚本的实际运行结果，如是否移除顶部直播或评论区相关内容等。如果不需要有自己的配置，可忽略此部分说明。
@@ -86,7 +87,7 @@
 ```properties
 [rewrite_local]
 # 微博去广告以及去除各部分推广模块
-^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend|video_mixtimeline)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 # 删除微博开屏广告
 ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [mitm]
@@ -111,7 +112,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 > 目前有bug，待修复
 ```properties
 [Script]
-http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(unread_hot_timeline|extend|video_mixtimeline)|profile/(me|statuses)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 http-response ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [MITM]
 hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
