@@ -197,7 +197,7 @@ class MainAddon:
 				if item.get('type') == 'grid':
 					self.update_profile_skin(item, 'profileSkin2')
 					new_items.append(item)
-			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask']:	#为你推荐 为你推荐图片 用户任务
+			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong']:	#为你推荐 为你推荐图片 用户任务
 				continue
 			elif re.search('100505_-_meattent_-_\d+', item_id):
 				continue
@@ -386,8 +386,8 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-# ip = '10.2.147.8'
-ip = '192.168.1.7'
+ip = '10.2.147.122'
+# ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

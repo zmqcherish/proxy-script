@@ -1,4 +1,4 @@
-const version = 'v1105.1';
+const version = 'v1222.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -76,8 +76,8 @@ const otherUrls = {
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 	'/container/get_item': 'containerHandler',			//列表相关
 	'/profile/statuses': 'userHandler',					//用户主页
-	'/video/tiny_stream_video_list': 'nextVidepHandler',	//取消自动播放下一个视频
-	'/2/statuses/video_mixtimeline': 'nextVidepHandler',	
+	'/video/tiny_stream_video_list': 'nextVideoHandler',	//取消自动播放下一个视频
+	'/2/statuses/video_mixtimeline': 'nextVideoHandler',	
 	'/!/client/light_skin': 'tabSkinHandler',
 	'/littleskin/preview': 'skinPreviewHandler',
 	// '/remind/unread_count': 'unreadCountHandler',		
@@ -320,7 +320,7 @@ function removeHome(data) {
 					newItems.push(item);
 				}
 			}
-		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask'].indexOf(itemId) > -1) {
+		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong'].indexOf(itemId) > -1) {
 			continue;
 		} else if (itemId.match(/100505_-_meattent_-_\d+/)) {
 			continue;
@@ -409,11 +409,11 @@ function userHandler(data) {
 }
 
 
-function nextVidepHandler(data) {
+function nextVideoHandler(data) {
 	if(mainConfig.removeNextVideo) {
 		data.statuses = [];
 		data.tab_list = [];
-		console.log('nextVidepHandler');
+		console.log('nextVideoHandler');
 	}
 }
 
