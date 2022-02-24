@@ -8,9 +8,13 @@ from util import *
 class MainAddon:
 	def __init__(self):
 		self.url_map = {
-			'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'remove_xhs_launch',	#小红书开屏
-			'x/v2/feed/index': 'remove_bb_feed'	#b站推荐页广告
+			# 'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'remove_xhs_launch',	#小红书开屏
+			'searchall': 'test'	#b站推荐页广告
 		}
+
+	def test(self, data):
+		data['cardlistInfo']['cardlist_head_cards'][0]['head_data']['midtext'] = '今日阅读1000万  今日讨论330  详情>'
+
 
 	@except_decorative
 	def remove_xhs_launch(self, data):
@@ -51,9 +55,9 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.147.8'
+ip = '10.2.147.214'
 # ip = '192.168.1.6'
-port = 8888
+port = 5555
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
 
