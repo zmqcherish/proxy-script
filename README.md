@@ -5,7 +5,7 @@
 # 说明
 - 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
 - 使用前提：需到非大陆区AppStore下载Quantumult X / Surge
-- Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载
+- Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载，也可找各渠道付费购买
 - 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 - Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
 - 文件加速：如果你没有梯子，获取GitHub文件可能会因为网络问题失败。借助[fastgit](https://doc.fastgit.org/)可以为GitHub加速。教程中所有使用 https://raw.githubusercontent.com/ 处都可以使用 https://raw.fastgit.org/ 进行替换。
