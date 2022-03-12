@@ -1,4 +1,4 @@
-# 最新版 v0224.1
+# 最新版 v0312.1
 - 因Quan-X不会自动更新脚本，根据你本地脚本第一行的version查看是否运行的是最新版
 - 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
 
@@ -37,11 +37,13 @@
 - 删除绿洲模块（可配置，默认关闭）
 - 【待定】自定义开屏图片/视频。如有需求，可以考虑开发
 - 删除个人页【让红包飞】模块
+- 【03.12更新】新增屏蔽用户功能，如果有不得已需要关注的人（比如某些抽奖关注），但是又不想看TA的内容可以使用此配置。
 ## weibo_config.js
 > 微博自定义配置
 - weibo_main.js文件中含有大量配置用于控制脚本的实际运行结果，如是否移除顶部直播或评论区相关内容等。如果不需要有自己的配置，可忽略此部分说明。
 - 如果设置过自定义配置，对后续新增加的功能，如果不生效需要重新设置一次自定义配置。
 - 如果需要有自己的特别需求，以评论区相关内容为例，默认是关闭(false)，即不移除。如果需要移除可复制[weibo_config.js](https://github.com/zmqcherish/proxy-script/blob/main/weibo_config.js)文件，然后修改 mainConfig.removeRelateItem = true 后，运行此文件即可。
+- 屏蔽用户id获取方法：进入用户主页，选择复制链接，得到类似“https://weibo.com/u/xxx”的文本，xxx即为用户id。多个用户用英文逗号“,”分开
 - 自定义个人主页图标设置：详见[微博皮肤.md](https://github.com/zmqcherish/proxy-script/blob/main/微博皮肤.md)
 - 自定义底部tab图标：详见[底部tab.md](https://github.com/zmqcherish/proxy-script/blob/main/底部tab.md)
 - Quan-X 运行方法1：在App中，点击【构造HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标）

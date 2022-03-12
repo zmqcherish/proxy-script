@@ -1,4 +1,4 @@
-const version = 'v0224.1';
+const version = 'v0312.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -160,6 +160,19 @@ function lvZhouHandler(data) {
 }
 
 
+function isBlock(data) {
+	let blockIds = mainConfig.blockIds || [];
+	if(blockIds.length === 0) {
+		return false;
+	}
+	let uid = data.user.id;
+	for (const blockId of blockIds) {
+		if(blockId == uid) {
+			return true;
+		}
+	}
+	return false;
+}
 
 function removeTimeLine(data) {
 	for (const s of ["ad", "advertises", "trends"]) {
@@ -174,7 +187,9 @@ function removeTimeLine(data) {
 	for (const s of data.statuses) {
 		if(!isAd(s)) {
 			lvZhouHandler(s);
-			newStatuses.push(s);
+			if(!isBlock(s)) {
+				newStatuses.push(s);
+			}
 		}
 	}
 	data.statuses = newStatuses;
