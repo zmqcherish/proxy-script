@@ -13,8 +13,8 @@ main_config = {
 	'removeRecommendItem': True,	#评论区推荐内容
 	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
 	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"],
-	'tabIconVersion': 100,
-	'tabIconPath': 'http://r1j12u5w9.hn-bkt.clouddn.com/skin-hebe.zip',
+	'tabIconVersion': 101,
+	'tabIconPath': 'https://media-platform.bjcnc.scs.sohucs.com/skin-hebe.zip',
 }
 
 # 'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_2.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/1071/632/2018/11/06/zhangcaoyantuanzi_tabbar_lighskin_4.png', 'https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_4.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_3.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_4.png', 'https://wx1.sinaimg.cn/large/006Y6guWly1gvjc93r3yzj605k05kjs102.jpg'],
@@ -69,8 +69,37 @@ class MainAddon:
 			'/2/statuses/video_mixtimeline': 'next_video_handler',		#自动下一条视频
 			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
 			'/littleskin/preview': 'skin_preview_handler',
+			'/search/finder': 'remove_search_main',
+			'/search/container_timeline': 'remove_search',
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
+
+	def remove_search_main(self, data):
+		channels = data.get('channelInfo', {}).get('channels')
+		if not channels:
+			return
+		for channel in channels:
+			paload = channel.get('paload')
+			if not paload:
+				continue
+			self.remove_search(paload)
+		print('remove_search main success');
+
+	# 发现页
+	def remove_search(self, data):
+		items = data.get('items')
+		if not items:
+			return
+		new_items = []
+		for item in items:
+			if item.get('category') == 'feed':
+				item_data = item.get('data')
+				if not self.is_ad(item_data):
+					new_items.append(item)
+			else:
+				new_items.append(item)
+		data['items'] = new_items
+		print('remove_search success');
 
 
 	def remove_card_list(self, data):
@@ -170,6 +199,9 @@ class MainAddon:
 		for d in items:
 			if 'image' not in d:
 				continue
+			dm = d['image'].get('style', {}).get('darkMode')
+			if dm != 'alpha':
+				d['image']['style']['darkMode'] = 'alpha'
 			d['image']['iconUrl'] = profile_skin[i]
 			i += 1
 			if 'dot' in d:
@@ -386,7 +418,7 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.147.122'
+ip = '10.2.146.67'
 # ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)

@@ -1,4 +1,4 @@
-const version = 'v0312.1';
+const version = 'v0412.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -80,6 +80,8 @@ const otherUrls = {
 	'/2/statuses/video_mixtimeline': 'nextVideoHandler',	
 	'/!/client/light_skin': 'tabSkinHandler',
 	'/littleskin/preview': 'skinPreviewHandler',
+	'/search/finder': 'removeSearchMain',
+	'/search/container_timeline': 'removeSearch',
 	// '/remind/unread_count': 'unreadCountHandler',		
 }
 
@@ -110,6 +112,40 @@ function isAd(data) {
 	if(data.mblogtypename == '广告' || data.mblogtypename == '热推') {return true};
 	if(data.promotion && data.promotion.type == 'ad') {return true};
 	return false;
+}
+
+
+function removeSearchMain(data) {
+	let channels = data.channelInfo.channels;
+	if (!channels) {return data;}
+	for(let channel of channels) {
+		let paload = channel.paload;
+		if (!paload) {continue;}
+		removeSearch(paload)
+	}
+	log('remove_search main success');
+	return data;
+}
+
+
+//发现页
+function removeSearch(data) {
+	if(!data.items) {
+		return data;
+	}
+	let newItems = [];
+	for (let item of data.items) {
+		if(item.category == 'feed') {
+			if(!isAd(item.data)) {
+				newItems.push(item);
+			}
+		} else {
+			newItems.push(item);
+		}
+	}
+	data.items = newItems;
+	log('remove_search success');	
+	return data;
 }
 
 
@@ -298,9 +334,17 @@ function updateProfileSkin(item, k) {
 			if(!d.image) {
 				continue;
 			}
-			d.image.iconUrl = profileSkin[i++];
-			if(d.dot) {
-				d.dot = [];
+			try {
+				dm = d.image.style.darkMode
+				if(dm != 'alpha') {
+					d.image.style.darkMode = 'alpha'
+				}
+				d.image.iconUrl = profileSkin[i++];
+				if(d.dot) {
+					d.dot = [];
+				}
+			} catch (error) {
+				
 			}
 		}
 		log('updateProfileSkin success');
