@@ -13,8 +13,8 @@ main_config = {
 	'removeRecommendItem': True,	#评论区推荐内容
 	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
 	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"],
-	'tabIconVersion': 101,
-	'tabIconPath': 'https://media-platform.bjcnc.scs.sohucs.com/skin-hebe.zip',
+	'tabIconVersion': 11,
+	'tabIconPath': 'http://5b0988e595225.cdn.sohucs.com/skin-hebe.zip',
 }
 
 # 'profileSkin1': ['https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_2.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_1.png', 'https://h5.sinaimg.cn/upload/1071/632/2018/11/06/zhangcaoyantuanzi_tabbar_lighskin_4.png', 'https://h5.sinaimg.cn/upload/1071/632/2019/01/11/Fat4_tabbar_lightskin_4.png', 'https://h5.sinaimg.cn/upload/108/914/2018/11/26/mario_tabbar_lightskin_3.png', 'https://h5.sinaimg.cn/upload/108/914/2019/04/16/xiaowangzi_tabbar_lightskin_4.png', 'https://wx1.sinaimg.cn/large/006Y6guWly1gvjc93r3yzj605k05kjs102.jpg'],
@@ -340,7 +340,8 @@ class MainAddon:
 	@except_decorative
 	def skin_handler(self, data):
 		version = main_config.get('tabIconVersion')
-		if not version:
+		data['data']['canUse'] = 1
+		if not version or version < 100:
 			return
 		skinList = data['data']['list']
 		for skin in skinList:

@@ -1,4 +1,4 @@
-const version = 'v0412.1';
+const version = 'v0422.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -479,6 +479,7 @@ function nextVideoHandler(data) {
 function tabSkinHandler(data) {
 	try {
 		let iconVersion = mainConfig.tabIconVersion;
+		data['data']['canUse'] = 1
 		if(!iconVersion || !mainConfig.tabIconPath) return;
 		if(iconVersion < 100) return;
 

@@ -8,9 +8,12 @@ from util import *
 class MainAddon:
 	def __init__(self):
 		self.other_urls = {
-			'/2/!/multimedia/playback/batch_get': 'playback_handler',		#用户主页
-			'/remind/unread_count': 'unread_count_handler',		#用户主页
-			# '/aj/vipcenter/home': 'vipcenter_handler',		#用户主页
+			# '/2/!/multimedia/playback/batch_get': 'playback_handler',		#用户主页
+			# '/remind/unread_count': 'unread_count_handler',		#用户主页
+			'/batch': 'wyy',		#用户主页
+			'/api/v3/song/detail': 'wyy',		#用户主页
+			'/api/v6/playlist/detail': 'wyy',		#用户主页
+			'/api/song/enhance/player/url': 'wyy',		#用户主页
 		}
 
 
@@ -64,7 +67,7 @@ class MainAddon:
 		# data['data']['tipUrlNovip']='sinaweibo://mppopupwindow?wbx_hide_close_btn=true&wbx_bg_view_dismiss=true&scheme=sinaweibo%3A%2F%2Fwbox%3Fid%3Dn1htatg0fm%26page%3Dpages%2Fcashier%2Fcashier%26cashier_id%3D17%26F%3Dtq_skin_mppopupwindow'
 
 
-	def vipcenter_handler(self, data):
+	def wyy(self, data):
 		# res_data = get_json_file('temp/1.json')
 		# data['data'] = res_data['data']
 		a=1
@@ -99,8 +102,8 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.147.8'
-ip = '192.168.1.4'
+ip = '10.2.146.67'
+# ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

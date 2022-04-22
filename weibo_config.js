@@ -31,8 +31,8 @@ const mainConfig = {
 	profileSkin1: ["http://ww4.sinaimg.cn/mw690/acf865f8ly1geywm0xiz9g2074074tbk.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywm0l1jsg2074074ab7.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywm0f40qg2074074myw.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywm08lc7g2074074q5v.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlzuuo5g2074074n01.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlzl7oqg207407476m.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlzawwmg207407441d.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlyvqu3g2074074goe.gif"],
 	profileSkin2: ["http://ww4.sinaimg.cn/mw690/acf865f8ly1geywluvq88g2074074gol.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlu5xujg2074074gok.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywltdtcgg207407477b.gif","http://ww4.sinaimg.cn/mw690/acf865f8ly1geywlt2k73g2074074dhg.gif"],
 
-	tabIconVersion: 0,	//配置大于100的数
-	tabIconPath: "http://r1j12u5w9.hn-bkt.clouddn.com/skin-hebe1.zip",	//配置图标路径
+	tabIconVersion: 0,	//配置大于100的数才生效
+	tabIconPath: "http://5b0988e595225.cdn.sohucs.com/skin-hebe.zip",	//配置图标路径
 }
 
 //菜单配置
