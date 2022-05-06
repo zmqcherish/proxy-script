@@ -1,4 +1,4 @@
-const version = 'v0422.1';
+const version = 'v0506.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -460,8 +460,10 @@ function userHandler(data) {
 		if(item.itemid == 'INTEREST_PEOPLE') {
 			log('remove 感兴趣的人');
 		} else {
-			lvZhouHandler(item.mblog);
-			newItems.push(item);
+			if(!isAd(item.mblog)) {
+				lvZhouHandler(item.mblog);
+				newItems.push(item);
+			}
 		}
 	}
 	data.cards = newItems;

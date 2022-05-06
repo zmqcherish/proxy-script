@@ -71,6 +71,7 @@ class MainAddon:
 			'/littleskin/preview': 'skin_preview_handler',
 			'/search/finder': 'remove_search_main',
 			'/search/container_timeline': 'remove_search',
+			# '/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
 
@@ -327,6 +328,8 @@ class MainAddon:
 		new_cards = []
 		for c in cards:
 			if c.get('itemid') != 'INTEREST_PEOPLE':
+				if self.is_ad(c.get('mblog')):
+					continue
 				self.handle_comment_struct(c.get('mblog'))
 				new_cards.append(c)
 		data['cards'] = new_cards
@@ -360,6 +363,18 @@ class MainAddon:
 		ext = data.get('ext_new', {})
 		if 'creator_task' in ext:
 			ext['creator_task']['text'] = ''
+
+
+	def handle_push(self, data):
+		# data['traceroute_time_interval'] = 1000
+		# data['push_version'] = '1000dsadadsa'
+		# data['version'] = 'version_20210128'	# 应该是这个控制版本
+		# data['launch_app_config_version'] = '08e94a37bdae64de40ba6ecb16cbaa41'
+		if 'feed_redpacket' in data:	# 首页右上角红包
+			# data['feed_redpacket']['icon'] = 'http://h5.sinaimg.cn/upload/2016/02/04/196/helper_redpacket_valentine_compose.png'
+			# data['feed_redpacket']['icon'] = 'http://p1.itc.cn/mpbp/dev/20210716/436a8ef98c8941f3ba62452b1ed4842f.jpeg'
+			print(data['feed_redpacket'])
+
 
 	def get_method(self, url):
 		for path in self.card_urls:
@@ -419,7 +434,7 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.146.67'
+ip = '10.2.146.70'
 # ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
