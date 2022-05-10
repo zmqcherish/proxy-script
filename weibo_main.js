@@ -1,4 +1,4 @@
-const version = 'v0506.1';
+const version = 'v0510.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -379,7 +379,7 @@ function removeHome(data) {
 					newItems.push(item);
 				}
 			}
-		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022'].indexOf(itemId) > -1) {
+		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto'].indexOf(itemId) > -1) {
 			continue;
 		} else if (itemId.match(/100505_-_meattent_-_\d+/)) {
 			continue;

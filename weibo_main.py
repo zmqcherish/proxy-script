@@ -230,7 +230,7 @@ class MainAddon:
 				if item.get('type') == 'grid':
 					self.update_profile_skin(item, 'profileSkin2')
 					new_items.append(item)
-			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022']:	#为你推荐 为你推荐图片 用户任务 让红包飞
+			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto']:	#为你推荐 为你推荐图片 用户任务 让红包飞
 				continue
 			elif re.search('100505_-_meattent_-_\d+', item_id):
 				continue
