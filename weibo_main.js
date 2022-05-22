@@ -131,7 +131,6 @@ function removeSearchMain(data) {
 function checkSearchWindow(item) {
 	if(!mainConfig.removeSearchWindow) return false;
 	if(item.category != 'card') return false;
-	console.log(item?.data.itemid);
 	return item?.data.itemid == 'finder_window';
 }
 		
