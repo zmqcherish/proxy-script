@@ -81,10 +81,10 @@ class MainAddon:
 		if not channels:
 			return
 		for channel in channels:
-			paload = channel.get('paload')
-			if not paload:
+			payload = channel.get('payload')
+			if not payload:
 				continue
-			self.remove_search(paload)
+			self.remove_search(payload)
 		print('remove_search main success');
 
 
