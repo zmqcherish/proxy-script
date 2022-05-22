@@ -1,4 +1,4 @@
-const version = 'v0522.2';
+const version = 'v0522.3';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -119,9 +119,9 @@ function removeSearchMain(data) {
 	let channels = data.channelInfo.channels;
 	if (!channels) {return data;}
 	for(let channel of channels) {
-		let paload = channel.paload;
-		if (!paload) {continue;}
-		removeSearch(paload)
+		let payload = channel.payload;
+		if (!payload) {continue;}
+		removeSearch(payload)
 	}
 	log('remove_search main success');
 	return data;
