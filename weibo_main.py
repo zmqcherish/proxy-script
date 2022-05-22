@@ -11,6 +11,7 @@ main_config = {
 	'removeFollow': True,	#关注博主
 	'removeRelateItem': True,	#评论区相关内容
 	'removeRecommendItem': True,	#评论区推荐内容
+	'removeSearchWindow' : True,	#搜索页滑动窗口
 	'profileSkin1': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaingvoj6046046dg802.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiuoxtj6046046dga02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaiytuyj60460463yv02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj19hvj6046046aac02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj5ka0j6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeaj9jfmj6046046dg502.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajd0hfj60460463yu02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajfce5j6046046wet02.jpg"],
 	'profileSkin2': ["https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajhmrnj6046046jro02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajmgs0j60460460t102.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajp9uuj6046046jrp02.jpg","https://wx2.sinaimg.cn/large/006Y6guWly1gvjeajrwrwj6046046dg102.jpg"],
 	'tabIconVersion': 11,
@@ -71,7 +72,7 @@ class MainAddon:
 			'/littleskin/preview': 'skin_preview_handler',
 			'/search/finder': 'remove_search_main',
 			'/search/container_timeline': 'remove_search',
-			# '/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
+			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
 
@@ -86,6 +87,16 @@ class MainAddon:
 			self.remove_search(paload)
 		print('remove_search main success');
 
+
+	def check_search_window(self, item):
+		if not main_config.remove_search_windows:
+			return False
+		if item.get('category') != 'card':
+			return False
+		item_data = item.get('data', {})
+		return item_data['itemid'] == "finder_window"
+
+
 	# 发现页
 	def remove_search(self, data):
 		items = data.get('items')
@@ -98,7 +109,8 @@ class MainAddon:
 				if not self.is_ad(item_data):
 					new_items.append(item)
 			else:
-				new_items.append(item)
+				if not self.check_search_window(self, item):
+					new_items.append(item)
 		data['items'] = new_items
 		print('remove_search success');
 
@@ -366,6 +378,9 @@ class MainAddon:
 
 
 	def handle_push(self, data):
+		if 'floating_windows' in data:
+			del data['floating_windows']
+
 		# data['traceroute_time_interval'] = 1000
 		# data['push_version'] = '1000dsadadsa'
 		# data['version'] = 'version_20210128'	# 应该是这个控制版本

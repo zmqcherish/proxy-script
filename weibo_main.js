@@ -1,4 +1,4 @@
-const version = 'v0510.1';
+const version = 'v0522.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -128,6 +128,13 @@ function removeSearchMain(data) {
 }
 
 
+function checkSearchWindow(item) {
+	if(main_config.remove_search_windows) return false;
+	if(item.category != 'card') return false;
+	return item?.data.itemid == 'finder_window';
+}
+		
+
 //发现页
 function removeSearch(data) {
 	if(!data.items) {
@@ -140,7 +147,9 @@ function removeSearch(data) {
 				newItems.push(item);
 			}
 		} else {
-			newItems.push(item);
+			if(!checkSearchWindow(item)) {
+				newItems.push(item);
+			}
 		}
 	}
 	data.items = newItems;
