@@ -1,4 +1,4 @@
-const version = 'v0522.1';
+const version = 'v0522.2';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -131,6 +131,7 @@ function removeSearchMain(data) {
 function checkSearchWindow(item) {
 	if(!main_config.remove_search_windows) return false;
 	if(item.category != 'card') return false;
+	console.log(item?.data.itemid);
 	return item?.data.itemid == 'finder_window';
 }
 		
