@@ -89,7 +89,7 @@ class MainAddon:
 
 
 	def check_search_window(self, item):
-		if not main_config.remove_search_windows:
+		if not main_config['remove_search_windows']:
 			return False
 		if item.get('category') != 'card':
 			return False

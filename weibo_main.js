@@ -129,7 +129,7 @@ function removeSearchMain(data) {
 
 
 function checkSearchWindow(item) {
-	if(main_config.remove_search_windows) return false;
+	if(!main_config.remove_search_windows) return false;
 	if(item.category != 'card') return false;
 	return item?.data.itemid == 'finder_window';
 }
