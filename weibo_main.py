@@ -72,6 +72,7 @@ class MainAddon:
 			'/littleskin/preview': 'skin_preview_handler',
 			'/search/finder': 'remove_search_main',
 			'/search/container_timeline': 'remove_search',
+			'/search/container_discover': 'remove_search',
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
@@ -450,7 +451,7 @@ class MainAddon:
 
 
 ip = '10.2.146.70'
-# ip = '192.168.1.7'
+ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")

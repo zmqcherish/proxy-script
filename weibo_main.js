@@ -1,4 +1,4 @@
-const version = 'v0522.3';
+const version = 'v0524.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -82,7 +82,7 @@ const otherUrls = {
 	'/littleskin/preview': 'skinPreviewHandler',
 	'/search/finder': 'removeSearchMain',
 	'/search/container_timeline': 'removeSearch',
-	// '/remind/unread_count': 'unreadCountHandler',		
+	'/remind/container_discover': 'removeSearch',
 }
 
 function getModifyMethod(url) {
