@@ -1,4 +1,4 @@
-const version = 'v0606.1';
+const version = 'v0606.2';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -82,7 +82,7 @@ const otherUrls = {
 	'/littleskin/preview': 'skinPreviewHandler',
 	'/search/finder': 'removeSearchMain',
 	'/search/container_timeline': 'removeSearch',
-	'/remind/container_discover': 'removeSearch',
+	'/search/container_discover': 'removeSearch',
 }
 
 function getModifyMethod(url) {
@@ -131,7 +131,7 @@ function removeSearchMain(data) {
 function checkSearchWindow(item) {
 	if(!mainConfig.removeSearchWindow) return false;
 	if(item.category != 'card') return false;
-	return item && item.data && item.data.itemid == 'finder_window';
+	return item.data?.itemid == 'finder_window';
 }
 
 
@@ -153,7 +153,7 @@ function removeSearch(data) {
 		}
 	}
 	data.items = newItems;
-	log('remove_search success');	
+	log('remove_search success');
 	return data;
 }
 
