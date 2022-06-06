@@ -131,9 +131,9 @@ function removeSearchMain(data) {
 function checkSearchWindow(item) {
 	if(!mainConfig.removeSearchWindow) return false;
 	if(item.category != 'card') return false;
-	return item?.data?.itemid == 'finder_window';
+	return item && item.data && item.data.itemid == 'finder_window';
 }
-		
+
 
 //发现页
 function removeSearch(data) {
