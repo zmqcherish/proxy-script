@@ -1,3 +1,5 @@
+#pip install mitmproxy==6.0.2
+# https://www.mitmproxy.org/downloads
 from mitmproxy.options import Options
 from mitmproxy.proxy.config import ProxyConfig
 from mitmproxy.proxy.server import ProxyServer
@@ -90,12 +92,12 @@ class MainAddon:
 
 
 	def check_search_window(self, item):
-		if not main_config['remove_search_windows']:
+		if not main_config['removeSearchWindow']:
 			return False
 		if item.get('category') != 'card':
 			return False
 		item_data = item.get('data', {})
-		return item_data['itemid'] == "finder_window"
+		return item_data.get('itemid') == "finder_window"
 
 
 	# 发现页
@@ -110,7 +112,7 @@ class MainAddon:
 				if not self.is_ad(item_data):
 					new_items.append(item)
 			else:
-				if not self.check_search_window(self, item):
+				if not self.check_search_window(item):
 					new_items.append(item)
 		data['items'] = new_items
 		print('remove_search success');
@@ -450,8 +452,8 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.146.70'
-ip = '192.168.1.4'
+ip = '10.2.146.96'
+# ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
