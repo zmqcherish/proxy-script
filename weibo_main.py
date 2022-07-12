@@ -75,6 +75,7 @@ class MainAddon:
 			'/search/finder': 'remove_search_main',
 			'/search/container_timeline': 'remove_search',
 			'/search/container_discover': 'remove_search',
+			'/2/messageflow': 'remove_msg_ad',
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
@@ -116,6 +117,17 @@ class MainAddon:
 					new_items.append(item)
 		data['items'] = new_items
 		print('remove_search success');
+
+
+	def remove_msg_ad(self, data):
+		msgs = data.get('messages')
+		if not msgs:
+			return
+		new_msgs = []
+		for msg in msgs:
+			if not msg.get('msg_card', {}).get('ad_tag'):
+				new_msgs.append(msg)
+		data['messages'] = new_msgs
 
 
 	def remove_card_list(self, data):

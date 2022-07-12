@@ -1,4 +1,4 @@
-const version = 'v0712.1';
+const version = 'v0712.2';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -83,6 +83,7 @@ const otherUrls = {
 	'/search/finder': 'removeSearchMain',
 	'/search/container_timeline': 'removeSearch',
 	'/search/container_discover': 'removeSearch',
+	'/2/messageflow': 'removeMsgAd',
 }
 
 function getModifyMethod(url) {
@@ -157,6 +158,21 @@ function removeSearch(data) {
 	return data;
 }
 
+
+function removeMsgAd(data) {
+	if(!data.messages) {
+		return;
+	}
+	let newMsgs = [];
+	for (let msg of data.messages) {
+		if(msg.msg_card?.ad_tag) {
+			continue;
+		}
+		newMsgs.push(msg)
+	}
+	data.messages = newMsgs;
+	return data;
+}
 
 function removeCards(data) {
 	if(!data.cards) {
