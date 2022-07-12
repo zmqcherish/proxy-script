@@ -188,8 +188,12 @@ class MainAddon:
 		if not header:
 			return
 		vip_center = header.get('vipCenter', {})
-		del vip_center['icon']
+		if 'icon' in vip_center:
+			del vip_center['icon']
 		vip_center['title']['content'] = '会员中心'
+
+		if 'vipView' in header:
+			del header['vipView']
 
 
 	# 将个人主页【关注】按钮默认值由【推荐】改为【关注的人】
@@ -452,7 +456,7 @@ class MainAddon:
 		res.text = json.dumps(data)
 
 
-ip = '10.2.146.96'
+ip = '10.2.145.3'
 # ip = '192.168.1.4'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)

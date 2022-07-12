@@ -1,4 +1,4 @@
-const version = 'v0606.2';
+const version = 'v0712.1';
 
 let $ = new nobyda();
 let storeMainConfig = $.read('mainConfig');
@@ -246,11 +246,13 @@ function removeHomeVip(data) {
 		return data;
 	}
 	let vipCenter = data.header.vipCenter;
-	if(!vipCenter) {
-		return data;
+	if(vipCenter) {
+		vipCenter.icon = '';
+		vipCenter.title.content = '会员中心';
 	}
-	vipCenter.icon = '';
-	vipCenter.title.content = '会员中心';
+	if(data.header.vipView) {
+		data.header.vipView = null;
+	}
 	return data;
 }
 
