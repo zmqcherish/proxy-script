@@ -23,6 +23,8 @@ const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	removeLiveMedia: true,		//首页顶部直播
 	removeNextVideo: false,					//关闭自动播放下一个视频
 
+	removePinedTrending: true,		//删除热搜列表置顶条目
+
 	removeInterestFriendInTopic: false,		//超话：超话里的好友
 	removeInterestTopic: false,				//超话：可能感兴趣的超话 + 好友关注
 	removeInterestUser: false,				//用户页：可能感兴趣的人
@@ -64,7 +66,7 @@ const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) 
 	mblog_menus_home:true					//返回首页
 }
 
-const modifyCardsUrls = ['/cardlist', '/page', 'video/community_tab', '/searchall'];
+const modifyCardsUrls = ['/cardlist', 'video/community_tab', '/searchall'];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 
 const otherUrls = {
@@ -84,6 +86,7 @@ const otherUrls = {
 	'/search/container_timeline': 'removeSearch',
 	'/search/container_discover': 'removeSearch',
 	'/2/messageflow': 'removeMsgAd',
+	'/page': 'removePage'
 }
 
 function getModifyMethod(url) {
@@ -171,6 +174,17 @@ function removeMsgAd(data) {
 		newMsgs.push(msg)
 	}
 	data.messages = newMsgs;
+	return data;
+}
+
+function removePage(data){
+	removeCards(data);
+
+	// 删除热搜列表置顶条目
+	if (mainConfig.removePinedTrending && data.cards && data.cards.length > 0) {
+		data.cards[0].card_group = data.cards[0].card_group.filter(c=>!c.itemid.includes("t:51"));
+	}
+
 	return data;
 }
 
@@ -390,7 +404,7 @@ function removeHome(data) {
 		let itemId = item.itemId;
 		if(itemId == 'profileme_mine') {
 			if(mainConfig.removeHomeVip) {
-				item = removeHomeVip(item);;
+				item = removeHomeVip(item);
 			}
 			updateFollowOrder(item);
 			newItems.push(item);
