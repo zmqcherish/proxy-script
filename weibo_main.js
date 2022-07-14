@@ -291,9 +291,9 @@ function itemExtendHandler(data) {
 		if(data.trend && data.trend.titles) {
 			let title = data.trend.titles.title;
 			if(mainConfig.removeRelate && title === '相关推荐') {
-				data.trend = null;
+				delete data.trend;
 			} else if (mainConfig.removeGood && title === '博主好物种草') {
-				data.trend = null;
+				delete data.trend;
 			}
 		}
 	}
@@ -313,7 +313,7 @@ function itemExtendHandler(data) {
 	try {
 		let picUrl = data.trend.extra_struct.extBtnInfo.btn_picurl;
 		if(picUrl.indexOf('timeline_icon_ad_delete') > -1) {
-			data.trend = null;
+			delete data.trend;
 		}
 	} catch (error) {
 		
