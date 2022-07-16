@@ -452,7 +452,7 @@ function removeMediaHomelist(data) {
 function removeComments(data) {
 	let delType = ['广告'];
 	if(mainConfig.removeRelateItem) delType.push('相关内容');
-	if(mainConfig.removeRecommendItem) delType.push('推荐');
+	if(mainConfig.removeRecommendItem) delType.push(...['推荐', '热推']);
 	// if(delType.length === 0) return;
 	let items = data.datas || [];
 	if(items.length === 0) return;
