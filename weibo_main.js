@@ -1,4 +1,4 @@
-const version = 'v0712.2';
+const version = 'v0817.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -8,7 +8,7 @@ let storeItemMenusConfig = $.getdata('itemMenusConfig');
 const mainConfig = storeMainConfig ? JSON.parse(storeMainConfig) : {
 	isDebug: false,						//开启调试，会打印运行中部分日志
 	//个人中心配置，其中多数是可以直接在更多功能里直接移除
-	removeHomeVip: true,				//个人中心头像旁边的vip样式
+	removeHomeVip: true,				//个人中心的vip栏
 	removeHomeCreatorTask: true,		//个人中心创作者中心下方的轮播图
 
 	//微博详情页配置
@@ -275,11 +275,11 @@ function removeHomeVip(data) {
 	if(!data.header) {
 		return data;
 	}
-	let vipCenter = data.header.vipCenter;
-	if(vipCenter) {
-		vipCenter.icon = '';
-		vipCenter.title.content = '会员中心';
-	}
+	// let vipCenter = data.header.vipCenter;
+	// if(vipCenter) {
+	// 	vipCenter.icon = '';
+	// 	vipCenter.title.content = '会员中心';
+	// }
 	if(data.header.vipView) {
 		data.header.vipView = null;
 	}

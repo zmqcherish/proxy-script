@@ -1,9 +1,0 @@
-docker run -e JSON_LOG=true -e LOG_LEVEL=debug pan93412/unblock-netease-music-enhanced -e https://127.0.0.1
-
-
-node app.js -a 10.2.146.67 -e https://music.163.com -o kugou kuwo bilibili
-
-unblockneteasemusic-win-x64.exe -a 10.2.146.67 -e https://music.163.com -o kugou kuwo bilibili
-
-unblockneteasemusic-win-x64.exe -e https://music.163.com -o kugou kuwo bilibili
-

@@ -18,7 +18,7 @@ const mainConfig = {
 	removeLiveMedia: true,		//首页顶部直播
 	removeNextVideo: true,		//关闭自动播放下一个视频
 
-	removePinedTrending: true,		//删除热搜列表置顶条目
+	removePinedTrending: false,		//删除热搜列表置顶条目
 
 	removeInterestFriendInTopic: true,		//超话：超话里的好友
 	removeInterestTopic: true,				//超话：可能感兴趣的超话

@@ -199,10 +199,10 @@ class MainAddon:
 		header = item.get('header')
 		if not header:
 			return
-		vip_center = header.get('vipCenter', {})
-		if 'icon' in vip_center:
-			del vip_center['icon']
-		vip_center['title']['content'] = '会员中心'
+		# vip_center = header.get('vipCenter', {})
+		# if 'icon' in vip_center:
+		# 	del vip_center['icon']
+		# vip_center['title']['content'] = '会员中心'
 
 		if 'vipView' in header:
 			del header['vipView']
@@ -249,7 +249,7 @@ class MainAddon:
 		new_items = []
 		for item in items:
 			item_id = item.get('itemId')
-			# print(item_id)
+			print(item_id)
 			if item_id == 'profileme_mine':
 				self.remove_vip(item)
 				self.update_follow_order(item)
