@@ -134,6 +134,6 @@ hostname = %APPEND% api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 - [@NobyDa](https://github.com/NobyDa)
 - [@yichahucha](https://github.com/yichahucha)
 - [@AirPods2](https://weibo.com/u/5750747182)
-
+- [@chouchoui](https://github.com/chouchoui)
 # 赞赏
 ![alt 赞赏码](https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/zsm3.jpg)
