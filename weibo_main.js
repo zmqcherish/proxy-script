@@ -147,7 +147,7 @@ function topicHandler(data) {
 				let cGroup = c.card_group;
 				if(!cGroup) {continue;}
 				let cGroup0 = cGroup[0];
-				if(['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title'].indexOf(c.itemid) > -1) {
+				if(['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title'].indexOf(cGroup0.itemid) > -1) {
 					addFlag = false;
 				} else if(cGroup.length > 1) {
 					if(cGroup[1].itemid == 'chaohua_discovery_banner_1') {
