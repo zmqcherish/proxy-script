@@ -1,4 +1,4 @@
-const version = 'v0817.1';
+const version = 'v0822.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -86,7 +86,8 @@ const otherUrls = {
 	'/search/container_timeline': 'removeSearch',
 	'/search/container_discover': 'removeSearch',
 	'/2/messageflow': 'removeMsgAd',
-	'/page': 'removePage'
+	'/2/page': 'removePage',
+	'/statuses/unread_topic_timeline': 'topicHandler',	//超话tab
 }
 
 function getModifyMethod(url) {
@@ -116,6 +117,52 @@ function isAd(data) {
 	if(data.mblogtypename == '广告' || data.mblogtypename == '热推') {return true};
 	if(data.promotion && data.promotion.type == 'ad') {return true};
 	return false;
+}
+
+function topicHandler(data) {
+	const cards = data.cards;
+	if (!cards) return data;
+	if(!mainConfig.removeUnfollowTopic && !mainConfig.removeUnusedPart) return data;
+	let newCards = [];
+	for(let c of cards) {
+		let addFlag = true;
+		if(c.mblog) {
+			let btns = c.mblog.buttons;
+			if(mainConfig.removeUnfollowTopic && btns) {
+				if(btns[0].type == 'follow') {
+					addFlag = false;
+				}
+			}
+		} else {
+			if(!mainConfig.removeUnusedPart) {
+				continue;
+			}
+			if(c.itemid == 'bottom_mix_activity') {
+				addFlag = false;
+			} else if(c?.top?.title == '正在活跃') {
+				addFlag = false;
+			} else if(c.card_type == 200 && c.group) {
+				addFlag = false;
+			} else {
+				let cGroup = c.card_group;
+				if(!cGroup) {continue;}
+				let cGroup0 = cGroup[0];
+				if(['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title'].indexOf(c.itemid) > -1) {
+					addFlag = false;
+				} else if(cGroup.length > 1) {
+					if(cGroup[1].itemid == chaohua_discovery_banner_1) {
+						c.card_group.splice(1, 1);
+					}
+				}
+			}
+		} 
+		if(addFlag) {
+			newCards.push(c);
+		}
+	}
+	data.cards = newCards;
+	log('topicHandler success');
+	return data;
 }
 
 

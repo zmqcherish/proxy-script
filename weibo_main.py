@@ -57,7 +57,7 @@ class MainAddon:
 		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
 		self.launch_ad_url2 = '/wbapplua/wbpullad.lua'
 
-		self.card_urls = ['/cardlist', '/page', 'video/community_tab', '/searchall']
+		self.card_urls = ['/cardlist', '2/page', 'video/community_tab', '/searchall']
 		self.statuses_urls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
 		self.other_urls = {
 			'/profile/me': 'remove_home',
@@ -76,9 +76,44 @@ class MainAddon:
 			'/search/container_timeline': 'remove_search',
 			'/search/container_discover': 'remove_search',
 			'/2/messageflow': 'remove_msg_ad',
+			'/statuses/unread_topic_timeline': 'topic_handler',	#超话tab
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
+
+
+	def topic_handler(self, data):
+		cards = data['cards']
+		new_cards = []
+		for c in cards:
+			add_flag = True
+			if 'mblog' in c:
+				btns = c['mblog'].get('buttons')
+				if btns:
+					if btns[0].get('type') == 'follow':	# 未关注的
+						add_flag = False
+			elif c.get('itemid') == 'bottom_mix_activity':	#征集活动 打卡活动
+				add_flag = False
+			elif c.get('top', {}).get('title') == '正在活跃':
+				add_flag = False
+			elif c.get('card_type') == 200 and c.get('group'):	#更多超话
+				add_flag = False
+			else:
+				card_group = c.get('card_group')
+				if not card_group:
+					continue
+				card_group0 = card_group[0]
+				item_id = card_group0.get('itemid', '')
+				if item_id in ['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title']:	#猜你喜欢 超话分类 正在讨论
+					add_flag = False
+				elif len(card_group) > 1:
+					card_group1 = card_group[1]
+					if card_group1.get('itemid', '') == 'chaohua_discovery_banner_1':	#banner图
+						c['card_group'] = c['card_group'].pop(1)
+			if add_flag:
+				new_cards.append(c)
+		data['cards'] = new_cards
+
 
 	def remove_search_main(self, data):
 		channels = data.get('channelInfo', {}).get('channels')
@@ -467,9 +502,9 @@ class MainAddon:
 		eval("self." + method)(data)
 		res.text = json.dumps(data)
 
-
+# mitmweb -p 8888 --listen-host 10.2.145.3
 ip = '10.2.145.3'
-# ip = '192.168.1.4'
+# ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
 opts.add_option("body_size_limit", int, 0, "")
