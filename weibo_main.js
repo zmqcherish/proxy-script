@@ -1,4 +1,4 @@
-const version = 'v0822.1';
+const version = 'v0822.2';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -150,7 +150,7 @@ function topicHandler(data) {
 				if(['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title'].indexOf(c.itemid) > -1) {
 					addFlag = false;
 				} else if(cGroup.length > 1) {
-					if(cGroup[1].itemid == chaohua_discovery_banner_1) {
+					if(cGroup[1].itemid == 'chaohua_discovery_banner_1') {
 						c.card_group.splice(1, 1);
 					}
 				}
