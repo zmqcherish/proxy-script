@@ -1,4 +1,4 @@
-const version = 'v0822.3';
+const version = 'v0823.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -368,6 +368,11 @@ function itemExtendHandler(data) {
 		if(data.reward_info) {
 			data.reward_info = null;
 		}
+	}
+
+	//删除超话新帖和新用户通知
+	if(data.page_alerts) {
+		data.page_alerts = null;
 	}
 
 	//广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png

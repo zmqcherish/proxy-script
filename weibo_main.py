@@ -319,6 +319,8 @@ class MainAddon:
 				del data['follow_data']
 		if 'reward_info' in data:
 			del data['reward_info']
+		if 'page_alerts' in data:
+			del data['page_alerts']
 		
 		#广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
 		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl', {}):
