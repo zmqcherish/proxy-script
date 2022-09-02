@@ -133,7 +133,7 @@ class MainAddon:
 		if item.get('category') != 'card':
 			return False
 		item_data = item.get('data', {})
-		return item_data.get('itemid') == "finder_window"
+		return item_data.get('itemid') in ["finder_window", "more_frame"]
 
 
 	# 发现页
@@ -486,9 +486,21 @@ class MainAddon:
 				return json.dumps(res)
 		return data
 
+	def test(self, flow):
+		req = flow.request
+		res = flow.response
+		data = res.text
+		print('url', req.url)
+		if('container_discover' in req.url):
+			append_txt_file(data, 'temp/4.json')
+		if('search/finder' in req.url):
+			append_txt_file(data, 'temp/5.json')
+
 
 	def response(self, flow):
 		req = flow.request
+
+		# self.test(flow)
 
 		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response

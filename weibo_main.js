@@ -1,4 +1,4 @@
-const version = 'v0823.1';
+const version = 'v0902.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -182,7 +182,7 @@ function removeSearchMain(data) {
 function checkSearchWindow(item) {
 	if(!mainConfig.removeSearchWindow) return false;
 	if(item.category != 'card') return false;
-	return item.data?.itemid == 'finder_window';
+	return item.data?.itemid == 'finder_window' || item.data?.itemid == 'more_frame';
 }
 
 
