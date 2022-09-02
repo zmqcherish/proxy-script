@@ -107,9 +107,11 @@ class MainAddon:
 				if item_id in ['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title']:	#猜你喜欢 超话分类 正在讨论
 					add_flag = False
 				elif len(card_group) > 1:
-					card_group1 = card_group[1]
-					if card_group1.get('itemid', '') == 'chaohua_discovery_banner_1':	#banner图
-						c['card_group'] = c['card_group'].pop(1)
+					new_card_group = []
+					for cg in card_group:
+						if cg.get('itemid', '') not in ['chaohua_discovery_banner_1', 'bottom_mix_activity']:	#banner图 、(征集活动 打卡活动)
+							new_card_group.append(cg)
+					c['card_group'] = new_card_group
 			if add_flag:
 				new_cards.append(c)
 		data['cards'] = new_cards
