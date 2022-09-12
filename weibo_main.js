@@ -1,4 +1,4 @@
-const version = 'v0902.2';
+const version = 'v0912.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -86,7 +86,7 @@ const otherUrls = {
 	'/search/container_timeline': 'removeSearch',
 	'/search/container_discover': 'removeSearch',
 	'/2/messageflow': 'removeMsgAd',
-	'/2/page': 'removePage',
+	'/2/page?': 'removePage',	//超话签到的按钮 /2/page/button 加?区别
 	'/statuses/unread_topic_timeline': 'topicHandler',	//超话tab
 }
 

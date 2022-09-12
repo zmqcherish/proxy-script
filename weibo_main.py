@@ -57,7 +57,7 @@ class MainAddon:
 		self.launch_ad_url1 = '/interface/sdk/sdkad.php'
 		self.launch_ad_url2 = '/wbapplua/wbpullad.lua'
 
-		self.card_urls = ['/cardlist', '2/page', 'video/community_tab', '/searchall']
+		self.card_urls = ['/cardlist', '2/page?', 'video/community_tab', '/searchall']
 		self.statuses_urls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline']
 		self.other_urls = {
 			'/profile/me': 'remove_home',
