@@ -1,4 +1,4 @@
-const version = 'v0912.1';
+const version = 'v1011.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -88,7 +88,9 @@ const otherUrls = {
 	'/2/messageflow': 'removeMsgAd',
 	'/2/page?': 'removePage',	//超话签到的按钮 /2/page/button 加?区别
 	'/statuses/unread_topic_timeline': 'topicHandler',	//超话tab
+	'/statuses/container_timeline': 'removeMain',
 }
+
 
 function getModifyMethod(url) {
 	for (const s of modifyCardsUrls) {
@@ -117,6 +119,22 @@ function isAd(data) {
 	if(data.mblogtypename == '广告' || data.mblogtypename == '热推') {return true};
 	if(data.promotion && data.promotion.type == 'ad') {return true};
 	return false;
+}
+
+
+function removeMain(data) {
+	if(!data.items) {
+		return data;
+	}
+	let newItems = [];
+	for (let item of data.items) {
+		if(!isAd(item.data)) {
+			newItems.push(item);
+		}
+	}
+	data.items = newItems;
+	log('removeMain success');
+	return data;
 }
 
 function topicHandler(data) {

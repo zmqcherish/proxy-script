@@ -78,8 +78,19 @@ class MainAddon:
 			'/2/messageflow': 'remove_msg_ad',
 			'/statuses/unread_topic_timeline': 'topic_handler',	#超话tab
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
+			'/statuses/container_timeline': 'remove_main',
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
+
+	# 新版主页广告地址
+	def remove_main(self, data):
+		items = data['items']
+		new_items = []
+		for item in items:
+			if not self.is_ad(item.get('data')):
+				new_items.append(item)
+		data['items'] = new_items
+		print('remove_main success');
 
 
 	def topic_handler(self, data):
@@ -518,8 +529,8 @@ class MainAddon:
 		eval("self." + method)(data)
 		res.text = json.dumps(data)
 
-# mitmweb -p 8888 --listen-host 10.2.145.3
-ip = '10.2.145.3'
+# mitmweb -p 8888 --listen-host 10.2.147.33
+ip = '10.2.147.33'
 # ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)
