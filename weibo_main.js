@@ -67,7 +67,7 @@ const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) 
 }
 
 const modifyCardsUrls = ['/cardlist', 'video/community_tab', '/searchall'];
-const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
+const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline', 'statuses/container_timeline'];
 
 const otherUrls = {
 	'/profile/me': 'removeHome',						//个人页模块
@@ -308,19 +308,29 @@ function removeTimeLine(data) {
 			delete data[s];
 		}
 	}
-	if(!data.statuses) {
-		return;
-	}
-	let newStatuses = [];
-	for (const s of data.statuses) {
-		if(!isAd(s)) {
-			lvZhouHandler(s);
-			if(!isBlock(s)) {
-				newStatuses.push(s);
+	if (data.statuses) {
+		let newStatuses = [];
+		for (const s of data.statuses) {
+			if(!isAd(s)) {
+				lvZhouHandler(s);
+				if(!isBlock(s)) {
+					newStatuses.push(s);
+				}
 			}
 		}
+		data.statuses = newStatuses;
+	} else if (data.items) {
+		let newItems = [];
+		for (const s of data.items) {
+			if(!isAd(s.data)) {
+				lvZhouHandler(s.data);
+				if(!isBlock(s.data)) {
+					newItems.push(s);
+				}
+			}
+		}
+		data.items = newItems;
 	}
-	data.statuses = newStatuses;
 }
 
 
