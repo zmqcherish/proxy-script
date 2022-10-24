@@ -67,7 +67,7 @@ class MainAddon:
 			'/live/media_homelist': 'remove_media_homelist',
 			'/comments/build_comments': 'remove_comments',
 			'/container/get_item': 'container_handler',	#列表相关
-			'/profile/statuses': 'user_handler',		#用户主页
+			'/profile/container_timeline': 'user_handler',		#用户主页
 			'/video/tiny_stream_video_list': 'next_video_handler',		#自动下一条视频
 			'/2/statuses/video_mixtimeline': 'next_video_handler',		#自动下一条视频
 			'/!/client/light_skin': 'skin_handler',		#更改tab图标	 
@@ -402,18 +402,22 @@ class MainAddon:
 
 
 	def user_handler(self, data):
-		cards = data.get('cards')
-		if not cards:
-			return
-		# 移除可能感兴趣的人
-		new_cards = []
-		for c in cards:
-			if c.get('itemid') != 'INTEREST_PEOPLE':
-				if self.is_ad(c.get('mblog')):
-					continue
-				self.handle_comment_struct(c.get('mblog'))
-				new_cards.append(c)
-		data['cards'] = new_cards
+		self.remove_main(data)
+
+		items = data['items']
+		new_items = []
+		for item in items:
+			is_add = True
+			if item.get('category') == 'group':
+				try:
+					if item.get('items')[0]['data']['desc'] == '可能感兴趣的人':
+						is_add = False
+				except Exception as e:
+					pass
+			if is_add:
+				new_items.append(item)
+		data['items'] = new_items
+		print('remove_main_sub success');
 
 
 	def next_video_handler(self, data):

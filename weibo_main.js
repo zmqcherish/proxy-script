@@ -1,4 +1,4 @@
-const version = 'v1011.1';
+const version = 'v1024.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -77,7 +77,7 @@ const otherUrls = {
 	'/live/media_homelist': 'removeMediaHomelist',		//首页直播
 	'/comments/build_comments': 'removeComments',		//微博详情页评论区相关内容
 	'/container/get_item': 'containerHandler',			//列表相关
-	'/profile/statuses': 'userHandler',					//用户主页
+	'/profile/container_timeline': 'userHandler',					//用户主页
 	'/video/tiny_stream_video_list': 'nextVideoHandler',	//取消自动播放下一个视频
 	'/2/statuses/video_mixtimeline': 'nextVideoHandler',	
 	'/!/client/light_skin': 'tabSkinHandler',
@@ -565,25 +565,32 @@ function containerHandler(data) {
 
 //可能感兴趣的人
 function userHandler(data) {
+	data = removeMain(data);
 	if(!mainConfig.removeInterestUser) {
-		return;
+		return data;
 	}
-	let items = data.cards || [];
-	if(items.length === 0) {
-		return;
+
+	if(!data.items) {
+		return data;
 	}
 	let newItems = [];
-	for (const item of items) {
-		if(item.itemid == 'INTEREST_PEOPLE') {
-			log('remove 感兴趣的人');
-		} else {
-			if(!isAd(item.mblog)) {
-				lvZhouHandler(item.mblog);
-				newItems.push(item);
+	for (let item of data.items) {
+		let isAdd = true;
+		if(item.category == 'group') {
+			try {
+				if(item.items[0]['data']['desc'] == '可能感兴趣的人') {
+					isAdd = false;
+				}
+			} catch (error) {
 			}
 		}
+		if(isAdd) {
+			newItems.push(item);
+		}
 	}
-	data.cards = newItems;
+	data.items = newItems;
+	log('removeMain sub success');
+	return data;
 }
 
 
