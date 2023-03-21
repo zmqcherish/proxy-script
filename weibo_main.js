@@ -1,4 +1,4 @@
-const version = 'v0321.1';
+const version = 'v0321.2';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -121,6 +121,19 @@ function isAd(data) {
 	return false;
 }
 
+// 判断首页流 感兴趣的超话
+function checkJunkTopic(item) {
+	if(item.category != 'group') {
+		return false;
+	}
+	try {
+		if(item.items[0]['data']['title'] == '关注你感兴趣的超话') {
+			return true;
+		}
+	} catch (error) {
+	}
+	return false;
+}
 
 function removeMain(data) {
 	if(!data.items) {
@@ -128,6 +141,9 @@ function removeMain(data) {
 	}
 	let newItems = [];
 	for (let item of data.items) {
+		if(checkJunkTopic(item)) {
+			continue;
+		}
 		if(!isAd(item.data)) {
 			newItems.push(item);
 		}

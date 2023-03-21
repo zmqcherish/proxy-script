@@ -87,6 +87,8 @@ class MainAddon:
 		items = data['items']
 		new_items = []
 		for item in items:
+			if self.check_junk_topic(item):
+				continue
 			if not self.is_ad(item.get('data')):
 				new_items.append(item)
 		data['items'] = new_items
@@ -203,6 +205,18 @@ class MainAddon:
 				else:
 					new_cards.append(c)
 		data['cards'] = new_cards
+
+
+	# 判断首页流 感兴趣的超话
+	def check_junk_topic(self, item):
+		if item.get('category') != 'group':
+			return False
+		try:
+			if item.get('items')[0]['data']['title'] == '关注你感兴趣的超话':
+				return True
+		except Exception as e:
+			pass
+		return False
 
 
 	def is_ad(self, data):
@@ -511,11 +525,14 @@ class MainAddon:
 		req = flow.request
 		res = flow.response
 		data = res.text
-		print('url', req.url)
-		if('container_discover' in req.url):
+		# print('url', req.url)
+		if '你感兴趣的超话' in data:
+			print('url', req.url)
 			append_txt_file(data, 'temp/4.json')
-		if('search/finder' in req.url):
-			append_txt_file(data, 'temp/5.json')
+		# if('container_discover' in req.url):
+		# 	append_txt_file(data, 'temp/4.json')
+		# if('search/finder' in req.url):
+		# 	append_txt_file(data, 'temp/5.json')
 
 
 	def response(self, flow):
