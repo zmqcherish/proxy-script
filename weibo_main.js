@@ -1,4 +1,4 @@
-const version = 'v1024.1';
+const version = 'v0321.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -496,8 +496,12 @@ function removeHome(data) {
 					newItems.push(item);
 				}
 			}
-		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto'].indexOf(itemId) > -1) {
+		} else if(['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto', '100505_-_hongrenjie2022', '100505_-_weibonight2023'].indexOf(itemId) > -1) {
 			continue;
+		} else if (itemId == '100505_-_advideo') {
+			if(item?.header?.title?.content == '微博之夜') {
+				continue;
+			}
 		} else if (itemId.match(/100505_-_meattent_-_\d+/)) {
 			continue;
 		} else {

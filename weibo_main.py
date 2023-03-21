@@ -309,8 +309,12 @@ class MainAddon:
 				if item.get('type') == 'grid':
 					self.update_profile_skin(item, 'profileSkin2')
 					new_items.append(item)
-			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto']:	#为你推荐 为你推荐图片 用户任务 让红包飞
+			elif item_id in ['mine_attent_title', '100505_-_meattent_pic', '100505_-_newusertask', '100505_-_vipkaitong', '100505_-_hongbao2022', '100505_-_adphoto', '100505_-_hongrenjie2022', '100505_-_weibonight2023']:	#为你推荐 为你推荐图片 用户任务 让红包飞 红人节 微博之夜
 				continue
+			elif item_id == '100505_-_advideo':
+				title = get_json_val(item, '$.header.title.content', True)
+				if title == '微博之夜':
+					continue
 			elif re.search('100505_-_meattent_-_\d+', item_id):
 				continue
 			else:
@@ -533,8 +537,8 @@ class MainAddon:
 		eval("self." + method)(data)
 		res.text = json.dumps(data)
 
-# mitmweb -p 8888 --listen-host 10.2.147.33
-ip = '10.2.147.33'
+# mitmweb -p 8888 --listen-host 10.2.147.108
+ip = '10.2.148.201'
 # ip = '192.168.1.7'
 port = 8888
 opts = Options(listen_host=ip, listen_port=port)

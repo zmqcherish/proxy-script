@@ -5,6 +5,7 @@ import os
 import pickle
 import requests
 import random
+from jsonpath import JSONPath
 from time import sleep
 from urllib.request import urlretrieve
 from datetime import datetime, timedelta
@@ -47,3 +48,10 @@ def get_pickle_file(file_path):
 def save_pickle(file_path, data):
 	with open(file_path, 'wb') as code_file:
 		pickle.dump(data, code_file)
+
+
+def get_json_val(item, path, get_first=False):
+	res = JSONPath(path).parse(item)
+	if res and get_first:
+		return res[0]
+	return res
