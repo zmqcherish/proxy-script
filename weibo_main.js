@@ -1,4 +1,4 @@
-const version = 'v0330.1';
+const version = 'v0330.2';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -155,6 +155,7 @@ function removeMain(data) {
 }
 
 function topicHandler(data) {
+	log('topicHandler start');
 	const items = data.items;
 	if (!items) return data;
 	if(!mainConfig.removeUnfollowTopic && !mainConfig.removeUnusedPart) return data;
@@ -176,6 +177,7 @@ function topicHandler(data) {
 			}
 
 			if(category == 'group') {
+				log('topicHandler start2');
 				const cc = c.header?.title?.content;
 				if(cc && cc[0].indexOf('空降发帖') > -1) {
 					addFlag = false;
@@ -188,6 +190,7 @@ function topicHandler(data) {
 				let newSubItems = [];
 				for(let sub of subItems) {
 					let anchorId = sub?.itemExt?.anchorId;
+					log(anchorId);
 					if(!anchorId || ['sg_bottom_tab_search_input', 'multi_feed_entrance', 'bottom_mix_activity', 'cats_top_content', 'chaohua_home_readpost_samecity_title', 'chaohua_discovery_banner_1', 'chaohua_home_readpost_samecity_content'].indexOf(anchorId[0]) == -1) {
 						newSubItems.push(sub);
 					}
