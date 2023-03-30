@@ -1,4 +1,4 @@
-const version = 'v0321.2';
+const version = 'v0330.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -87,8 +87,9 @@ const otherUrls = {
 	'/search/container_discover': 'removeSearch',
 	'/2/messageflow': 'removeMsgAd',
 	'/2/page?': 'removePage',	//超话签到的按钮 /2/page/button 加?区别
-	'/statuses/unread_topic_timeline': 'topicHandler',	//超话tab
-	'/statuses/container_timeline': 'removeMain',
+	'/statuses/container_timeline_topic': 'topicHandler',	//超话tab
+	'/statuses/container_timeline?': 'removeMain',	//首页
+	'/statuses/container_timeline_unread': 'removeMain',	//首页
 }
 
 
@@ -154,51 +155,58 @@ function removeMain(data) {
 }
 
 function topicHandler(data) {
-	const cards = data.cards;
-	if (!cards) return data;
+	const items = data.items;
+	if (!items) return data;
 	if(!mainConfig.removeUnfollowTopic && !mainConfig.removeUnusedPart) return data;
-	let newCards = [];
-	for(let c of cards) {
+	let newItems = [];
+	for(let c of items) {
 		let addFlag = true;
-		if(c.mblog) {
-			let btns = c.mblog.buttons;
-			if(mainConfig.removeUnfollowTopic && btns) {
-				if(btns[0].type == 'follow') {
-					addFlag = false;
-				}
+		let category = c.category;
+		if(category == 'feed') {
+			if(!mainConfig.removeUnfollowTopic) {
+				continue;
+			}
+			let btns = c?.data?.buttons;
+			if(btns && btns.length > 0 && btns[0].type == 'follow') {
+				addFlag = false;
 			}
 		} else {
 			if(!mainConfig.removeUnusedPart) {
 				continue;
 			}
-			if(c.itemid == 'bottom_mix_activity') {
-				addFlag = false;
-			} else if(c?.top?.title == '正在活跃') {
-				addFlag = false;
-			} else if(c.card_type == 200 && c.group) {
-				addFlag = false;
-			} else {
-				let cGroup = c.card_group;
-				if(!cGroup) {continue;}
-				let cGroup0 = cGroup[0];
-				if(['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title'].indexOf(cGroup0.itemid) > -1) {
+
+			if(category == 'group') {
+				const cc = c.header?.title?.content;
+				if(cc && cc[0].indexOf('空降发帖') > -1) {
 					addFlag = false;
-				} else if(cGroup.length > 1) {
-					let newCardGroup = [];
-					for(let cg of cGroup) {
-						if(['chaohua_discovery_banner_1', 'bottom_mix_activity'].indexOf(cg.itemid) == -1) {
-							newCardGroup.push(cg);
-						}
+					continue;
+				}
+				let subItems = c.items;
+				if(!subItems) {
+					continue;
+				}
+				let newSubItems = [];
+				for(let sub of subItems) {
+					let anchorId = sub?.itemExt?.anchorId;
+					if(!anchorId || ['sg_bottom_tab_search_input', 'multi_feed_entrance', 'bottom_mix_activity', 'cats_top_content', 'chaohua_home_readpost_samecity_title', 'chaohua_discovery_banner_1', 'chaohua_home_readpost_samecity_content'].indexOf(anchorId[0]) == -1) {
+						newSubItems.push(sub);
 					}
-					c.card_group = newCardGroup;
+				}
+				c.items = newSubItems;
+			} else if (category == 'card') {
+				let cData = c.data
+				if(cData?.top?.title == '正在活跃') {
+					addFlag = false;
+				} else if(cData.card_type == 200 && cData.group) {
+					addFlag = false;
 				}
 			}
-		} 
+		}
 		if(addFlag) {
-			newCards.push(c);
+			newItems.push(c);
 		}
 	}
-	data.cards = newCards;
+	data.items = newItems;
 	log('topicHandler success');
 	return data;
 }

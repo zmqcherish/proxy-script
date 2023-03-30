@@ -76,9 +76,10 @@ class MainAddon:
 			'/search/container_timeline': 'remove_search',
 			'/search/container_discover': 'remove_search',
 			'/2/messageflow': 'remove_msg_ad',
-			'/statuses/unread_topic_timeline': 'topic_handler',	#超话tab
+			'/statuses/container_timeline_topic': 'topic_handler',	#超话tab
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
-			'/statuses/container_timeline': 'remove_main',
+			'/statuses/container_timeline?': 'remove_main',
+			'/statuses/container_timeline_unread': 'remove_main',
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
 
@@ -96,38 +97,41 @@ class MainAddon:
 
 
 	def topic_handler(self, data):
-		cards = data['cards']
-		new_cards = []
-		for c in cards:
+		# print('topic_handler ing')
+		items = data['items']
+		new_items = []
+		for c in items:
 			add_flag = True
-			if 'mblog' in c:
-				btns = c['mblog'].get('buttons')
-				if btns:
-					if btns[0].get('type') == 'follow':	# 未关注的
-						add_flag = False
-			elif c.get('itemid') == 'bottom_mix_activity':	#征集活动 打卡活动
-				add_flag = False
-			elif c.get('top', {}).get('title') == '正在活跃':
-				add_flag = False
-			elif c.get('card_type') == 200 and c.get('group'):	#更多超话
-				add_flag = False
-			else:
-				card_group = c.get('card_group')
-				if not card_group:
-					continue
-				card_group0 = card_group[0]
-				item_id = card_group0.get('itemid', '')
-				if item_id in ['guess_like_title', 'cats_top_title' ,'chaohua_home_readpost_samecity_title']:	#猜你喜欢 超话分类 正在讨论
+			category = c.get('category')
+			if category == 'feed':
+				feed_type = get_json_val(c, '$.data.buttons[0].type', True)
+				if feed_type == 'follow':	# 未关注的
 					add_flag = False
-				elif len(card_group) > 1:
-					new_card_group = []
-					for cg in card_group:
-						if cg.get('itemid', '') not in ['chaohua_discovery_banner_1', 'bottom_mix_activity']:	#banner图 、(征集活动 打卡活动)
-							new_card_group.append(cg)
-					c['card_group'] = new_card_group
+			elif category == 'group':
+				t_content = get_json_val(c, '$.header.title.content', True)
+				if t_content and '空降发帖' in t_content:
+					add_flag = False
+					continue
+				sub_items = c.get('items')
+				new_sub_items = []
+				if not sub_items:
+					continue
+				for sub in sub_items:
+					anchor_id = get_json_val(sub, '$.itemExt.anchorId', True)
+					if anchor_id not in ['sg_bottom_tab_search_input', 'multi_feed_entrance', 'bottom_mix_activity', 'cats_top_content', 'chaohua_home_readpost_samecity_title', 'chaohua_discovery_banner_1', 'chaohua_home_readpost_samecity_content']:	#bottom_mix_activity-征集打卡活动 cats_top_content-超话分类 chaohua_home_readpost_samecity_title-正在讨论 banner图-banner图 chaohua_home_readpost_samecity_content-xx
+						new_sub_items.append(sub)
+				c['items'] = new_sub_items
+			elif category == 'card':
+				c_data = c.get('data', {})
+				if c_data.get('top', {}).get('title') == '正在活跃':
+					add_flag = False
+				elif c_data.get('card_type') == 200 and c_data.get('group'):	#更多超话
+					add_flag = False
 			if add_flag:
-				new_cards.append(c)
-		data['cards'] = new_cards
+				new_items.append(c)
+		data['items'] = new_items
+		print('remove topic success');
+		# save_json_file('temp/4.json', new_items)
 
 
 	def remove_search_main(self, data):
@@ -491,6 +495,7 @@ class MainAddon:
 				return 'remove_tl'
 		for path, method in self.other_urls.items():
 			if path in url:
+				print(url)
 				return method
 
 

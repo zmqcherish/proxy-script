@@ -29,6 +29,10 @@ def get_json_file(file_path):
 	with open(file_path, 'r', encoding='utf-8') as json_file:
 		return json.load(json_file)
 
+def save_json_file(file_path, save_item):
+	with open(file_path, 'w', encoding='utf-8') as json_file:
+		json.dump(save_item, json_file, ensure_ascii = False)
+
 
 def create_folder(path):
 	if os.path.exists(path):
