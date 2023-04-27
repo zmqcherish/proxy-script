@@ -1,4 +1,4 @@
-const version = 'v0330.3';
+const version = 'v0427.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');

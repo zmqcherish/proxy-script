@@ -6,7 +6,7 @@ import pickle
 import requests
 import random
 from jsonpath import JSONPath
-from time import sleep
+from time import sleep, time
 from urllib.request import urlretrieve
 from datetime import datetime, timedelta
 

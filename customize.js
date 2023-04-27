@@ -1,7 +1,6 @@
 const version = '1020v3';
 const urlMap = {
 	'xiaohongshu.com/api/sns/v2/system_service/splash_config': 'removeXHSLaunch',	//小红书开屏
-	'x/v2/feed/index': 'removeBzhanFeed'	//b站推荐页广告
 }
 
 let $ = new nobyda();

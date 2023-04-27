@@ -1,7 +1,8 @@
-# 脚本最新版 v0330.3
-- 因Quan-X不会自动更新脚本，根据你本地脚本第一行的version查看是否运行的是最新版
+# 脚本最新版 v0427.1
+- 因Quan-X可能存在脚本更新延迟，根据你本地脚本第一行的version查看是否运行的是最新版
 - 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
 - 微博版本：13.3.0
+- B站版本：7.26.0
 
 # 说明
 - 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
@@ -56,17 +57,22 @@
 - 屏蔽用户id获取方法：进入用户主页，选择复制链接，得到类似“https://weibo.com/u/xxx”的文本，xxx即为用户id。多个用户用英文逗号“,”分开
 - 自定义个人主页图标设置：详见[微博皮肤.md](https://github.com/zmqcherish/proxy-script/blob/main/微博皮肤.md)
 - 自定义底部tab图标：详见[底部tab.md](https://github.com/zmqcherish/proxy-script/blob/main/底部tab.md)
-- Quan-X 运行方法1：在App中，点击【构造HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标）
-- Quan-X 运行方法2（推荐）：可在配置文件中增加如下配置后，在【构造HTTP请求】页面上进一步编辑然后运行
+- Quan-X 运行方法1：在App中，点击【工具&分析】->【HTTP请求】页面上的右下角图标，在界面中粘贴上面的修改自定义值后的代码，然后点击运行（第一个图标）
+- Quan-X 运行方法2（推荐）：可在配置文件中增加如下配置后，在【HTTP请求】页面上进一步编辑然后运行
 ```properties
 [task_local]
 0 0 23 1 * https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_config.js, tag=微博配置, img-url=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/imgs/icon/weibo.png, enabled=false
 ```
 - Surge 运行方法：在首页 -> 脚本 -> 编辑器，在界面中粘贴上面的修改自定义值后的代码，然后点击右下角执行
-## customize.js
-> 其他一些软件的自定义脚本，配置内容在[cherish.conf](https://github.com/zmqcherish/proxy-script/main/cherish.conf)中。对应的py脚本[customize.py](https://github.com/zmqcherish/proxy-script/main/customize.py)
-- 删除小红书开屏广告（测试中）
-- 删除b站推荐页广告
+
+## bilibili.js
+- 删除首页广告
+- 删除首页竖版视频（可配置）
+
+> B站自定义脚本文件
+- 使用说明：[bilibili.md](https://github.com/zmqcherish/proxy-script/main/bilibili.md)
+
+
 
 ## weibo.conf
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
