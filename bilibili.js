@@ -15,9 +15,10 @@ function removeBzhanFeed(data) {
 			if(item.ad_info) {
 				continue;
 			}
+			log(item.goto)
 			if(storeBBConfig.removeVertical && item.goto == 'vertical_av') {
-				log('remove bb vertical_av')
-				continue
+				log('remove bb vertical_av');
+				continue;
 			}
 			newItems.push(item);
 		}
