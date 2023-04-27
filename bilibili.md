@@ -13,7 +13,7 @@
 # bilibili脚本
 ^https://app.biliapi.net/x/v2/feed/index url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili.js
 [mitm]
-hostname = app.biliapi.com
+hostname = app.biliapi.net
 ```
 
 ### 如何删除竖版视频
