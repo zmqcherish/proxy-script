@@ -5,7 +5,7 @@
 - 删除首页竖版视频（可配置，默认关闭）
 
 ### 方法一（推荐）：直接使用 bilibili.conf 文件
-- 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili.conf -> 右上角保存
+- App中 -> 重写 -> 规则资源 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili.conf -> 右上角保存
 
 ### 方法二：Quan-X 文本模式配置
 ```properties

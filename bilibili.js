@@ -2,10 +2,8 @@ const version = 'v0427.1';
 const urlMap = {
 	'x/v2/feed/index': 'removeBzhanFeed'	//b站推荐页广告
 }
-
-let storeBBConfig = $.getdata('bBConfig') || {};
-
 let $ = new nobyda();
+let storeBBConfig = $.getdata('bBConfig') || {};
 
 //删除b站推荐页广告和竖屏视频
 function removeBzhanFeed(data) {

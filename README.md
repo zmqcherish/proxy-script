@@ -98,7 +98,7 @@
 4. iPhone设置页 -> 通用 -> 关于本机 -> 证书信任设置，打开Quantumult X开头的证书信任
 5. 回到Quan-X App的MitM模块开关打开，重写模块开关打开
 6. 在设置页最下方进入其他设置 -> VPN -> 始终开启
-7. 在重写模块 -> 引用 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo.conf （或使用fast-conf）-> 右上角保存
+7. App中 -> 重写 -> 规则资源 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo.conf （或使用fast-conf）-> 右上角保存
 8. 回到App首页顶部开启App运行即可
 
 
