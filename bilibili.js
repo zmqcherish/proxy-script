@@ -3,7 +3,8 @@ const urlMap = {
 	'x/v2/feed/index': 'removeBzhanFeed'	//b站推荐页广告
 }
 const $ = new Env("B站脚本");
-let storeBBConfig = $.getdata('bBConfig') || {};
+let storeBBConfig = $.getdata('bBConfig');
+const bBConfig = storeBBConfig ? JSON.parse(storeBBConfig) : {};
 
 //删除b站推荐页广告和竖屏视频
 function removeBzhanFeed(data) {
@@ -16,7 +17,7 @@ function removeBzhanFeed(data) {
 				continue;
 			}
 			log(item.goto)
-			if(storeBBConfig.removeVertical && item.goto == 'vertical_av') {
+			if(bBConfig.removeVertical && item.goto == 'vertical_av') {
 				log('remove bb vertical_av');
 				continue;
 			}
