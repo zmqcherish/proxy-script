@@ -70,7 +70,7 @@
 - 删除首页竖版视频（可配置）
 
 > B站自定义脚本文件
-- 使用说明：[bilibili.md](https://github.com/zmqcherish/proxy-script/main/bilibili.md)
+- 使用说明：[bilibili.md](https://github.com/zmqcherish/proxy-script/blob/main/bilibili.md)
 
 
 
