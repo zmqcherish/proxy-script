@@ -16,34 +16,6 @@ function removeXHSLaunch(data) {
 }
 
 
-//删除b站推荐页广告
-function removeBzhanFeed(data) {
-	try {
-		let items = data.data.items || [];
-		if (items.length === 0) return;
-		let newItems = [];
-		for (let item of items) {
-			if(item.ad_info) {
-				continue;
-			}
-			let bannerItem = item.banner_item || [];
-			if(bannerItem.length > 0) {
-				let newBannerItem = [];
-				for (const banner of bannerItem) {
-					if(banner.type != 'ad') {
-						newBannerItem.push(banner);
-					}
-				}
-				item.banner_item = newBannerItem;
-			}
-			newItems.push(item);
-		}
-		data.data.items = newItems;
-	} catch (error) {
-		console.log(error);
-	}
-}
-
 function getModifyMethod(url) {
 	for(const [path, method] of Object.entries(urlMap)) {
 		if(url.indexOf(path) > -1) {

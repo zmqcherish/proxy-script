@@ -21,6 +21,16 @@ function removeBzhanFeed(data) {
 				log('remove bb vertical_av');
 				continue;
 			}
+			let bannerItem = item.banner_item || [];
+			if(bannerItem.length > 0) {
+				let newBannerItem = [];
+				for (const banner of bannerItem) {
+					if(banner.type != 'ad') {
+						newBannerItem.push(banner);
+					}
+				}
+				item.banner_item = newBannerItem;
+			}
 			newItems.push(item);
 		}
 		data.data.items = newItems;
