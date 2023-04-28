@@ -16,6 +16,7 @@ function removeBzhanFeed(data) {
 			if(item.ad_info) {
 				continue;
 			}
+			log(item.goto, item.title)
 			if(bBConfig.removeVertical && item.goto == 'vertical_av') {
 				log('remove bb vertical_av');
 				continue;
