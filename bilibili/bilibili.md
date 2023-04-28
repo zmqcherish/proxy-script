@@ -3,6 +3,7 @@
 ## 主要功能
 - 删除首页广告
 - 删除首页竖版视频（可配置，默认关闭）
+- (目前删除不完备，某些情况可能无法删除，待进一步排查)
 
 ### 方法一（推荐）：直接使用 bilibili.conf 文件
 - App中 -> 重写 -> 规则资源 -> 右上角添加，输入标签（任意名），资源路径填写 https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili/bilibili.conf -> 右上角保存
@@ -11,9 +12,9 @@
 ```properties
 [rewrite_local]
 # bilibili脚本
-^https://app.biliapi.net/x/v2/feed/index url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili/bilibili.js
+^https://app.(biliapi|bilibili).(net|com)/x/v2/feed/index url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/bilibili/bilibili.js
 [mitm]
-hostname = app.biliapi.net
+hostname = app.biliapi.net, app.bilibili.com
 ```
 
 ### 如何删除竖版视频
