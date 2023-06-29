@@ -1,4 +1,4 @@
-const version = 'v0427.1';
+const version = 'v0629.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -424,15 +424,20 @@ function itemExtendHandler(data) {
 		data.page_alerts = null;
 	}
 
-	//广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
-	try {
-		let picUrl = data.trend.extra_struct.extBtnInfo.btn_picurl;
-		if(picUrl.indexOf('timeline_icon_ad_delete') > -1) {
-			delete data.trend;
-		}
-	} catch (error) {
-		
+	// 06.29 删除新版广告
+	if(data.head_cards) {
+		data.head_cards = null;
 	}
+
+	//广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
+	// try {
+	// 	let picUrl = data.trend.extra_struct.extBtnInfo.btn_picurl;
+	// 	if(picUrl.indexOf('timeline_icon_ad_delete') > -1) {
+	// 		delete data.trend;
+	// 	}
+	// } catch (error) {
+		
+	// }
 
 
 	if(mainConfig.modifyMenus && data.custom_action_list) {
