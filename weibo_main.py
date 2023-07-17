@@ -343,7 +343,7 @@ class MainAddon:
 
 	# 微博详情
 	def item_extend_handler(self, data):
-		# save_json_file(f'temp/{time()}.json', data)
+		save_json_file(f'temp/item-{time()}.json', data)
 		if main_config['removeRelate'] or main_config['removeGood']:
 			title = data.get('trend', {}).get('titles', {}).get('title')
 			if main_config['removeRelate'] and title == '相关推荐':
@@ -359,8 +359,8 @@ class MainAddon:
 			del data['page_alerts']
 		
 		#广告 暂时判断逻辑根据图片	https://h5.sinaimg.cn/upload/1007/25/2018/05/03/timeline_icon_ad_delete.png
-		# if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl', {}):
-		# 	del data['trend']
+		if 'timeline_icon_ad_delete' in data.get('trend', {}).get('extra_struct', {}).get('extBtnInfo', {}).get('btn_picurl', {}):
+			del data['trend']
 
 		# 06.29 新版广告
 		if 'head_cards' in data:
