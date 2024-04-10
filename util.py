@@ -1,3 +1,7 @@
+from mitmproxy.options import Options
+from mitmproxy.tools.dump import DumpMaster
+
+import asyncio
 import logging
 import json
 import re
@@ -5,7 +9,7 @@ import os
 import pickle
 import requests
 import random
-from jsonpath import JSONPath
+from jsonpath import jsonpath
 from time import sleep, time
 from urllib.request import urlretrieve
 from datetime import datetime, timedelta
@@ -55,7 +59,26 @@ def save_pickle(file_path, data):
 
 
 def get_json_val(item, path, get_first=False):
-	res = JSONPath(path).parse(item)
+	res = jsonpath(path).parse(item)
 	if res and get_first:
 		return res[0]
 	return res
+
+# mitmweb -p 8887 --listen-host 10.2.147.130 --set validate_inbound_headers=false
+async def start_proxy(add_on, ip="10.2.146.189", port=8887):
+	# ip = '192.168.1.6'
+	# ip = '127.0.0.1'
+	opts = Options(listen_host=ip, listen_port=port)
+	opts.add_option("body_size_limit", int, 0, "")
+	# opts.add_option("validate_inbound_headers", bool, False, "")
+	# opts.add_option("allow_hosts", list, ["api.weibo.cn"], "")
+	# opts.add_option("ssl_insecure", bool, True, "")
+	m = DumpMaster(opts, with_termlog=False, with_dumper=False)
+	m.addons.add(add_on)
+
+	try:
+		print('\nproxy:', ip, port)
+		await m.run()
+	except KeyboardInterrupt:
+		m.shutdown()
+	return m

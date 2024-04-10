@@ -1,9 +1,4 @@
-from mitmproxy.options import Options
-from mitmproxy.proxy.config import ProxyConfig
-from mitmproxy.proxy.server import ProxyServer
-from mitmproxy.tools.dump import DumpMaster
 from util import *
-
 
 class MainAddon:
 	def __init__(self):
@@ -100,21 +95,3 @@ class MainAddon:
 		print(f'match {method}...')
 		eval("self." + method)(data)
 		res.text = json.dumps(data)
-
-
-ip = '10.2.146.67'
-# ip = '192.168.1.4'
-port = 8888
-opts = Options(listen_host=ip, listen_port=port)
-opts.add_option("body_size_limit", int, 0, "")
-
-m = DumpMaster(opts, with_termlog=False, with_dumper=False)
-config = ProxyConfig(opts)
-m.server = ProxyServer(config)
-m.addons.add(MainAddon())
-
-try:
-	print('\nproxy:', ip, port)
-	m.run()
-except KeyboardInterrupt:
-	m.shutdown()

@@ -1,4 +1,4 @@
-const version = 'v0717.1';
+const version = 'v0410.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -66,7 +66,7 @@ const itemMenusConfig = storeItemMenusConfig ? JSON.parse(storeItemMenusConfig) 
 	mblog_menus_home:true					//返回首页
 }
 
-const modifyCardsUrls = ['/cardlist', 'video/community_tab', '/searchall'];
+const modifyCardsUrls = ['/cardlist', 'video/community_tab',];
 const modifyStatusesUrls = ['statuses/friends/timeline', 'statuses/unread_friends_timeline', 'statuses/unread_hot_timeline', 'groups/timeline'];
 
 const otherUrls = {
@@ -85,6 +85,7 @@ const otherUrls = {
 	'/search/finder': 'removeSearchMain',
 	'/search/container_timeline': 'removeSearch',
 	'/search/container_discover': 'removeSearch',
+	'/2/searchall': 'removeSearch',	//搜索
 	'/2/messageflow': 'removeMsgAd',
 	'/2/page?': 'removePage',	//超话签到的按钮 /2/page/button 加?区别
 	'/statuses/container_timeline_topic': 'topicHandler',	//超话tab
