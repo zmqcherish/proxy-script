@@ -59,13 +59,13 @@ def save_pickle(file_path, data):
 
 
 def get_json_val(item, path, get_first=False):
-	res = jsonpath(path).parse(item)
+	res = jsonpath(item, path)
 	if res and get_first:
 		return res[0]
 	return res
 
 # mitmweb -p 8887 --listen-host 10.2.147.130 --set validate_inbound_headers=false
-async def start_proxy(add_on, ip="10.2.146.189", port=8887):
+async def start_proxy(add_on, ip="10.2.147.164", port=8887):
 	# ip = '192.168.1.6'
 	# ip = '127.0.0.1'
 	opts = Options(listen_host=ip, listen_port=port)

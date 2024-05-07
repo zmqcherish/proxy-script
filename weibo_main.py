@@ -71,7 +71,7 @@ class MainAddon:
 			'/search/container_discover': 'remove_search',
 			'/searchall': 'remove_search',	#搜索
 			'/2/messageflow': 'remove_msg_ad',
-			'/statuses/container_timeline_topic': 'topic_handler',	#超话tab
+			'/statuses/container_timeline_topicpage': 'topic_handler',	#超话tab
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			'/statuses/container_timeline?': 'remove_main',
 			'/statuses/container_timeline_unread': 'remove_main',
@@ -120,13 +120,14 @@ class MainAddon:
 				c_data = c.get('data', {})
 				if c_data.get('top', {}).get('title') == '正在活跃':
 					add_flag = False
-				elif c_data.get('card_type') == 200 and c_data.get('group'):	#更多超话
+				elif 'infeed_may_interest_in' in c_data.get('itemid', ''):	#更多超话
+					print('remove 你可能感兴趣的超话')
 					add_flag = False
 			if add_flag:
 				new_items.append(c)
 		data['items'] = new_items
 		print('remove topic success');
-		# save_json_file('temp/4.json', new_items)
+		save_json_file(f'temp/topic-{time()}.json', new_items)
 
 
 	def remove_search_main(self, data):
@@ -147,6 +148,8 @@ class MainAddon:
 		if item.get('category') != 'card':
 			return False
 		item_data = item.get('data', {})
+		if 'adid' in item_data:
+			return True
 		return item_data.get('itemid') in ["finder_window", "more_frame"]
 
 
@@ -510,7 +513,7 @@ class MainAddon:
 		imgs = ["006Y6guWly1gdc0r26dwdj30ku114n4p","006Y6guWly1gdc0r1nj1oj30n01dstla","006Y6guWly1gdc0r2h1p5j30n01ds4qp","006Y6guWly1gemhviru7rj30n01dsnpe","006Y6guWly1gemhvj5se8j30n01dsag4","006Y6guWly1gdc0r3gv3sj30n01dsu0y","006Y6guWly1gdc0r3ujlxj30n01ds7qq","006Y6guWly1gdc0r4cgzwj30n01dsn3t","006Y6guWly1gdc0r4ish2j30n01dsafk"]
 
 		if self.launch_ad_url1 in url:
-			temp = re.search('\{.*\}', data)
+			temp = re.search(r'{.*}', data)
 			if not temp:
 				return data
 			res = json.loads(temp.group())
@@ -551,7 +554,7 @@ class MainAddon:
 		req = flow.request
 
 		# self.test(flow)
-
+		# print('\nurl:', req.url)
 		if self.launch_ad_url1 in req.url or self.launch_ad_url2 in req.url:
 			res = flow.response
 			res.text = self.remove_launch_ad(req.url, res.text)
