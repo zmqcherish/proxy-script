@@ -1,4 +1,4 @@
-const version = 'v0507.1';
+const version = 'v0507.2';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -199,7 +199,7 @@ function topicHandler(data) {
 				let cData = c.data
 				if(cData?.top?.title == '正在活跃') {
 					addFlag = false;
-				} else if(cData?.itemid.indexOf('infeed_friends_recommend') > -1) {
+				} else if(cData?.itemid.indexOf('infeed_may_interest_in') > -1) {
 					addFlag = false;
 				}
 			}
