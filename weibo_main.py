@@ -75,8 +75,27 @@ class MainAddon:
 			'/push/active': 'handle_push',	# 处理一些界面设置，目前只有首页右上角红包通知
 			'/statuses/container_timeline?': 'remove_main',
 			'/statuses/container_timeline_unread': 'remove_main',
+			'/statuses/repost_timeline': 'remove_repost',	# 转发列表的广告
 			# '/remind/unread_count': 'unread_count_handler',		 
 		}
+
+
+	def remove_repost(self, data):
+		items = data.get('reposts', [])
+		new_items = []
+		for item in items:
+			if not self.is_ad(item):
+				new_items.append(item)
+		data['reposts'] = new_items
+
+		hot_items = data.get('hot_reposts', [])
+		new_hot_items = []
+		for item in hot_items:
+			if not self.is_ad(item):
+				new_hot_items.append(item)
+		data['hot_reposts'] = new_hot_items
+		print('remove_repost success')
+
 
 	# 新版主页广告地址
 	def remove_main(self, data):
@@ -88,7 +107,7 @@ class MainAddon:
 			if not self.is_ad(item.get('data')):
 				new_items.append(item)
 		data['items'] = new_items
-		print('remove_main success');
+		print('remove_main success')
 
 
 	def topic_handler(self, data):
@@ -209,12 +228,12 @@ class MainAddon:
 		data['cards'] = new_cards
 
 
-	# 判断首页流 感兴趣的超话
+	# 判断首页流 感兴趣的超话 "常看的视频号"
 	def check_junk_topic(self, item):
 		if item.get('category') != 'group':
 			return False
 		try:
-			if item.get('items')[0]['data']['title'] == '关注你感兴趣的超话':
+			if item.get('trend_name') in ['super_topic_recommend_card', 'recommend_video_card']:
 				return True
 		except Exception as e:
 			pass

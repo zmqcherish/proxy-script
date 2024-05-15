@@ -1,4 +1,4 @@
-# 脚本最新版 v0507.2
+# 脚本最新版 v0515.1
 - 因Quan-X可能存在脚本更新延迟，根据你本地脚本第一行的version查看是否运行的是最新版
 - 本项目不定期更新，如运行效果与预期不符，请确保脚本已更新到最新版。不排除脚本bug或第三方应用更新后与原有规则不匹配等可能
 - 微博版本：14.5.0
@@ -8,9 +8,8 @@
 - 本项目用于自定义配置iOS系统上的App，主要针对微博去广告及其他自定义，和其他一些软件
 - 使用前提：需到非大陆区AppStore下载Quantumult X / Surge
 - Quan-X / Surge App本身付费，可自行网上找外区Apple ID免费下载，也可找各渠道付费购买
-- 本项目不提供下载账号。share一个网上的[链接](https://id1314.com/?p=45)，不保证可用
 - Quan-X [不完全教程](https://www.notion.so/Quantumult-X-1d32ddc6e61c4892ad2ec5ea47f00917)
-- 文件加速：如果你没有梯子，获取GitHub文件可能会因为网络问题失败。借助[fastgit](https://doc.fastgit.org/)可以为GitHub加速。教程中所有使用 https://raw.githubusercontent.com/ 处都可以使用 https://raw.fastgit.org/ 进行替换。
+
 
 # 文件功能说明
 ## weibo_main.js & weibo_launch.js
@@ -49,6 +48,7 @@
 - 【10.11更新】 移除首页新版广告
 - 【10.24更新】 移除用户页新版广告
 - 【2023.03.21更新】 移除首页感兴趣的超话
+- 【2024.05.15】移除转发流的广告和常看视频号更新
 ## weibo_config.js
 > 微博自定义配置
 - weibo_main.js文件中含有大量配置用于控制脚本的实际运行结果，如是否移除顶部直播或评论区相关内容等。如果不需要有自己的配置，可忽略此部分说明。
@@ -76,9 +76,6 @@
 
 ## weibo.conf
 > Quan-X配置，微博订阅配置（下文Quan-X配置教程中使用）
-## fast-conf/weibo-fast.conf
-> 同weibo.conf，但GitHub链接使用了fastgit进行加速。非必要还是建议使用weibo.conf
-- 地址：https://raw.fastgit.org/zmqcherish/proxy-script/main/fast-conf/weibo-fast.conf
 
 ## weibo.sgmodule
 > Surge配置，微博订阅配置（下文Surge配置教程中使用）
@@ -106,7 +103,7 @@
 ```properties
 [rewrite_local]
 # 微博去广告以及去除各部分推广模块
-^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(container_timeline|unread_hot_timeline|extend|video_mixtimeline)|profile/(me|container_timeline)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(container_timeline|unread_hot_timeline|extend|video_mixtimeline|repost_timeline)|profile/(me|container_timeline)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 # 删除微博开屏广告
 ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) url script-response-body https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [mitm]
@@ -131,7 +128,7 @@ hostname = api.weibo.cn, mapi.weibo.com, *.uve.weibo.com
 > 目前有bug，待修复
 ```properties
 [Script]
-http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(container_timeline|unread_hot_timeline|extend|video_mixtimeline)|profile/(me|container_timeline)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
+http-response ^https?://m?api\.weibo\.c(n|om)/2/(cardlist|searchall|page|messageflow|statuses/(unread_)?friends(/|_)timeline|groups/timeline|statuses/(container_timeline|unread_hot_timeline|extend|video_mixtimeline|repost_timeline)|profile/(me|container_timeline)|video/(community_tab|remind_info|tiny_stream_video_list)|checkin/show|\!/live/media_homelist|comments/build_comments|container/get_item|search/(finder|container_timeline|container_discover)) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_main.js
 http-response ^https?://(sdk|wb)app\.uve\.weibo\.com(/interface/sdk/sdkad.php|/wbapplua/wbpullad.lua) requires-body=1,script-path=https://raw.githubusercontent.com/zmqcherish/proxy-script/main/weibo_launch.js
 [MITM]
 hostname = %APPEND% api.weibo.cn, mapi.weibo.com, *.uve.weibo.com

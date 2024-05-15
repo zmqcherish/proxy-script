@@ -1,4 +1,4 @@
-const version = 'v0507.2';
+const version = 'v0515.1';
 
 const $ = new Env("微博去广告");
 let storeMainConfig = $.getdata('mainConfig');
@@ -91,6 +91,7 @@ const otherUrls = {
 	'/statuses/container_timeline_topic': 'topicHandler',	//超话tab
 	'/statuses/container_timeline?': 'removeMain',	//首页
 	'/statuses/container_timeline_unread': 'removeMain',	//首页
+	'/statuses/repost_timeline': 'removeRepost',	//转发流
 }
 
 
@@ -129,12 +130,37 @@ function checkJunkTopic(item) {
 		return false;
 	}
 	try {
-		if(item.items[0]['data']['title'] == '关注你感兴趣的超话') {
+		if(['super_topic_recommend_card', 'recommend_video_card'].indexOf(item.trend_name) > -1) {
 			return true;
 		}
 	} catch (error) {
 	}
 	return false;
+}
+
+
+function removeRepost(data) {
+	if(data.reposts) {
+		let newItems = [];
+		for (let item of data.reposts) {
+			if(!isAd(item)) {
+				newItems.push(item);
+			}
+		}
+		data.reposts = newItems;
+	}
+
+	if(data.hot_reposts) {
+		let newItems = [];
+		for (let item of data.hot_reposts) {
+			if(!isAd(item)) {
+				newItems.push(item);
+			}
+		}
+		data.hot_reposts = newItems;
+	}
+	log('removeRepost success');
+	return data;
 }
 
 function removeMain(data) {
